@@ -1,0 +1,37 @@
+{
+  "name": "gtm-operator-skills",
+  "owner": {
+    "name": "Jay Mount Consulting",
+    "email": "jay@jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Five MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing surgery."
+  },
+  "plugins": [
+    {
+      "name": "psp",
+      "source": { "source": "github", "repo": "cmj-hub/claude-psp" },
+      "description": "A Pain Signal Profile is a five-part buying brief. It replaces a static ICP."
+    },
+    {
+      "name": "evp",
+      "source": { "source": "github", "repo": "cmj-hub/claude-evp" },
+      "description": "An Early Value Proposition is a ≤22-word line matched to a Schwartz awareness tier."
+    },
+    {
+      "name": "cold-email",
+      "source": { "source": "github", "repo": "cmj-hub/claude-cold-email" },
+      "description": "Four jobs in under 90 words: signal, pain, EVP, binary ask. Demographics are not a signal."
+    },
+    {
+      "name": "founder-brand",
+      "source": { "source": "github", "repo": "cmj-hub/claude-founder-brand" },
+      "description": "Pillar / Proof / Process / Person. Refuses thought-leader cadence."
+    },
+    {
+      "name": "pricing",
+      "source": { "source": "github", "repo": "cmj-hub/claude-pricing" },
+      "description": "Pricing surgery: WTP, value metric, reference frame, three-tier contrast, pocket-price leaks."
+    }
+  ]
+}
