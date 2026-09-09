@@ -57,6 +57,18 @@ Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an
 This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data. This pack gives you the instrument and the rubric; you bring the account.
 
 
+## Free, no signup
+
+- **[All 30+ free tools](https://jaymountconsulting.com/tools)** — the same jobs these packs do, hosted. No account, no key.
+- [Frameworks](https://jaymountconsulting.com/frameworks) — the written method behind each pack
+- [Playbooks](https://jaymountconsulting.com/playbooks) · [Prompt Library](https://jaymountconsulting.com/resources/prompt-library) · [Calculator Pack](https://jaymountconsulting.com/resources/calculator-pack)
+
+## Free, by email
+
+[**Foundation Scorecard**](https://jaymountconsulting.com/foundation-scorecard) — 14 checkpoints on the bedrock under your GTM, plus a 90-minute prioritization guide.
+
+That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
+
 ## Site
 
 [jaymountconsulting.com/skills](https://jaymountconsulting.com/skills)
