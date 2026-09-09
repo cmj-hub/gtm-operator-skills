@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="./assets/header.png" alt="GTM Operator Skills — five MIT skill packs for B2B operators" width="100%">
+</p>
+
 # gtm-operator-skills
 
 Five MIT skill packs for B2B operators.
@@ -46,13 +50,26 @@ Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an
 | Layer | What it is | Where it lives |
 |---|---|---|
 | Instrument | Framework, banned list, scorer, one worked example | These repos |
-| Education | How a human learns to run it on their book | The build guide / course |
-| Compounding | Next framework, live tools, Friday room | [Operator Pass](https://jaymountconsulting.com/operator-pass) |
-| Implementation | Seams in CRM / sequencer / stack | Build Partnership |
+| Hosted | The same jobs, in a browser, no install | [Free tools](https://jaymountconsulting.com/prototypes) |
+| Reference | Frameworks, playbooks, prompt library | [Frameworks](https://jaymountconsulting.com/frameworks) · [Prompt Library](https://jaymountconsulting.com/resources/prompt-library) |
+| Scorecards | Where your own book stands today | [Foundation](https://jaymountconsulting.com/foundation-scorecard) · [Outbound](https://jaymountconsulting.com/outbound-signal-scorecard) |
 
-This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
+This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data. This pack gives you the instrument and the rubric; you bring the account.
 
-Founder: $97/mo billed annually ($1,164/yr), locked for life if bought before October 31, 2026. After that: $197/mo billed annually ($2,364/yr), no lock.
+
+## Free, no signup
+
+- **[All 30+ free tools](https://jaymountconsulting.com/prototypes)** — the same jobs these packs do, hosted. No account, no key.
+- [Frameworks](https://jaymountconsulting.com/frameworks) — the written method behind each pack
+- [Playbooks](https://jaymountconsulting.com/playbooks) · [Prompt Library](https://jaymountconsulting.com/resources/prompt-library) · [Calculator Pack](https://jaymountconsulting.com/resources/calculator-pack)
+
+## Free, by email
+
+[**Foundation Scorecard**](https://jaymountconsulting.com/foundation-scorecard) — 14 checkpoints on the bedrock under your GTM, plus a 90-minute prioritization guide.
+
+That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
+
+[**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one free edition a week on building GTM systems that compound. No pitch in it.
 
 ## Site
 
@@ -61,3 +78,11 @@ Founder: $97/mo billed annually ($1,164/yr), locked for life if bought before Oc
 ## License
 
 MIT on every pack. Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+
+## Regenerating the artwork
+
+`assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer — no CI, no shared workflow, no network beyond the webfonts:
+
+```bash
+node assets/card.mjs assets/spec.json assets/
+```
