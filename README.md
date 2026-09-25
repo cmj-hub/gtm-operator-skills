@@ -52,7 +52,7 @@ Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an
 | Instrument | Framework, banned list, scorer, one worked example | These repos |
 | Hosted | The same jobs, in a browser, no install | [Free tools](https://jaymountconsulting.com/prototypes) |
 | Reference | Frameworks, playbooks, prompt library | [Frameworks](https://jaymountconsulting.com/frameworks) · [Prompt Library](https://jaymountconsulting.com/resources/prompt-library) |
-| Scorecards | Where your own book stands today | [Foundation](https://jaymountconsulting.com/foundation-scorecard) · [Outbound](https://jaymountconsulting.com/outbound-signal-scorecard) |
+| Growth Audit | Where your own book stands today | [Growth Audit](https://jaymountconsulting.com/growth-audit) |
 
 This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data. This pack gives you the instrument and the rubric; you bring the account.
 
@@ -65,7 +65,7 @@ This suite drafts and scores. It will not pick this quarter's PSP, ingest your C
 
 ## Free, by email
 
-[**Foundation Scorecard**](https://jaymountconsulting.com/foundation-scorecard) — 14 checkpoints on the bedrock under your GTM, plus a 90-minute prioritization guide.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — where your go-to-market stack is leaking, sent to your inbox.
 
 That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
 
