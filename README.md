@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="./assets/header.png" alt="GTM Operator Skills — five MIT skill packs for B2B operators" width="100%">
+  <img src="./assets/header.png" alt="GTM skills for Claude Code" width="100%">
 </p>
 
-# gtm-operator-skills
+# GTM skills for Claude Code
 
-Five MIT skill packs for B2B operators.
+Ten MIT skill packs for Claude Code: ideal customer profile, value proposition, cold email, LinkedIn posts, pricing strategy, landing page, generative engine optimization, sales offer, sales prospecting, and email sequence.
 
 The build guide teaches the framework to a human. The pack teaches the same framework to an agent.
 
@@ -20,6 +20,11 @@ npx skills add cmj-hub/claude-evp --all -g --full-depth
 npx skills add cmj-hub/claude-cold-email --all -g --full-depth
 npx skills add cmj-hub/claude-founder-brand --all -g --full-depth
 npx skills add cmj-hub/claude-pricing --all -g --full-depth
+npx skills add cmj-hub/claude-landing-page --all -g --full-depth
+npx skills add cmj-hub/claude-geo --all -g --full-depth
+npx skills add cmj-hub/claude-sales-offer --all -g --full-depth
+npx skills add cmj-hub/claude-prospect-list --all -g --full-depth
+npx skills add cmj-hub/claude-email-sequence --all -g --full-depth
 ```
 
 Claude Code, the five as a marketplace:
@@ -37,11 +42,16 @@ Claude Code, the five as a marketplace:
 
 | Pack | What it is | 15-minute artifact |
 |---|---|---|
-| [claude-psp](https://github.com/cmj-hub/claude-psp) | A Pain Signal Profile is a five-part buying brief. It replaces a static ICP. | Score the sample 100 vs 37, then do yours |
-| [claude-evp](https://github.com/cmj-hub/claude-evp) | An Early Value Proposition is a ≤22-word line matched to a Schwartz awareness tier. | Three tier lines from the sample PSP |
-| [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) | Four jobs in under 90 words: signal, pain, EVP, binary ask. Demographics are not a signal. | One T1, linted |
-| [claude-founder-brand](https://github.com/cmj-hub/claude-founder-brand) | Pillar / Proof / Process / Person. Refuses thought-leader cadence. | One Proof post from a real receipt |
-| [claude-pricing](https://github.com/cmj-hub/claude-pricing) | Pricing surgery: WTP, value metric, reference frame, three-tier contrast, pocket-price leaks. | `decoy_validator` on the sample tiers |
+| [claude-psp](https://github.com/cmj-hub/claude-psp) | An ideal customer profile is who buys, drawn from a public signal and the words they use. | Score the sample 100 vs 37, then do yours |
+| [claude-evp](https://github.com/cmj-hub/claude-evp) | A value proposition is one line that says why this buyer should care. | Three lines for three readers |
+| [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) | A cold email is a short note to someone who has not asked to hear from you, anchored to a public signal. | One T1, linted |
+| [claude-founder-brand](https://github.com/cmj-hub/claude-founder-brand) | LinkedIn posts for founders are posts a buyer can tell came from the operator, written from a real receipt. | One Proof post from a real receipt |
+| [claude-pricing](https://github.com/cmj-hub/claude-pricing) | A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks. | `decoy_validator` on the sample tiers |
+| [claude-landing-page](https://github.com/cmj-hub/claude-landing-page) | A landing page is one page, one offer, and one action. | Score the sample page. A sitemap fails. |
+| [claude-geo](https://github.com/cmj-hub/claude-geo) | Generative engine optimization is how a page gets quoted by an answer engine. | Score the sample page. A content calendar fails. |
+| [claude-sales-offer](https://github.com/cmj-hub/claude-sales-offer) | A sales offer is what the buyer gets, what it costs, and why now. | Score the sample offer. A pitch of the paid product fails. |
+| [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) | Sales prospecting builds the B2B prospect list you are willing to write to. | Score the sample list. A title-only list fails. |
+| [claude-email-sequence](https://github.com/cmj-hub/claude-email-sequence) | An email sequence is the series of emails after someone raises their hand. | Score the sample sequence. A generic drip fails. |
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM.
 
