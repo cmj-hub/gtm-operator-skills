@@ -1,27 +1,26 @@
 {
   "renderer_version": 3,
   "title": "GTM skills for Claude Code",
-  "subtitle": "Ten MIT packs. The scorers are Python, not prompts.",
+  "subtitle": "Install a pack. Score the sample. Fifteen minutes.",
   "accent_color": "#00D4FF",
   "tagline_top": "Free · MIT · No paid APIs",
   "proof": "10 packs · local Python scorers · no paid APIs",
   "cta": "jaymountconsulting.com/skills",
-  "command": "npx skills add cmj-hub/claude-psp",
-  "user_prompt": "--all -g --full-depth",
+  "command": "npx skills add",
+  "user_prompt": "cmj-hub/claude-psp --all -g --full-depth",
   "response_lines": [
-    "Installed psp into agent skills",
-    "Scoring examples/good.json",
-    "Costume persona scored 37",
-    "Signal scored 100",
-    "No LLM · no paid API"
+    "Repository cloned · 5 skills found",
+    "Installing to Claude Code, Cursor, Codex…",
+    "python3 scripts/score_psp.py examples/good.json",
+    "score: 100 · sample 100 vs 37",
+    "First loop done in under 15 minutes"
   ],
   "artifact": {
-    "label": "examples/good.json",
+    "label": "examples/good.json · score_psp.py",
     "lines": [
-      "signal: Posted Senior Demand Gen Lead",
-      "pain: pipeline gap",
-      "vocabulary: \"pipeline gap\"",
-      "score: 100 vs costume 37"
+      "buyer: VP Sales at a 40-person B2B SaaS",
+      "signal: public hiring + stack page",
+      "score: 100  ·  bad sample: 37"
     ]
   }
 }

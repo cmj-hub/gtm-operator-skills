@@ -6,10 +6,7 @@ import { execFileSync } from 'node:child_process';
 import { join, resolve } from 'node:path';
 
 const W = 960, H = 540, FPS = 12;
-const CHROME = process.env.CHROME_BIN
-  || (process.platform === 'darwin'
-    ? '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
-    : '/usr/bin/google-chrome');
+const CHROME = process.env.CHROME || '/usr/bin/google-chrome';
 
 const page_html = (s) => {
 const accent = s.accent_color || '#00D4FF';
@@ -101,13 +98,13 @@ window.render = (t) => {
 };
 
 const spec = JSON.parse(readFileSync(process.argv[2],'utf8'));
-const outGif = resolve(process.argv[3]);
+const outGif = process.argv[3];
 const tmp = outGif + '.frames'; rmSync(tmp,{recursive:true,force:true}); mkdirSync(tmp,{recursive:true});
 const htmlPath = outGif + '.html'; writeFileSync(htmlPath, page_html(spec));
 
 const b = await chromium.launch({ executablePath: CHROME });
 const pg = await b.newPage({ viewport:{width:W,height:H}, deviceScaleFactor:1 });
-await pg.goto('file://'+htmlPath);
+await pg.goto('file://'+resolve(htmlPath));
 await pg.evaluate(()=>document.fonts.ready);
 const dur = await pg.evaluate(()=>window.DURATION);
 const N = Math.round(dur*FPS);
