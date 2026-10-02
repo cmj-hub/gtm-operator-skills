@@ -53,7 +53,7 @@ Regenerate suite artwork:
 node assets/card.mjs assets/spec.json assets/
 # Demo GIF (needs playwright-core + ffmpeg + Chrome/Chromium):
 #   cd assets && npm install playwright-core
-#   CHROME_BIN=/usr/bin/google-chrome node demo.mjs spec.json demo.gif
+#   CHROME=/usr/bin/google-chrome node demo.mjs spec.json demo.gif
 ```
 
 ## Pull-request checklist
