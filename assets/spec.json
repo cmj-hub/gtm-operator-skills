@@ -1,5 +1,9 @@
-{ "renderer_version": 3, "title": "GTM Operator Skills",
-  "subtitle": "Five MIT packs your agent runs. The graders are Python, not prompts.",
-  "accent_color": "#00D4FF", "tagline_top": "Free · MIT · No paid APIs",
-  "proof": "5 packs · 30+ skills · deterministic scorers · no LLM",
-  "cta": "jaymountconsulting.com/skills" }
+{
+  "renderer_version": 3,
+  "title": "GTM skills for Claude Code",
+  "subtitle": "Ten MIT packs. The scorers are Python, not prompts.",
+  "accent_color": "#00D4FF",
+  "tagline_top": "Free \u00b7 MIT \u00b7 No paid APIs",
+  "proof": "10 packs \u00b7 local Python scorers \u00b7 no paid APIs",
+  "cta": "jaymountconsulting.com/skills"
+}
