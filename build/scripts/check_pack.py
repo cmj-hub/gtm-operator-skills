@@ -29,6 +29,18 @@ GROUPS = {
     "motion",
 }
 REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
+NAME_RE = re.compile(r"^[a-z0-9-]{1,64}$")
+GO_BACK_RE = re.compile(r"go back to step|return to step", re.I)
+CHECK_AGAIN_RE = re.compile(r"check again|review again", re.I)
+INSTALL_MARKERS = (
+    "pip install",
+    "uv add",
+    "npm install",
+    "pnpm add",
+    "bun add",
+    "brew install",
+)
+SCRIPT_SUFFIXES = {".py", ".sh", ".bash", ".js", ".mjs", ".cjs", ".ts", ".rb"}
 SKIP_DIRS = {".git", "__pycache__", "node_modules", ".pytest_cache"}
 BINARY_SUFFIXES = {
     ".png",
@@ -90,9 +102,10 @@ def main(argv: list[str] | None = None) -> int:
 
     refusals: list[str] = []
     oks: list[str] = []
+    design_found = check_design(Path(args.design))
     stages = (
         (check_knowledge(Path(args.knowledge)), "knowledge ok"),
-        (check_design(Path(args.design)), "design ok"),
+        (design_found, "design ok"),
         (check_pack(Path(args.directory), args.public), "pack ok"),
     )
     for found, ok in stages:
@@ -100,6 +113,10 @@ def main(argv: list[str] | None = None) -> int:
             refusals.extend(found)
         else:
             oks.append(ok)
+    if not design_found:
+        data, _errors = load_card(Path(args.design))
+        if data is not None:
+            refusals.extend(check_job(Path(args.directory), data))
     for item in refusals:
         print(f"Refusal: {item}")
     if refusals:
@@ -194,6 +211,10 @@ def check_design(path: Path) -> list[str]:
         or "agent-skills" not in topics
     ):
         refusals.append("topics must be three, including agent-skills")
+    if not isinstance(data.get("ordered"), bool):
+        refusals.append("card is missing ordered")
+    if not isinstance(data.get("quality"), bool):
+        refusals.append("card is missing quality")
     freedom = data.get("freedom")
     if not isinstance(freedom, list):
         refusals.append("freedom is not a list")
@@ -205,9 +226,49 @@ def check_design(path: Path) -> list[str]:
                 continue
             script = step.get("script") if isinstance(step, dict) else None
             named = script.strip() if isinstance(script, str) else ""
+            template = step.get("template") if isinstance(step, dict) else None
+            templated = template.strip() if isinstance(template, str) else ""
+            diff = step.get("if_different") if isinstance(step, dict) else None
+            if diff not in {"nothing-much", "consequential"}:
+                refusals.append("if_different is not nothing-much or consequential")
             if level == "low" and not named:
                 refusals.append("a low-freedom step names no script")
+            if level == "medium" and not templated:
+                refusals.append("a medium-freedom step names no template")
+            if diff == "consequential" and level != "low":
+                refusals.append("a consequential step is not low freedom")
     return refusals
+
+
+def check_job(root: Path, card: dict) -> list[str]:
+    if not root.is_dir():
+        return []
+    skills = [path for path in iter_files(root) if path.name == "SKILL.md"]
+    refusals: list[str] = []
+    if card.get("ordered") is True:
+        for skill in skills:
+            text = skill.read_text(encoding="utf-8", errors="replace")
+            has_list = "- [ ]" in text or "copy this" in text.lower()
+            has_back = GO_BACK_RE.search(text) is not None
+            if not has_list or not has_back:
+                refusals.append(f"{rel(skill, root)} is an ordered job with no checklist")
+    if card.get("quality") is True and not quality_bound(root, skills):
+        refusals.append("quality job has no check-again loop")
+    return refusals
+
+
+def quality_bound(root: Path, skills: list[Path]) -> bool:
+    for skill in skills:
+        text = skill.read_text(encoding="utf-8", errors="replace")
+        if CHECK_AGAIN_RE.search(text):
+            return True
+    for path in iter_files(root):
+        if path.suffix.lower() not in SCRIPT_SUFFIXES:
+            continue
+        stem = path.stem.lower()
+        if stem.startswith("score") or "validat" in stem or "lint" in stem:
+            return True
+    return False
 
 
 def check_pack(root: Path, public: bool) -> list[str]:
@@ -289,6 +350,8 @@ def check_tree(root: Path) -> list[str]:
         refusals.extend(check_keys(root, path))
         if path.suffix.lower() == ".py":
             refusals.extend(check_imports(root, path))
+        elif path.suffix.lower() == ".md":
+            refusals.extend(check_imports(root, path, fenced_only=True))
     if saw_env:
         refusals.append(".env file in the pack")
     if not skills:
@@ -334,11 +397,17 @@ def check_keys(root: Path, path: Path) -> list[str]:
     return []
 
 
-def check_imports(root: Path, path: Path) -> list[str]:
+def check_imports(root: Path, path: Path, fenced_only: bool = False) -> list[str]:
     text = path.read_text(encoding="utf-8", errors="replace")
     lines = text.splitlines()
     refusals: list[str] = []
+    in_fence = False
     for index, line in enumerate(lines):
+        if fenced_only and line.startswith("```"):
+            in_fence = not in_fence
+            continue
+        if fenced_only and not in_fence:
+            continue
         if not IMPORT_LINE_RE.match(line):
             continue
         for module in modules_on_line(line):
@@ -348,7 +417,7 @@ def check_imports(root: Path, path: Path) -> list[str]:
             if not top or is_stdlib(top) or is_local(top, path, root):
                 continue
             window = lines[max(0, index - 5) : index + 1]
-            if any("pip install" in item or "uv add" in item for item in window):
+            if any(marker in item for item in window for marker in INSTALL_MARKERS):
                 continue
             refusals.append(f"{rel(path, root)} imports {top} with no install line")
     return refusals
@@ -396,6 +465,16 @@ def check_skill(root: Path, path: Path) -> list[str]:
     refusals: list[str] = []
     if not re.search(r"(?m)^models\s*:", front):
         refusals.append(f"{label} is missing models")
+    name = front_field(front, "name")
+    if name is None or NAME_RE.fullmatch(name) is None:
+        refusals.append(f"{label} name is not a lowercase hyphen name")
+    description = front_field(front, "description")
+    if not description:
+        refusals.append(f"{label} description is empty")
+    elif len(description) > 1024:
+        refusals.append(f"{label} description is over 1024 characters")
+    elif "when" not in description.lower():
+        refusals.append(f"{label} description does not say when")
     if body.startswith("\n"):
         body = body[1:]
     if len(body.splitlines()) >= 500:
@@ -412,11 +491,31 @@ def split_frontmatter(text: str) -> tuple[str, str]:
     return parts[1], parts[2]
 
 
+def front_field(front: str, key: str) -> str | None:
+    match = re.search(rf"(?m)^{re.escape(key)}\s*:\s*(.*?)\s*$", front)
+    if not match:
+        return None
+    value = match.group(1).strip()
+    if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
+        value = value[1:-1]
+    return value
+
+
 def check_contents(root: Path, path: Path) -> list[str]:
     text = path.read_text(encoding="utf-8", errors="replace")
     if len(text.splitlines()) <= 100:
         return []
     label = rel(path, root)
+    lines = text.splitlines()
+    index = None
+    for i, line in enumerate(lines):
+        if re.match(r"^#{1,6}\s+Contents\s*$", line):
+            index = i
+            break
+    if index is None:
+        return [f"{label} is over 100 lines and has no Contents"]
+    if index >= 100:
+        return [f"{label} Contents starts after line 100"]
     bullets = contents_bullets(text)
     if bullets is None:
         return [f"{label} is over 100 lines and has no Contents"]

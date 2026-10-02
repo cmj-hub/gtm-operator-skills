@@ -10,7 +10,7 @@ The script refuses:
 - a public LICENSE that carries the Operator Pass license id
 - a private LICENSE missing that id
 - a private LICENSE that carries the MIT grant sentence
-- a third-party import with no `pip install` or `uv add` comment in the five lines above it
+- a third-party Python import, in a `.py` file or a code fence, with no install line on that line or in the five above it (`pip install`, `uv add`, `npm install`, `pnpm add`, `bun add`, or `brew install`)
 
 The standard library and a module that lives in the pack do not need an install line.
 
