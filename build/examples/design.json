@@ -1,0 +1,10 @@
+{
+  "artifact": "one pain brief",
+  "refusal": "a persona is not a pain brief",
+  "group": "foundation",
+  "topics": ["pain", "foundation", "agent-skills"],
+  "freedom": [
+    {"step": "score the brief", "level": "low", "script": "scripts/score.py"},
+    {"step": "choose a phrase", "level": "high"}
+  ]
+}

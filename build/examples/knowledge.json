@@ -1,0 +1,12 @@
+{
+  "job": "Pain",
+  "portal_course": "pain-signal-profiles",
+  "portal_fact": "A persona describes who could buy. A profile describes who is in pain this quarter.",
+  "tgd_url": "https://thegtmdirectory.com/category/prospecting-sales-intelligence",
+  "outside_repo": "owner/name",
+  "outside_artifact": "a scored persona file",
+  "gtm_context": {"query": "pain profile"},
+  "kept": true,
+  "passage": "Replace this with the operator passage you kept.",
+  "note": ""
+}
