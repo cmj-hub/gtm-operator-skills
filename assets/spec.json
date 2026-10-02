@@ -3,7 +3,25 @@
   "title": "GTM skills for Claude Code",
   "subtitle": "Ten MIT packs. The scorers are Python, not prompts.",
   "accent_color": "#00D4FF",
-  "tagline_top": "Free \u00b7 MIT \u00b7 No paid APIs",
-  "proof": "10 packs \u00b7 local Python scorers \u00b7 no paid APIs",
-  "cta": "jaymountconsulting.com/skills"
+  "tagline_top": "Free · MIT · No paid APIs",
+  "proof": "10 packs · local Python scorers · no paid APIs",
+  "cta": "jaymountconsulting.com/skills",
+  "command": "npx skills add cmj-hub/claude-psp",
+  "user_prompt": "--all -g --full-depth",
+  "response_lines": [
+    "Installed psp into agent skills",
+    "Scoring examples/good.json",
+    "Costume persona scored 37",
+    "Signal scored 100",
+    "No LLM · no paid API"
+  ],
+  "artifact": {
+    "label": "examples/good.json",
+    "lines": [
+      "signal: Posted Senior Demand Gen Lead",
+      "pain: pipeline gap",
+      "vocabulary: \"pipeline gap\"",
+      "score: 100 vs costume 37"
+    ]
+  }
 }

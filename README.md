@@ -2,6 +2,10 @@
   <img src="./assets/header.png" alt="GTM skills for Claude Code" width="100%">
 </p>
 
+<p align="center">
+  <img src="./assets/demo.gif" alt="GTM skills — install a pack, score the sample" width="100%">
+</p>
+
 # GTM skills for Claude Code
 
 Ten MIT skill packs for Claude Code: ideal customer profile, value proposition, cold email, LinkedIn posts, pricing strategy, landing page, generative engine optimization, sales offer, sales prospecting, and email sequence.
@@ -95,4 +99,11 @@ MIT on every pack. Built by [Jay Mount Consulting](https://jaymountconsulting.co
 
 ```bash
 node assets/card.mjs assets/spec.json assets/
+```
+
+`assets/demo.gif` uses the same `spec.json` plus `assets/demo.mjs` (playwright-core + ffmpeg):
+
+```bash
+cd assets && npm install playwright-core
+CHROME_BIN=/usr/bin/google-chrome node demo.mjs spec.json demo.gif
 ```
