@@ -1,0 +1,23 @@
+{
+  "artifact": "one pain brief",
+  "refusal": "a persona is not a pain brief",
+  "group": "foundation",
+  "topics": ["pain", "foundation", "agent-skills"],
+  "ordered": true,
+  "quality": true,
+  "freedom": [
+    {
+      "step": "score the brief",
+      "level": "low",
+      "script": "scripts/score.py",
+      "if_different": "nothing-much"
+    },
+    {
+      "step": "shape the report",
+      "level": "medium",
+      "template": "format and include_charts",
+      "if_different": "nothing-much"
+    },
+    {"step": "choose a phrase", "level": "high", "if_different": "nothing-much"}
+  ]
+}

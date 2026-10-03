@@ -59,6 +59,8 @@ Claude Code, the five as a marketplace:
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM.
 
+The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory. It is not a sixth install.
+
 ## The split
 
 | Layer | What it is | Where it lives |
