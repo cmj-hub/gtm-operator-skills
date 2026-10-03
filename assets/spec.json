@@ -1,5 +1,26 @@
-{ "renderer_version": 3, "title": "GTM Operator Skills",
-  "subtitle": "Five MIT packs your agent runs. The graders are Python, not prompts.",
-  "accent_color": "#00D4FF", "tagline_top": "Free · MIT · No paid APIs",
-  "proof": "5 packs · 30+ skills · deterministic scorers · no LLM",
-  "cta": "jaymountconsulting.com/skills" }
+{
+  "renderer_version": 3,
+  "title": "GTM skills for Claude Code",
+  "subtitle": "Install a pack. Score the sample. Fifteen minutes.",
+  "accent_color": "#00D4FF",
+  "tagline_top": "Free · MIT · No paid APIs",
+  "proof": "10 packs · local Python scorers · no paid APIs",
+  "cta": "jaymountconsulting.com/skills",
+  "command": "npx skills add",
+  "user_prompt": "cmj-hub/claude-psp --all -g --full-depth",
+  "response_lines": [
+    "Repository cloned · 5 skills found",
+    "Installing to Claude Code, Cursor, Codex…",
+    "python3 scripts/score_psp.py examples/good.json",
+    "score: 100 · sample 100 vs 37",
+    "First loop done in under 15 minutes"
+  ],
+  "artifact": {
+    "label": "examples/good.json · score_psp.py",
+    "lines": [
+      "buyer: VP Sales at a 40-person B2B SaaS",
+      "signal: public hiring + stack page",
+      "score: 100  ·  bad sample: 37"
+    ]
+  }
+}
