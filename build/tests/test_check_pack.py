@@ -71,7 +71,7 @@ def design(**overrides):
                 "step": "score the brief",
                 "level": "low",
                 "script": "scripts/score.py",
-                "if_different": "consequential",
+                "if_different": "nothing-much",
             },
             {"step": "choose a phrase", "level": "high", "if_different": "nothing-much"},
         ],
@@ -389,6 +389,38 @@ class CheckPackTest(unittest.TestCase):
         code, out, _ = self.run_main(["pack", str(pack), "--public"])
         self.assertEqual(code, 0, out)
 
+        folded = """---
+name: sample-pack
+description: >
+  Write one brief and refuse a persona.
+  Use when the operator has a profile.
+models: ""
+---
+
+# Sample
+
+One job.
+"""
+        pack = self.base_pack(**{"SKILL.md": folded})
+        code, out, _ = self.run_main(["pack", str(pack), "--public"])
+        self.assertEqual(code, 0, out)
+
+        folded_bare = folded.replace(
+            "  Write one brief and refuse a persona.\n  Use when the operator has a profile.\n",
+            "  Write one brief and refuse a persona.\n",
+        )
+        pack = self.base_pack(**{"SKILL.md": folded_bare})
+        code, out, _ = self.run_main(["pack", str(pack), "--public"])
+        self.assertIn("Refusal: SKILL.md description does not say when", out)
+
+        folded_empty = folded.replace(
+            "description: >\n  Write one brief and refuse a persona.\n  Use when the operator has a profile.\n",
+            "description: >\n",
+        )
+        pack = self.base_pack(**{"SKILL.md": folded_empty})
+        code, out, _ = self.run_main(["pack", str(pack), "--public"])
+        self.assertIn("Refusal: SKILL.md description is empty", out)
+
     def test_reference_contents_and_links(self):
         titles = ["Alpha", "Beta"]
         lines = ["# Ref", "", "## Contents", "", "- Alpha", "- Beta", ""]
@@ -508,7 +540,12 @@ class CheckPackTest(unittest.TestCase):
         self.assertEqual(code, 0, out)
 
     def test_all_and_usage(self):
-        root = self.base_pack()
+        root = self.base_pack(
+            **{
+                "SKILL.md": SKILL + "\n```bash\npython3 scripts/score.py\n```\n",
+                "scripts/score.py": "print(1)\n",
+            }
+        )
         k = self.write_card(root, "k.json", knowledge())
         d = self.write_card(root, "d.json", design())
         code, out, _ = self.run_main(
@@ -534,8 +571,13 @@ class CheckPackTest(unittest.TestCase):
         self.assertIn("Refusal: SKILL.md is an ordered job with no checklist", out)
         self.assertNotIn("pack ok", out)
 
-        listed = SKILL + "\n## Checklist\n\nCopy this list.\n\n- [ ] 1. Do the job.\n\nGo back to step 1 if it fails.\n"
-        listed_root = self.base_pack(**{"SKILL.md": listed})
+        listed = (
+            SKILL
+            + "\n```bash\npython3 scripts/score.py\n```\n\n## Checklist\n\nCopy this list.\n\n- [ ] 1. Do the job.\n\nGo back to step 1 if it fails.\n"
+        )
+        listed_root = self.base_pack(
+            **{"SKILL.md": listed, "scripts/score.py": "print(1)\n"}
+        )
         k = self.write_card(listed_root, "k.json", knowledge())
         ordered = self.write_card(listed_root, "ordered.json", design(ordered=True))
         code, out, _ = self.run_main(
@@ -552,8 +594,13 @@ class CheckPackTest(unittest.TestCase):
         self.assertIn("Refusal: quality job has no check-again loop", out)
         self.assertEqual(code, 1)
 
-        checked = SKILL + "\nRun the scorer, fix, and check again until it passes.\n"
-        checked_root = self.base_pack(**{"SKILL.md": checked})
+        checked = (
+            SKILL
+            + "\n```bash\npython3 scripts/score.py\n```\nRun the scorer, fix, and check again until it passes.\n"
+        )
+        checked_root = self.base_pack(
+            **{"SKILL.md": checked, "scripts/score.py": "print(1)\n"}
+        )
         k = self.write_card(checked_root, "k.json", knowledge())
         quality = self.write_card(checked_root, "quality.json", design(quality=True))
         code, out, _ = self.run_main(
@@ -561,7 +608,13 @@ class CheckPackTest(unittest.TestCase):
         )
         self.assertEqual(code, 0, out)
 
-        scored = self.base_pack(**{"scripts/score_job.py": "print(1)\n"})
+        scored = self.base_pack(
+            **{
+                "SKILL.md": SKILL + "\n```bash\npython3 scripts/score.py\n```\n",
+                "scripts/score.py": "print(1)\n",
+                "scripts/score_job.py": "print(1)\n",
+            }
+        )
         k = self.write_card(scored, "k.json", knowledge())
         quality = self.write_card(scored, "quality.json", design(quality=True))
         code, out, _ = self.run_main(
@@ -569,9 +622,52 @@ class CheckPackTest(unittest.TestCase):
         )
         self.assertEqual(code, 0, out)
 
+    def test_install_doc_is_not_a_skill_reference(self):
+        pack = self.base_pack(**{"INSTALL.md": "Unzip, then run install.sh.\n"})
+        code, out, _ = self.run_main(["pack", str(pack), "--public"])
+        self.assertEqual(code, 0, out)
+        self.assertNotIn("INSTALL.md", out)
+
+        orphan = self.base_pack(**{"notes.md": "# Notes\n\nA reference.\n"})
+        code, out, _ = self.run_main(["pack", str(orphan), "--public"])
+        self.assertIn("Refusal: notes.md is not linked from SKILL.md", out)
+        self.assertEqual(code, 1)
+
+    def test_low_script_is_the_command(self):
+        root = self.base_pack()
+        k = self.write_card(root, "k.json", knowledge())
+        card = self.write_card(root, "d.json", design())
+        code, out, _ = self.run_main(
+            ["all", str(root), "--public", "--knowledge", str(k), "--design", str(card)]
+        )
+        self.assertIn("Refusal: scripts/score.py is not a command in a SKILL.md", out)
+        self.assertEqual(code, 1)
+
+        named = SKILL + "\n```bash\npython3 scripts/score.py --file draft.json\n```\n"
+        missing = self.base_pack(**{"SKILL.md": named})
+        k = self.write_card(missing, "k.json", knowledge())
+        card = self.write_card(missing, "d.json", design())
+        code, out, _ = self.run_main(
+            ["all", str(missing), "--public", "--knowledge", str(k), "--design", str(card)]
+        )
+        self.assertIn("Refusal: scripts/score.py is missing", out)
+        self.assertEqual(code, 1)
+
+        bound = self.base_pack(**{"SKILL.md": named, "scripts/score.py": "print(1)\n"})
+        k = self.write_card(bound, "k.json", knowledge())
+        card = self.write_card(bound, "d.json", design())
+        code, out, _ = self.run_main(
+            ["all", str(bound), "--public", "--knowledge", str(k), "--design", str(card)]
+        )
+        self.assertEqual(code, 0, out)
+
     def test_build_directory(self):
         code, out, _ = self.run_main(["pack", str(ROOT), "--public"])
         self.assertEqual(code, 0, out)
+        sample = json.loads((ROOT / "examples" / "design.json").read_text())
+        sample["freedom"][0]["script"] = "scripts/check_pack.py"
+        card_root = self.make_pack({})
+        card = self.write_card(card_root, "design.json", sample)
         code, out, _ = self.run_main(
             [
                 "all",
@@ -580,7 +676,7 @@ class CheckPackTest(unittest.TestCase):
                 "--knowledge",
                 str(ROOT / "examples" / "knowledge.json"),
                 "--design",
-                str(ROOT / "examples" / "design.json"),
+                str(card),
             ]
         )
         self.assertEqual(code, 0, out)

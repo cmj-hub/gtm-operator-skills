@@ -254,6 +254,28 @@ def check_job(root: Path, card: dict) -> list[str]:
                 refusals.append(f"{rel(skill, root)} is an ordered job with no checklist")
     if card.get("quality") is True and not quality_bound(root, skills):
         refusals.append("quality job has no check-again loop")
+    refusals.extend(check_bound_scripts(root, card, skills))
+    return refusals
+
+
+def check_bound_scripts(root: Path, card: dict, skills: list[Path]) -> list[str]:
+    texts = [
+        skill.read_text(encoding="utf-8", errors="replace") for skill in skills
+    ]
+    blob = "\n".join(texts)
+    refusals: list[str] = []
+    for step in card.get("freedom") or []:
+        if not isinstance(step, dict) or step.get("level") != "low":
+            continue
+        script = step.get("script")
+        if not isinstance(script, str) or not script.strip():
+            continue
+        named = script.strip()
+        if named not in blob:
+            refusals.append(f"{named} is not a command in a SKILL.md")
+            continue
+        if not (root / named).is_file():
+            refusals.append(f"{named} is missing")
     return refusals
 
 
@@ -374,7 +396,7 @@ def check_orphans(root: Path, skills: list[Path], markdown: list[Path]) -> list[
                 linked.add(dest.resolve())
     refusals = []
     for path in markdown:
-        if path.name in {"README.md", "SKILL.md"}:
+        if path.name in {"README.md", "SKILL.md", "INSTALL.md"}:
             continue
         if path.resolve() in linked:
             continue
@@ -492,13 +514,25 @@ def split_frontmatter(text: str) -> tuple[str, str]:
 
 
 def front_field(front: str, key: str) -> str | None:
-    match = re.search(rf"(?m)^{re.escape(key)}\s*:\s*(.*?)\s*$", front)
-    if not match:
-        return None
-    value = match.group(1).strip()
-    if len(value) >= 2 and value[0] == value[-1] and value[0] in {'"', "'"}:
-        value = value[1:-1]
-    return value
+    lines = front.splitlines()
+    for index, line in enumerate(lines):
+        if not re.match(rf"^{re.escape(key)}\s*:", line):
+            continue
+        raw = line.split(":", 1)[1].strip()
+        if re.fullmatch(r"[>|][+-]?", raw):
+            chunks = []
+            for nxt in lines[index + 1 :]:
+                if nxt.startswith((" ", "\t")):
+                    chunks.append(nxt.strip())
+                    continue
+                if nxt.strip() == "":
+                    continue
+                break
+            return " ".join(part for part in chunks if part)
+        if len(raw) >= 2 and raw[0] == raw[-1] and raw[0] in {'"', "'"}:
+            raw = raw[1:-1]
+        return raw
+    return None
 
 
 def check_contents(root: Path, path: Path) -> list[str]:

@@ -10,7 +10,7 @@
       "step": "score the brief",
       "level": "low",
       "script": "scripts/score.py",
-      "if_different": "consequential"
+      "if_different": "nothing-much"
     },
     {
       "step": "shape the report",
