@@ -752,6 +752,8 @@ One job.
                 "CONTRIBUTING.md": "# Contributing\n",
                 "agents/reviewer.md": AGENT + long,
                 ".github/PULL_REQUEST_TEMPLATE.md": "# PR\n",
+                "evals/fires/prompt.md": "---\nmax_turns: 6\n---\n\nWrite one.\n",
+                "evals/fires/graders/fired.md": "---\ntype: tool_used\ntool: Skill\n---\n",
             }
         )
         code, out, _ = self.run_main(["pack", str(root), "--public"])

@@ -72,7 +72,7 @@ NOT_A_SECRET_RE = re.compile(
     r"""|[A-Za-z_][\w.]*\()"""
 )
 # Plugin parts and repo plumbing whose markdown is not a skill reference.
-PLUGIN_DIRS = {".claude-plugin", ".github", "agents", "commands", "hooks"}
+PLUGIN_DIRS = {".claude-plugin", ".github", "agents", "commands", "evals", "hooks"}
 ENV_EXAMPLES = {".env.example", ".env.sample", ".env.template"}
 # Repo docs a pack carries at its root that are not skill references.
 REPO_DOCS = {

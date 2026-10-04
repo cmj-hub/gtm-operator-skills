@@ -14,9 +14,20 @@ The build guide teaches the framework to a human. The pack teaches the same fram
 
 Give the instrument. Sell the compounding.
 
-## Install the suite
+## In 60 seconds
 
-One command per pack. Writes into Claude Code, Cursor, Codex, Grok, Copilot, Windsurf, Cline, OpenCode, and the rest of the [skills CLI](https://skills.sh) list.
+```text
+/plugin marketplace add cmj-hub/gtm-operator-skills
+/plugin install gtm@gtm-operator-skills
+/gtm:setup
+/gtm:next
+```
+
+`gtm` installs all ten packs. `/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp — no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
+
+## Install one pack at a time
+
+Other agents use the [skills CLI](https://skills.sh), which writes into Claude Code, Cursor, Codex, Grok, Copilot, Windsurf, Cline, OpenCode, and the rest of its list:
 
 ```bash
 npx skills add cmj-hub/claude-psp --all -g --full-depth
@@ -31,7 +42,7 @@ npx skills add cmj-hub/claude-prospect-list --all -g --full-depth
 npx skills add cmj-hub/claude-email-sequence --all -g --full-depth
 ```
 
-Claude Code, all ten as a plugin marketplace:
+Claude Code, one pack at a time:
 
 ```text
 /plugin marketplace add cmj-hub/gtm-operator-skills
@@ -95,6 +106,7 @@ Every pack reads one `brand-config.json` and one `SOUL.md` at your project root.
 - **`operator` and `icp` are shared.** Any pack fills a gap. None replaces a value.
 - **Two published blocks carry the handoff.** psp writes `psp` when a primary profile is locked: `signal_anchors`, `primary_pain`, `timing_trigger`, `felt_pain_role`, `vocabulary`. evp writes `evp` when you pick the outreach line: `tier`, `primary`, `outcome`, `tradeoff`, `proof`. Downstream packs read these and do not invent them.
 - **SOUL.md is voice, sectioned by pack.** Each pack edits its own `##` section. Voice can change word choice. It cannot lift a pack's limits.
+- **Drafts live in `gtm/`, one file per pack.** `gtm/list.json`, `gtm/letter.json`, `gtm/offer.json`, `gtm/price.json`, `gtm/page.json`, `gtm/sequence.json`, `gtm/findability.json`. Founder posts stay in `drafts/`. No two packs write the same file.
 
 ## The gate
 

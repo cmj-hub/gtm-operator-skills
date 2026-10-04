@@ -61,6 +61,15 @@ class MarketplaceTest(unittest.TestCase):
             with self.subTest(plugin=plugin["name"]):
                 self.assertRegex(section, rf"\| \d+ \| {re.escape(plugin['name'])} \| `/{re.escape(plugin['name'])}:[a-z-]+`")
 
+    def test_suite_bundle_depends_on_every_pack(self):
+        entry = next(p for p in MARKETPLACE["plugins"] if p["name"] == "gtm")
+        manifest = json.loads((ROOT / entry["source"] / ".claude-plugin" / "plugin.json").read_text())
+        self.assertEqual(manifest["name"], "gtm")
+        packs = sorted(p["name"] for p in github_plugins())
+        self.assertEqual(sorted(manifest["dependencies"]), packs)
+        self.assertTrue((ROOT / entry["source"] / manifest["icon"]).is_file())
+        self.assertIn("/plugin install gtm@gtm-operator-skills", README)
+
     def test_build_pack_manifest_matches_entry(self):
         entry = next(p for p in MARKETPLACE["plugins"] if p["name"] == "build-pack")
         manifest = json.loads((ROOT / entry["source"] / ".claude-plugin" / "plugin.json").read_text())
