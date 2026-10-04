@@ -9,9 +9,13 @@ DIR holds one clone per pack, named after the repo (claude-psp, claude-evp,
 build-pack gate, the pack's own tests, and, when the `claude` CLI is on
 PATH, `claude plugin validate --strict` and a load check that every
 SKILL.md in the pack becomes a skill. It also checks that the marketplace
-entry and the pack's plugin.json agree on the name.
+entry and the pack's plugin.json agree on the name, and the pack's hygiene:
+a SECURITY.md, an icon, repository/license/documentationUrl/supportUrl in
+plugin.json, and no tracked .pyc or __pycache__ (`git ls-files`).
 
-Exit 0 when every pack passes, 1 otherwise. Nothing is sent anywhere.
+Exit 0 when every pack passes, 1 otherwise. Nothing is sent anywhere: this
+script opens no network connection. The commands it runs (the gate, each
+pack's tests, `claude plugin validate`, `git ls-files`) run locally.
 """
 
 from __future__ import annotations
@@ -27,6 +31,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "build" / "scripts" / "check_pack.py"
 NAME_RE = re.compile(r"^name:\s*['\"]?([a-z0-9-]+)", re.M)
+MANIFEST_KEYS = ("repository", "license", "documentationUrl", "supportUrl")
+DEFAULT_ICON = ".claude-plugin/icon.png"
 
 
 def run(args: list[str], cwd: Path | None = None) -> subprocess.CompletedProcess:
@@ -44,6 +50,36 @@ def skill_names(pack: Path) -> set[str]:
     return names
 
 
+def tracked_bytecode(pack: Path) -> list[str]:
+    """Tracked .pyc files or __pycache__ entries. Untracked ones are ignored."""
+    listed = run(["git", "-C", str(pack), "ls-files", "-z"])
+    if listed.returncode:
+        return []
+    return [
+        path
+        for path in listed.stdout.split("\0")
+        if path and (path.endswith(".pyc") or "__pycache__" in path.split("/"))
+    ]
+
+
+def hygiene(pack: Path, manifest: dict) -> list[str]:
+    """Release hygiene the gate does not check: docs, icon, manifest links, bytecode."""
+    problems = []
+    if not (pack / "SECURITY.md").is_file():
+        problems.append("missing SECURITY.md")
+    icon = manifest.get("icon") if isinstance(manifest.get("icon"), str) else DEFAULT_ICON
+    icon_path = (pack / icon).resolve()
+    if not icon_path.is_relative_to(pack.resolve()) or not icon_path.is_file():
+        problems.append(f"missing icon {icon}")
+    missing = [key for key in MANIFEST_KEYS if not manifest.get(key)]
+    if missing:
+        problems.append(f"plugin.json lacks {', '.join(missing)}")
+    bytecode = tracked_bytecode(pack)
+    if bytecode:
+        problems.append(f"tracked bytecode: {', '.join(bytecode[:5])}")
+    return problems
+
+
 def check(entry: dict, packs: Path, claude: str | None) -> list[str]:
     repo = entry["source"]["repo"].split("/", 1)[1]
     pack = packs / repo
@@ -53,6 +89,7 @@ def check(entry: dict, packs: Path, claude: str | None) -> list[str]:
     manifest = json.loads((pack / ".claude-plugin" / "plugin.json").read_text())
     if manifest.get("name") != entry["name"]:
         problems.append(f"{repo}: plugin.json name {manifest.get('name')!r} != {entry['name']!r}")
+    problems.extend(f"{repo}: {problem}" for problem in hygiene(pack, manifest))
     gate = run([sys.executable, str(GATE), "pack", str(pack), "--public"])
     if gate.returncode:
         problems.append(f"{repo}: gate\n{gate.stdout.strip()}")

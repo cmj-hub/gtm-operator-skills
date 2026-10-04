@@ -41,6 +41,8 @@ tools:
 
 LICENSE = "MIT License\n\nCopyright (c) 2026 Jay Mount Consulting\n"
 
+SECURITY = "# Security\n\nNo script opens a network connection.\n"
+
 
 def load():
     spec = importlib.util.spec_from_file_location("check_pack", SCRIPT)
@@ -116,7 +118,7 @@ class CheckPackTest(unittest.TestCase):
         return root
 
     def base_pack(self, **extra):
-        files = {"SKILL.md": SKILL, "README.md": README, "LICENSE": LICENSE}
+        files = {"SKILL.md": SKILL, "README.md": README, "LICENSE": LICENSE, "SECURITY.md": SECURITY}
         files.update(extra)
         return self.make_pack(files)
 
@@ -273,6 +275,23 @@ class CheckPackTest(unittest.TestCase):
         code, out, _ = self.run_main(["pack", str(root), "--public"])
         self.assertEqual(code, 0, out)
         self.assertEqual(out.strip(), "pack ok")
+
+    def test_public_pack_needs_security_md(self):
+        root = self.base_pack()
+        (root / "SECURITY.md").unlink()
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 1)
+        self.assertIn("Refusal: public pack is missing SECURITY.md", out)
+        (root / "SECURITY.md").write_text("  \n")
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: SECURITY.md is empty", out)
+
+    def test_private_pack_may_skip_security_md(self):
+        op = "LicenseRef-JMC-Operator-Pass\nUse with an active pass.\n"
+        root = self.base_pack(LICENSE=op)
+        (root / "SECURITY.md").unlink()
+        code, out, _ = self.run_main(["pack", str(root), "--private"])
+        self.assertEqual(code, 0, out)
 
     def test_pack_license_sides(self):
         op = "LicenseRef-JMC-Operator-Pass\n"
@@ -785,6 +804,7 @@ One job.
                 "skills/sample-pack/SKILL.md": SKILL,
                 "README.md": README,
                 "LICENSE": LICENSE,
+                "SECURITY.md": SECURITY,
                 ".claude-plugin/plugin.json": json.dumps({"name": "sample"}),
             }
         )
@@ -808,6 +828,7 @@ One job.
                 "main/SKILL.md": SKILL.replace("sample-pack", "main"),
                 "README.md": README,
                 "LICENSE": LICENSE,
+                "SECURITY.md": SECURITY,
                 ".claude-plugin/plugin.json": manifest,
             }
         )

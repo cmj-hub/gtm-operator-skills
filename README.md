@@ -62,7 +62,7 @@ Claude Code, all ten as a plugin marketplace:
 | [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) | Sales prospecting builds the B2B prospect list you are willing to write to. | Score the sample list. A title-only list fails. |
 | [claude-email-sequence](https://github.com/cmj-hub/claude-email-sequence) | An email sequence is the series of emails after someone raises their hand. | Score the sample sequence. A generic drip fails. |
 
-Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM.
+Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
 
 ## How the packs work together
 
@@ -106,7 +106,7 @@ To check all ten packs together, clone them next to this repo and run:
 python3 scripts/check_suite.py
 ```
 
-It runs the gate, each pack's tests, `claude plugin validate --strict`, and a load check that every SKILL.md becomes a skill.
+It runs the gate, each pack's tests, `claude plugin validate --strict`, and a load check that every SKILL.md becomes a skill. It also fails a pack with no `SECURITY.md`, no icon, a `plugin.json` without `repository`, `license`, `documentationUrl`, or `supportUrl`, or a tracked `.pyc` or `__pycache__`.
 
 ## The split
 
@@ -119,6 +119,9 @@ It runs the gate, each pack's tests, `claude plugin validate --strict`, and a lo
 
 This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data. This pack gives you the instrument and the rubric; you bring the account.
 
+## Privacy and security
+
+The scorers and checkers are standard-library Python that run on your machine. No telemetry, no credentials, and no pack sends, posts, or publishes anything for you. Skills that reach the network do it through your agent, for public pages or DNS you point them at (psp, cold-email, and pricing can fetch public pages; cold-email runs `dig`; geo checks the URL you name), and each pack's `SECURITY.md` says which. The suite policy and the per-pack links are in [SECURITY.md](SECURITY.md).
 
 ## Free, no signup
 
