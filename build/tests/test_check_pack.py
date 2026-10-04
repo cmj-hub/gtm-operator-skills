@@ -871,6 +871,19 @@ One job.
         code, out, _ = self.run_main(["pack", str(root), "--public"])
         self.assertEqual(code, 0, out)
 
+    def test_never_fire_grader_needs_min(self):
+        grader = "---\ntype: tool_used\ntool: Skill\nmax: 0\n---\n"
+        root = self.base_pack(**{"evals/miss/graders/not-fired.md": grader})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn(
+            "Refusal: evals/miss/graders/not-fired.md sets max: 0 without min: 0, so it never passes",
+            out,
+        )
+        fixed = grader.replace("max: 0", "min: 0\nmax: 0")
+        root = self.base_pack(**{"evals/miss/graders/not-fired.md": fixed})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+
     def test_bad_json(self):
         root = self.make_pack({})
         path = root / "k.json"

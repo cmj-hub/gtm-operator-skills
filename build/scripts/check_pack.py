@@ -480,6 +480,7 @@ def check_tree(root: Path) -> list[str]:
     for skill in skills:
         refusals.extend(check_skill(root, skill))
     refusals.extend(check_agents(root))
+    refusals.extend(check_evals(root))
     for path in markdown:
         refusals.extend(check_contents(root, path))
     for skill in skills:
@@ -658,6 +659,20 @@ def check_agents(root: Path) -> list[str]:
             if re.search(rf"(?m)^{key}\s*:", front):
                 refusals.append(f"{label} sets {key}, which a plugin agent ignores")
         refusals.extend(check_mixed(label, front))
+    return refusals
+
+
+def check_evals(root: Path) -> list[str]:
+    """A tool_used grader with max: 0 and no min keeps the default min of 1,
+    so the case can never pass."""
+    folder = root / "evals"
+    if not folder.is_dir():
+        return []
+    refusals = []
+    for path in sorted(folder.rglob("graders/*.md"), key=lambda item: item.as_posix()):
+        front, _body = split_frontmatter(path.read_text(encoding="utf-8", errors="replace"))
+        if re.search(r"(?m)^max:\s*0\s*$", front) and not re.search(r"(?m)^min:", front):
+            refusals.append(f"{rel(path, root)} sets max: 0 without min: 0, so it never passes")
     return refusals
 
 
