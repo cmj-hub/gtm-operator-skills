@@ -29,7 +29,10 @@ GROUPS = {
     "motion",
 }
 REPO_RE = re.compile(r"^[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+$")
-NAME_RE = re.compile(r"^[a-z0-9-]{1,64}$")
+NAME_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
+RESERVED_NAME_WORDS = ("anthropic", "claude")
+SEMVER_RE = re.compile(r"^\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$")
+XML_TAG_RE = re.compile(r"<[A-Za-z/][^>]*>")
 GO_BACK_RE = re.compile(r"go back to step|return to step", re.I)
 CHECK_AGAIN_RE = re.compile(r"check again|review again", re.I)
 INSTALL_MARKERS = (
@@ -59,10 +62,29 @@ KEY_BEGIN = "-----" + "BEGIN "
 CLOUD_RE = re.compile("AK" + "IA[0-9A-Z]{16}")
 VENDOR_RE = re.compile("sk-" + "(?:ant|proj|live|test)-")
 ASSIGNED_RE = re.compile(
-    "(?im)^[A-Za-z0-9_.-]*(?:"
+    "(?im)^\\s*[A-Za-z0-9_.-]*(?:"
     + "API_KEY|SECRET|TOKEN|PASSWORD|PRIVATE_KEY"
-    + ")[A-Za-z0-9_.-]*\\s*=\\s*\\S+"
+    + ")[A-Za-z0-9_.-]*\\s*=(?!=)\\s*(\\S.*)$"
 )
+# A value that reads the secret from somewhere else, or is a placeholder.
+NOT_A_SECRET_RE = re.compile(
+    r"""^(?:["']{2}|None|null|true|false|\d+|<[^>]*>|\$\{?\w|os\.|process\.env|getenv"""
+    r"""|[A-Za-z_][\w.]*\()"""
+)
+# Plugin parts and repo plumbing whose markdown is not a skill reference.
+PLUGIN_DIRS = {".claude-plugin", ".github", "agents", "commands", "hooks"}
+ENV_EXAMPLES = {".env.example", ".env.sample", ".env.template"}
+# Repo docs a pack carries at its root that are not skill references.
+REPO_DOCS = {
+    "AGENTS.md",
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "CODE_OF_CONDUCT.md",
+    "CONTRIBUTING.md",
+    "INSTALL.md",
+    "README.md",
+    "SECURITY.md",
+}
 IMPORT_LINE_RE = re.compile(r"^\s*(?:import|from)\s+")
 FENCE_RE = re.compile(r"```.*?```", re.S)
 MD_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
@@ -93,6 +115,9 @@ def main(argv: list[str] | None = None) -> int:
     entire.add_argument("--design", required=True)
 
     args = parser.parse_args(argv)
+    if not hasattr(sys, "stdlib_module_names"):
+        print("Refusal: check_pack needs Python 3.10 or newer")
+        return 1
     if args.cmd == "knowledge":
         return emit(check_knowledge(Path(args.card)), "knowledge ok")
     if args.cmd == "design":
@@ -117,6 +142,7 @@ def main(argv: list[str] | None = None) -> int:
         data, _errors = load_card(Path(args.design))
         if data is not None:
             refusals.extend(check_job(Path(args.directory), data))
+    refusals = list(dict.fromkeys(refusals))
     for item in refusals:
         print(f"Refusal: {item}")
     if refusals:
@@ -127,6 +153,7 @@ def main(argv: list[str] | None = None) -> int:
 
 
 def emit(refusals: list[str], ok: str) -> int:
+    refusals = list(dict.fromkeys(refusals))
     if refusals:
         for item in refusals:
             print(f"Refusal: {item}")
@@ -300,6 +327,48 @@ def check_pack(root: Path, public: bool) -> list[str]:
     refusals.extend(check_readme(root))
     refusals.extend(check_license(root, public))
     refusals.extend(check_tree(root))
+    refusals.extend(check_plugin(root))
+    return refusals
+
+
+def check_plugin(root: Path) -> list[str]:
+    path = root / ".claude-plugin" / "plugin.json"
+    if not path.is_file():
+        return []
+    data, errors = load_card(path)
+    if data is None:
+        return ["plugin.json is not a JSON object"]
+    refusals: list[str] = []
+    name = data.get("name")
+    if not isinstance(name, str) or NAME_RE.fullmatch(name) is None:
+        refusals.append("plugin.json name is not a lowercase hyphen name")
+    version = data.get("version")
+    if version is not None and (
+        not isinstance(version, str) or SEMVER_RE.fullmatch(version) is None
+    ):
+        refusals.append("plugin.json version is not semver")
+    paths = data.get("skills")
+    if isinstance(paths, str):
+        paths = [paths]
+    if paths is None:
+        paths = []
+    if not isinstance(paths, list) or not all(isinstance(item, str) for item in paths):
+        return refusals + ["plugin.json skills is not a path list"]
+    found = False
+    for item in ["skills", *paths]:
+        base = (root / item).resolve()
+        try:
+            base.relative_to(root.resolve())
+        except ValueError:
+            refusals.append(f"plugin.json skills path {item} leaves the pack")
+            continue
+        if item != "skills" and not base.is_dir():
+            refusals.append(f"plugin.json skills path {item} is missing")
+            continue
+        if (base / "SKILL.md").is_file() or any(base.glob("*/SKILL.md")):
+            found = True
+    if not found and any(root.rglob("SKILL.md")):
+        refusals.append("plugin.json installs no skills; list the SKILL.md folder in skills")
     return refusals
 
 
@@ -363,7 +432,7 @@ def check_tree(root: Path) -> list[str]:
     markdown: list[Path] = []
     saw_env = False
     for path in sorted(iter_files(root), key=lambda item: item.as_posix()):
-        if path.name == ".env" or path.name.startswith(".env"):
+        if path.name.startswith(".env") and path.name not in ENV_EXAMPLES:
             saw_env = True
         if path.name == "SKILL.md":
             skills.append(path)
@@ -398,10 +467,19 @@ def check_orphans(root: Path, skills: list[Path], markdown: list[Path]) -> list[
     for path in markdown:
         if path.name in {"README.md", "SKILL.md", "INSTALL.md"}:
             continue
+        if is_repo_doc(root, path):
+            continue
         if path.resolve() in linked:
             continue
         refusals.append(f"{rel(path, root)} is not linked from SKILL.md")
     return refusals
+
+
+def is_repo_doc(root: Path, path: Path) -> bool:
+    parts = Path(rel(path, root)).parts
+    if parts[0] in PLUGIN_DIRS:
+        return True
+    return len(parts) == 1 and path.name in REPO_DOCS
 
 
 def check_keys(root: Path, path: Path) -> list[str]:
@@ -414,8 +492,11 @@ def check_keys(root: Path, path: Path) -> list[str]:
     if b"\x00" in data:
         return []
     text = data.decode("utf-8", errors="replace")
-    if KEY_BEGIN in text or CLOUD_RE.search(text) or VENDOR_RE.search(text) or ASSIGNED_RE.search(text):
+    if KEY_BEGIN in text or CLOUD_RE.search(text) or VENDOR_RE.search(text):
         return [f"key material in {rel(path, root)}"]
+    for match in ASSIGNED_RE.finditer(text):
+        if not NOT_A_SECRET_RE.match(match.group(1).strip()):
+            return [f"key material in {rel(path, root)}"]
     return []
 
 
@@ -477,7 +558,23 @@ def is_local(name: str, source: Path, root: Path) -> bool:
             return True
         if (base / name).is_dir():
             return True
-    return False
+    return name in local_modules(root)
+
+
+_LOCAL: dict[Path, set[str]] = {}
+
+
+def local_modules(root: Path) -> set[str]:
+    key = root.resolve()
+    if key not in _LOCAL:
+        names = set()
+        for path in iter_files(root):
+            if path.suffix == ".py":
+                names.add(path.stem)
+                if path.name == "__init__.py":
+                    names.add(path.parent.name)
+        _LOCAL[key] = names
+    return _LOCAL[key]
 
 
 def check_skill(root: Path, path: Path) -> list[str]:
@@ -488,13 +585,17 @@ def check_skill(root: Path, path: Path) -> list[str]:
     if not re.search(r"(?m)^models\s*:", front):
         refusals.append(f"{label} is missing models")
     name = front_field(front, "name")
-    if name is None or NAME_RE.fullmatch(name) is None:
+    if name is None or len(name) > 64 or NAME_RE.fullmatch(name) is None:
         refusals.append(f"{label} name is not a lowercase hyphen name")
+    elif any(word in name for word in RESERVED_NAME_WORDS):
+        refusals.append(f"{label} name uses a reserved word")
     description = front_field(front, "description")
     if not description:
         refusals.append(f"{label} description is empty")
     elif len(description) > 1024:
         refusals.append(f"{label} description is over 1024 characters")
+    elif XML_TAG_RE.search(description):
+        refusals.append(f"{label} description carries an XML tag")
     elif "when" not in description.lower():
         refusals.append(f"{label} description does not say when")
     if body.startswith("\n"):
@@ -536,6 +637,8 @@ def front_field(front: str, key: str) -> str | None:
 
 
 def check_contents(root: Path, path: Path) -> list[str]:
+    if path.name == "SKILL.md" or is_repo_doc(root, path):
+        return []
     text = path.read_text(encoding="utf-8", errors="replace")
     if len(text.splitlines()) <= 100:
         return []
@@ -605,6 +708,8 @@ def check_links(root: Path, skill: Path) -> list[str]:
             continue
         dests.add(dest.resolve())
     for dest in sorted(dests, key=lambda item: item.as_posix()):
+        if dest.name == "SKILL.md":
+            continue
         for raw, nested in md_targets(dest, root):
             if nested is None or not nested.is_file():
                 refusals.append(f"{rel(dest, root)} links {raw} and the file is missing")

@@ -2,36 +2,118 @@
   "name": "gtm-operator-skills",
   "owner": {
     "name": "Jay Mount Consulting",
-    "email": "jay@jaymountconsulting.com"
+    "email": "jay@jaymountconsulting.com",
+    "url": "https://jaymountconsulting.com"
   },
   "metadata": {
-    "description": "Five MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing surgery."
+    "description": "Ten MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence. Plus build-pack, the gate for the next pack."
   },
   "plugins": [
     {
       "name": "psp",
-      "source": { "source": "github", "repo": "cmj-hub/claude-psp" },
-      "description": "A Pain Signal Profile is a five-part buying brief. It replaces a static ICP."
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-psp"
+      },
+      "description": "A Pain Signal Profile is a five-part buying brief. It replaces a static ICP.",
+      "category": "foundation",
+      "homepage": "https://github.com/cmj-hub/claude-psp"
     },
     {
       "name": "evp",
-      "source": { "source": "github", "repo": "cmj-hub/claude-evp" },
-      "description": "An Early Value Proposition is a ≤22-word line matched to a Schwartz awareness tier."
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-evp"
+      },
+      "description": "An Early Value Proposition is a ≤22-word line matched to a Schwartz awareness tier.",
+      "category": "foundation",
+      "homepage": "https://github.com/cmj-hub/claude-evp"
     },
     {
       "name": "cold-email",
-      "source": { "source": "github", "repo": "cmj-hub/claude-cold-email" },
-      "description": "Four jobs in under 90 words: signal, pain, EVP, binary ask. Demographics are not a signal."
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-cold-email"
+      },
+      "description": "Four jobs in under 90 words: signal, pain, EVP, binary ask. Demographics are not a signal.",
+      "category": "outbound",
+      "homepage": "https://github.com/cmj-hub/claude-cold-email"
     },
     {
       "name": "founder-brand",
-      "source": { "source": "github", "repo": "cmj-hub/claude-founder-brand" },
-      "description": "Pillar / Proof / Process / Person. Refuses thought-leader cadence."
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-founder-brand"
+      },
+      "description": "Pillar / Proof / Process / Person. Refuses thought-leader cadence.",
+      "category": "social",
+      "homepage": "https://github.com/cmj-hub/claude-founder-brand"
     },
     {
       "name": "pricing",
-      "source": { "source": "github", "repo": "cmj-hub/claude-pricing" },
-      "description": "Pricing surgery: WTP, value metric, reference frame, three-tier contrast, pocket-price leaks."
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-pricing"
+      },
+      "description": "Pricing surgery: WTP, value metric, reference frame, three-tier contrast, pocket-price leaks.",
+      "category": "offer",
+      "homepage": "https://github.com/cmj-hub/claude-pricing"
+    },
+    {
+      "name": "landing-page",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-landing-page"
+      },
+      "description": "One page, one offer, one action. Drafts the page and scores it; refuses a sitemap.",
+      "category": "pages",
+      "homepage": "https://github.com/cmj-hub/claude-landing-page"
+    },
+    {
+      "name": "geo",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-geo"
+      },
+      "description": "Generative engine optimization: score whether a page gets quoted by an answer engine. Refuses a content calendar.",
+      "category": "findability",
+      "homepage": "https://github.com/cmj-hub/claude-geo"
+    },
+    {
+      "name": "sales-offer",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-sales-offer"
+      },
+      "description": "What the buyer gets, what it costs, and why now. Refuses a pitch of the paid product.",
+      "category": "offer",
+      "homepage": "https://github.com/cmj-hub/claude-sales-offer"
+    },
+    {
+      "name": "prospect-list",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-prospect-list"
+      },
+      "description": "Score who to contact this week from one public buying signal. Refuses a title-only list.",
+      "category": "outbound",
+      "homepage": "https://github.com/cmj-hub/claude-prospect-list"
+    },
+    {
+      "name": "email-sequence",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-email-sequence"
+      },
+      "description": "The series of emails after someone raises their hand. Refuses a generic drip.",
+      "category": "email",
+      "homepage": "https://github.com/cmj-hub/claude-email-sequence"
+    },
+    {
+      "name": "build-pack",
+      "source": "./build",
+      "description": "The gate for the next GTM skill pack: knowledge card, design card, security, README, and plugin checks. For pack authors, not a customer pack.",
+      "category": "development"
     }
   ]
 }

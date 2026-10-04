@@ -681,6 +681,117 @@ One job.
         )
         self.assertEqual(code, 0, out)
 
+    def test_assigned_secret_needs_a_literal(self):
+        name = "API" + "_KEY"
+        for body in (
+            f"{name} = os.environ['X']\n",
+            f"{name} = os.getenv('X')\n",
+            f"{name}_RE = re.compile(r'x')\n",
+            f'{name} = ""\n',
+            f"{name}=<your key>\n",
+            f"if {name} == other:\n    pass\n",
+        ):
+            root = self.base_pack(**{"scripts/run.py": body})
+            code, out, _ = self.run_main(["pack", str(root), "--public"])
+            self.assertEqual(code, 0, body + out)
+        root = self.base_pack(**{"scripts/run.py": f'    {name} = "abc123"\n'})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: key material in scripts/run.py", out)
+
+    def test_env_example_is_allowed_and_scanned(self):
+        root = self.base_pack(**{".env.example": "X=\n"})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+        root = self.base_pack(**{".env.example": "SECRET=abc123\n"})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: key material in .env.example", out)
+        self.assertNotIn(".env file in the pack", out)
+
+    def test_tests_import_pack_scripts(self):
+        root = self.base_pack(
+            **{
+                "scripts/score_brief.py": "print(1)\n",
+                "tests/test_score.py": "import score_brief\n",
+            }
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+
+    def test_repo_docs_and_plugin_parts(self):
+        long = "# Doc\n\n" + "line\n" * 120
+        root = self.base_pack(
+            **{
+                "CHANGELOG.md": long,
+                "CONTRIBUTING.md": "# Contributing\n",
+                "agents/reviewer.md": long,
+                ".github/PULL_REQUEST_TEMPLATE.md": "# PR\n",
+            }
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+        root = self.base_pack(**{"docs/CHANGELOG.md": "# Log\n"})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: docs/CHANGELOG.md is not linked from SKILL.md", out)
+
+    def test_skill_links_another_skill(self):
+        skill = SKILL.replace("One job.", "Next: [other](skills/other/SKILL.md).")
+        other = SKILL.replace("sample-pack", "other").replace(
+            "One job.", "See [ref](ref.md)."
+        )
+        root = self.base_pack(
+            **{
+                "SKILL.md": skill,
+                "skills/other/SKILL.md": other,
+                "skills/other/ref.md": "# Ref\n",
+            }
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+
+    def test_name_and_description_rules(self):
+        for name in ("claude-helper", "my-anthropic-pack", "-lead", "a--b", "x" * 65):
+            root = self.base_pack(**{"SKILL.md": SKILL.replace("sample-pack", name)})
+            code, out, _ = self.run_main(["pack", str(root), "--public"])
+            self.assertEqual(code, 1, name)
+        root = self.base_pack(
+            **{"SKILL.md": SKILL.replace("Use when", "Use when the <ICP> asks;")}
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: SKILL.md description carries an XML tag", out)
+        self.assertEqual(out.count("Refusal:"), 1)
+
+    def test_plugin_manifest(self):
+        manifest = {"name": "sample", "version": "0.1.0"}
+        root = self.base_pack(**{".claude-plugin/plugin.json": json.dumps(manifest)})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn(
+            "Refusal: plugin.json installs no skills; list the SKILL.md folder in skills",
+            out,
+        )
+        manifest["skills"] = ["./"]
+        root = self.base_pack(**{".claude-plugin/plugin.json": json.dumps(manifest)})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+        root = self.make_pack(
+            {
+                "skills/sample-pack/SKILL.md": SKILL,
+                "README.md": README,
+                "LICENSE": LICENSE,
+                ".claude-plugin/plugin.json": json.dumps({"name": "sample"}),
+            }
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+        bad = {"name": "Sample", "version": "1", "skills": ["../x"]}
+        root = self.base_pack(**{".claude-plugin/plugin.json": json.dumps(bad)})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: plugin.json name is not a lowercase hyphen name", out)
+        self.assertIn("Refusal: plugin.json version is not semver", out)
+        self.assertIn("Refusal: plugin.json skills path ../x leaves the pack", out)
+        root = self.base_pack(**{".claude-plugin/plugin.json": "["})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: plugin.json is not a JSON object", out)
+
     def test_bad_json(self):
         root = self.make_pack({})
         path = root / "k.json"

@@ -9,4 +9,4 @@ The README is the landing page. The first screen has four parts:
 
 GitHub topics are the three strings on the design card. One of them is `agent-skills`. This script does not call GitHub.
 
-This build directory is the gate. It is not a sixth install on the suite page.
+This build directory is the gate. It is not a row on the suite page. Pack authors install it from the marketplace as `build-pack`.
