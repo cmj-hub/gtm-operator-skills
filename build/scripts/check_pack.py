@@ -85,6 +85,11 @@ REPO_DOCS = {
     "README.md",
     "SECURITY.md",
 }
+# A key with an inline value followed by an indented list item: YAML folds
+# the list into the string, so `allowed-tools: Read` + `  - Grep` is "Read - Grep".
+MIXED_VALUE_RE = re.compile(r"(?m)^([A-Za-z][\w-]*):[ \t]+[^\s>|].*\n[ \t]+- ")
+# Plugin agent keys that Claude Code ignores or that belong to skills.
+AGENT_IGNORED = ("permissionMode", "hooks", "mcpServers", "initialPrompt")
 IMPORT_LINE_RE = re.compile(r"^\s*(?:import|from)\s+")
 FENCE_RE = re.compile(r"```.*?```", re.S)
 MD_LINK_RE = re.compile(r"\[[^\]]*\]\(([^)\s]+)\)")
@@ -355,6 +360,7 @@ def check_plugin(root: Path) -> list[str]:
     if not isinstance(paths, list) or not all(isinstance(item, str) for item in paths):
         return refusals + ["plugin.json skills is not a path list"]
     found = False
+    loaded: list[Path] = []
     for item in ["skills", *paths]:
         base = (root / item).resolve()
         try:
@@ -365,10 +371,21 @@ def check_plugin(root: Path) -> list[str]:
         if item != "skills" and not base.is_dir():
             refusals.append(f"plugin.json skills path {item} is missing")
             continue
+        loaded.append(base)
         if (base / "SKILL.md").is_file() or any(base.glob("*/SKILL.md")):
             found = True
-    if not found and any(root.rglob("SKILL.md")):
+    skills = [path for path in iter_files(root) if path.name == "SKILL.md"]
+    if not found and skills:
         refusals.append("plugin.json installs no skills; list the SKILL.md folder in skills")
+        return refusals
+    for skill in skills:
+        folder = skill.parent.resolve()
+        if folder in loaded or folder.parent in loaded:
+            continue
+        refusals.append(
+            f"{rel(skill, root)} does not load; move it to skills/<name>/ "
+            "or list its folder in plugin.json skills"
+        )
     return refusals
 
 
@@ -449,6 +466,7 @@ def check_tree(root: Path) -> list[str]:
         refusals.append("SKILL.md is missing")
     for skill in skills:
         refusals.extend(check_skill(root, skill))
+    refusals.extend(check_agents(root))
     for path in markdown:
         refusals.extend(check_contents(root, path))
     for skill in skills:
@@ -598,11 +616,43 @@ def check_skill(root: Path, path: Path) -> list[str]:
         refusals.append(f"{label} description carries an XML tag")
     elif "when" not in description.lower():
         refusals.append(f"{label} description does not say when")
+    refusals.extend(check_mixed(label, front))
     if body.startswith("\n"):
         body = body[1:]
     if len(body.splitlines()) >= 500:
         refusals.append(f"{label} body is 500 lines or more")
     return refusals
+
+
+def check_agents(root: Path) -> list[str]:
+    folder = root / "agents"
+    if not folder.is_dir():
+        return []
+    refusals: list[str] = []
+    for path in sorted(folder.rglob("*.md"), key=lambda item: item.as_posix()):
+        label = rel(path, root)
+        front, _body = split_frontmatter(path.read_text(encoding="utf-8", errors="replace"))
+        if not front.strip():
+            refusals.append(f"{label} has no frontmatter")
+            continue
+        if not front_field(front, "name"):
+            refusals.append(f"{label} is missing name")
+        if not front_field(front, "description"):
+            refusals.append(f"{label} description is empty")
+        if re.search(r"(?m)^allowed-tools\s*:", front):
+            refusals.append(f"{label} uses allowed-tools; an agent takes tools")
+        for key in AGENT_IGNORED:
+            if re.search(rf"(?m)^{key}\s*:", front):
+                refusals.append(f"{label} sets {key}, which a plugin agent ignores")
+        refusals.extend(check_mixed(label, front))
+    return refusals
+
+
+def check_mixed(label: str, front: str) -> list[str]:
+    return [
+        f"{label} frontmatter {match.group(1)} mixes a value and a list"
+        for match in MIXED_VALUE_RE.finditer(front + "\n")
+    ]
 
 
 def split_frontmatter(text: str) -> tuple[str, str]:

@@ -54,6 +54,19 @@ class MarketplaceTest(unittest.TestCase):
                 self.assertIn(f"npx skills add {repo} --all -g --full-depth", README)
                 self.assertIn(f"/plugin install {name}@{MARKETPLACE['name']}", README)
 
+    def test_readme_maps_the_suite(self):
+        start = README.index("## How the packs work together")
+        section = README[start : README.index("\n## ", start + 1)]
+        for plugin in github_plugins():
+            with self.subTest(plugin=plugin["name"]):
+                self.assertRegex(section, rf"\| \d+ \| {re.escape(plugin['name'])} \| `/{re.escape(plugin['name'])}:[a-z-]+`")
+
+    def test_build_pack_manifest_matches_entry(self):
+        entry = next(p for p in MARKETPLACE["plugins"] if p["name"] == "build-pack")
+        manifest = json.loads((ROOT / entry["source"] / ".claude-plugin" / "plugin.json").read_text())
+        self.assertEqual(manifest["name"], entry["name"])
+        self.assertEqual(manifest.get("license"), "MIT")
+
     def test_readme_installs_only_listed_plugins(self):
         names = {plugin["name"] for plugin in MARKETPLACE["plugins"]}
         for name in re.findall(r"/plugin install ([\w-]+)@", README):
