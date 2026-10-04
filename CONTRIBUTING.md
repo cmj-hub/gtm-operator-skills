@@ -47,6 +47,17 @@ cd gtm-operator-skills
 This repo has no `scripts/` scorers. To exercise a pack locally, clone
 that pack (or use the install commands in the README).
 
+Check the suite before you open a pull request (Python 3.10+, stdlib):
+
+```bash
+python3 -m unittest discover -s tests          # marketplace matches the README
+python3 -m unittest discover -s build/tests    # the build-pack gate
+python3 build/scripts/check_pack.py pack build --public
+claude plugin validate . && claude plugin validate build   # if you have the Claude Code CLI
+```
+
+CI runs the same Python checks on every push and pull request.
+
 Regenerate suite artwork:
 
 ```bash
@@ -62,6 +73,9 @@ node assets/card.mjs assets/spec.json assets/
 - [ ] If you touch `.claude-plugin/marketplace.json`, plugin `name` /
       `source.repo` / `description` stay accurate
 - [ ] Install commands in the README still work as written
+- [ ] `python3 -m unittest discover -s tests` passes (every marketplace
+      plugin has a README row, an `npx skills add` line, and a
+      `/plugin install` line)
 - [ ] No new dependencies (pip packages, npm packages required at
       runtime, API keys, paid services)
 - [ ] Soft CTAs only on the suite README (Growth Audit + Friday Signal).

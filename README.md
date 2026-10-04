@@ -31,15 +31,20 @@ npx skills add cmj-hub/claude-prospect-list --all -g --full-depth
 npx skills add cmj-hub/claude-email-sequence --all -g --full-depth
 ```
 
-Claude Code, the five as a marketplace:
+Claude Code, all ten as a plugin marketplace:
 
 ```text
 /plugin marketplace add cmj-hub/gtm-operator-skills
-/plugin install psp
-/plugin install evp
-/plugin install cold-email
-/plugin install founder-brand
-/plugin install pricing
+/plugin install psp@gtm-operator-skills
+/plugin install evp@gtm-operator-skills
+/plugin install cold-email@gtm-operator-skills
+/plugin install founder-brand@gtm-operator-skills
+/plugin install pricing@gtm-operator-skills
+/plugin install landing-page@gtm-operator-skills
+/plugin install geo@gtm-operator-skills
+/plugin install sales-offer@gtm-operator-skills
+/plugin install prospect-list@gtm-operator-skills
+/plugin install email-sequence@gtm-operator-skills
 ```
 
 ## The packs
@@ -59,7 +64,7 @@ Claude Code, the five as a marketplace:
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM.
 
-The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory. It is not a sixth install.
+The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a row in this table.
 
 ## The split
 

@@ -1,0 +1,26 @@
+name: check
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.10", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Suite
+        run: python -m unittest discover -s tests -v
+      - name: Build-pack gate tests
+        run: python -m unittest discover -s build/tests -v
+      - name: Build-pack gates itself
+        run: python build/scripts/check_pack.py pack build --public

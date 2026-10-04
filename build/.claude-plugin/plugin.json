@@ -1,0 +1,14 @@
+{
+  "name": "build-pack",
+  "version": "0.2.0",
+  "description": "The gate for the next GTM skill pack: knowledge card, design card, security, README, and plugin checks. For pack authors, not a customer pack.",
+  "author": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/build",
+  "repository": "https://github.com/cmj-hub/gtm-operator-skills",
+  "keywords": ["agent-skills", "skill-pack", "gate", "gtm"],
+  "skills": ["./"]
+}
