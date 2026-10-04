@@ -31,6 +31,14 @@ npx skills add example/sample --all -g --full-depth
 ```
 """
 
+AGENT = """---
+name: reviewer
+description: Use when a draft needs a second read.
+tools:
+  - Read
+---
+"""
+
 LICENSE = "MIT License\n\nCopyright (c) 2026 Jay Mount Consulting\n"
 
 
@@ -723,7 +731,7 @@ One job.
             **{
                 "CHANGELOG.md": long,
                 "CONTRIBUTING.md": "# Contributing\n",
-                "agents/reviewer.md": long,
+                "agents/reviewer.md": AGENT + long,
                 ".github/PULL_REQUEST_TEMPLATE.md": "# PR\n",
             }
         )
@@ -791,6 +799,54 @@ One job.
         root = self.base_pack(**{".claude-plugin/plugin.json": "["})
         code, out, _ = self.run_main(["pack", str(root), "--public"])
         self.assertIn("Refusal: plugin.json is not a JSON object", out)
+
+    def test_every_skill_loads(self):
+        manifest = json.dumps({"name": "sample"})
+        root = self.make_pack(
+            {
+                "skills/sample-pack/SKILL.md": SKILL,
+                "main/SKILL.md": SKILL.replace("sample-pack", "main"),
+                "README.md": README,
+                "LICENSE": LICENSE,
+                ".claude-plugin/plugin.json": manifest,
+            }
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn(
+            "Refusal: main/SKILL.md does not load; move it to skills/<name>/ "
+            "or list its folder in plugin.json skills",
+            out,
+        )
+        (root / ".claude-plugin" / "plugin.json").write_text(
+            json.dumps({"name": "sample", "skills": ["./main/"]})
+        )
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+
+    def test_agent_frontmatter(self):
+        root = self.base_pack(**{"agents/reviewer.md": AGENT})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
+        bad = AGENT.replace("tools:", "permissionMode: auto\nallowed-tools:")
+        root = self.base_pack(**{"agents/reviewer.md": bad})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: agents/reviewer.md uses allowed-tools; an agent takes tools", out)
+        self.assertIn(
+            "Refusal: agents/reviewer.md sets permissionMode, which a plugin agent ignores", out
+        )
+        root = self.base_pack(**{"agents/reviewer.md": "# Reviewer\n"})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: agents/reviewer.md has no frontmatter", out)
+
+    def test_frontmatter_value_folds_a_list(self):
+        skill = SKILL.replace('models: ""', 'models: ""\nallowed-tools: Read\n  - Grep')
+        root = self.base_pack(**{"SKILL.md": skill})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertIn("Refusal: SKILL.md frontmatter allowed-tools mixes a value and a list", out)
+        skill = SKILL.replace('models: ""', 'models: ""\nallowed-tools:\n  - Read\n  - Grep')
+        root = self.base_pack(**{"SKILL.md": skill})
+        code, out, _ = self.run_main(["pack", str(root), "--public"])
+        self.assertEqual(code, 0, out)
 
     def test_bad_json(self):
         root = self.make_pack({})

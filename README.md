@@ -64,7 +64,49 @@ Claude Code, all ten as a plugin marketplace:
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM.
 
-The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a row in this table.
+## How the packs work together
+
+Each pack does one job and hands off to the next. Install the ones you need; a pack that needs a missing companion names it and its install line instead of doing its job inline.
+
+| Step | Pack | Call it | Reads | Hands off to |
+|---|---|---|---|---|
+| 1 | psp | `/psp:psp` | `operator`, `icp` | evp, prospect-list, pricing |
+| 2 | evp | `/evp:evp` | `psp` | cold-email, landing-page, sales-offer |
+| 3 | prospect-list | `/prospect-list:who-to-contact` | `psp.signal_anchors`, `icp` | cold-email, sales-offer |
+| 4 | cold-email | `/cold-email:cold-email` | `psp`, `evp`, `tone`, `infrastructure` | email-sequence |
+| 5 | sales-offer | `/sales-offer:cold-offer` | `psp`, `evp` | landing-page, pricing |
+| 6 | pricing | `/pricing:pricing` | `psp`, `icp` | landing-page, sales-offer |
+| 7 | landing-page | `/landing-page:page` | `evp`, `pricing` | email-sequence, geo |
+| 8 | email-sequence | `/email-sequence:lifecycle-email` | `psp.vocabulary`, `evp` | — |
+| 9 | geo | `/geo:geo` | `psp.vocabulary` | landing-page |
+| 10 | founder-brand | `/founder-brand:founder-brand` | `operator`, `audience`, `pillars` | — |
+
+Where two packs sound alike, they split the job:
+
+- **cold-email** writes a signal-anchored first touch and its follow-ups. **sales-offer** writes a give-first first touch that hands over a finding and does not pitch.
+- **prospect-list** picks who to contact this week. **cold-email** cleans a send list you already have.
+- **email-sequence** writes to people who opted in. **cold-email** nurtures prospects who have not.
+
+### Shared files
+
+Every pack reads one `brand-config.json` and one `SOUL.md` at your project root.
+
+- **Merge, never overwrite.** A pack reads the file, changes only the fields it owns, and leaves every other key alone. It asks before changing a field that already has a value.
+- **`operator` and `icp` are shared.** Any pack fills a gap. None replaces a value.
+- **Two published blocks carry the handoff.** psp writes `psp` when a primary profile is locked: `signal_anchors`, `primary_pain`, `timing_trigger`, `felt_pain_role`, `vocabulary`. evp writes `evp` when you pick the outreach line: `tier`, `primary`, `outcome`, `tradeoff`, `proof`. Downstream packs read these and do not invent them.
+- **SOUL.md is voice, sectioned by pack.** Each pack edits its own `##` section. Voice can change word choice. It cannot lift a pack's limits.
+
+## The gate
+
+The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
+
+To check all ten packs together, clone them next to this repo and run:
+
+```bash
+python3 scripts/check_suite.py
+```
+
+It runs the gate, each pack's tests, `claude plugin validate --strict`, and a load check that every SKILL.md becomes a skill.
 
 ## The split
 
