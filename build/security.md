@@ -6,6 +6,7 @@ The script refuses:
 
 - a `.env` file (`.env.example`, `.env.sample`, and `.env.template` may ship, and they are still scanned)
 - key material in a text file: a private-key block, a cloud access-key id, a vendor key prefix, or an assigned secret. A value read from the environment, a function call, an empty string, or a `<placeholder>` is not a secret.
+- a public pack with no `SECURITY.md` at its root, or an empty one. It says what the pack does on the user's machine (scripts, files read and written, network, telemetry, credentials) and how to report a vulnerability. A private pack may skip it.
 - a public LICENSE missing the word MIT
 - a public LICENSE that carries the Operator Pass license id
 - a private LICENSE missing that id

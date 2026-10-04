@@ -331,6 +331,7 @@ def check_pack(root: Path, public: bool) -> list[str]:
     refusals: list[str] = []
     refusals.extend(check_readme(root))
     refusals.extend(check_license(root, public))
+    refusals.extend(check_security(root, public))
     refusals.extend(check_tree(root))
     refusals.extend(check_plugin(root))
     return refusals
@@ -421,6 +422,18 @@ def check_license(root: Path, public: bool) -> list[str]:
         if MIT_GRANT in text:
             refusals.append("private LICENSE carries the MIT grant")
     return refusals
+
+
+def check_security(root: Path, public: bool) -> list[str]:
+    """A public pack says what it does on the user's machine and where to report."""
+    if not public:
+        return []
+    path = root / "SECURITY.md"
+    if not path.is_file():
+        return ["public pack is missing SECURITY.md"]
+    if not path.read_text(encoding="utf-8", errors="replace").strip():
+        return ["SECURITY.md is empty"]
+    return []
 
 
 def iter_files(root: Path):
