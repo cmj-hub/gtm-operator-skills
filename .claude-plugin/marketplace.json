@@ -6,9 +6,15 @@
     "url": "https://jaymountconsulting.com"
   },
   "metadata": {
-    "description": "Ten MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence. Plus build-pack, the gate for the next pack."
+    "description": "Ten MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence. Install all ten with the gtm plugin. Plus build-pack, the gate for the next pack."
   },
   "plugins": [
+    {
+      "name": "gtm",
+      "source": "./suite",
+      "description": "The whole suite in one install: all ten packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
+      "category": "suite"
+    },
     {
       "name": "psp",
       "source": {

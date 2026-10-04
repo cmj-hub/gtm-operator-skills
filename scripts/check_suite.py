@@ -30,6 +30,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "build" / "scripts" / "check_pack.py"
+# Skill descriptions load into every session. One front-door skill per pack
+# keeps all ten installed under ~4k tokens.
+ALWAYS_ON_BUDGET = 400
 NAME_RE = re.compile(r"^name:\s*['\"]?([a-z0-9-]+)", re.M)
 MANIFEST_KEYS = ("repository", "license", "documentationUrl", "supportUrl")
 DEFAULT_ICON = ".claude-plugin/icon.png"
@@ -104,6 +107,13 @@ def check(entry: dict, packs: Path, claude: str | None) -> list[str]:
         details = run([claude, "--plugin-dir", str(pack), "plugin", "details", entry["name"]])
         line = next((l for l in details.stdout.splitlines() if l.strip().startswith("Skills (")), "")
         loaded = set(line.split(")", 1)[1].replace(",", " ").split()) if ")" in line else set()
+        cost = next((l for l in details.stdout.splitlines() if "Always-on:" in l), "")
+        tokens = int(re.sub(r"[^0-9]", "", cost.split("tok")[0]) or 0) if cost else 0
+        if tokens > ALWAYS_ON_BUDGET:
+            problems.append(
+                f"{repo}: ~{tokens} always-on tokens (budget {ALWAYS_ON_BUDGET}); "
+                "move internal sub-skills to modes the main skill reads"
+            )
         missing = skill_names(pack) - loaded
         if missing:
             problems.append(f"{repo}: skills that do not load: {', '.join(sorted(missing))}")

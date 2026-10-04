@@ -1,6 +1,6 @@
 {
   "name": "build-pack",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "The gate for the next GTM skill pack: knowledge card, design card, security, README, and plugin checks. For pack authors, not a customer pack.",
   "author": {
     "name": "Jay Mount Consulting",
