@@ -15,6 +15,8 @@ Installs all ten GTM packs and adds two commands that tie them together. It does
 
 `/gtm:next` reads `brand-config.json` and the `gtm/` folder and names the next pack command, for example `Next: /evp:evp — no value line yet`.
 
+To keep that answer on screen, add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod): `/plugin install gtm-operator@gtm-operator-skills`. It shows the next step above the prompt, opens a `/gtm-board` pane, and refuses a write that would overwrite a filled `brand-config.json` value.
+
 Other agents (Codex, Cursor, and the rest) install each pack with the skills CLI instead, for example:
 
 ```bash

@@ -23,6 +23,8 @@ Give the instrument. Sell the compounding.
 /gtm:next
 ```
 
+Want the next step on screen the whole time? Add [the mod](#the-mod-a-live-board-for-the-suite): `/plugin install gtm-operator@gtm-operator-skills`.
+
 `gtm` installs all ten packs. `/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp — no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
 
 ## Install one pack at a time
@@ -107,6 +109,18 @@ Every pack reads one `brand-config.json` and one `SOUL.md` at your project root.
 - **Two published blocks carry the handoff.** psp writes `psp` when a primary profile is locked: `signal_anchors`, `primary_pain`, `timing_trigger`, `felt_pain_role`, `vocabulary`. evp writes `evp` when you pick the outreach line: `tier`, `primary`, `outcome`, `tradeoff`, `proof`. Downstream packs read these and do not invent them.
 - **SOUL.md is voice, sectioned by pack.** Each pack edits its own `##` section. Voice can change word choice. It cannot lift a pack's limits.
 - **Drafts live in `gtm/`, one file per pack.** `gtm/list.json`, `gtm/letter.json`, `gtm/offer.json`, `gtm/price.json`, `gtm/page.json`, `gtm/sequence.json`, `gtm/findability.json`. Founder posts stay in `drafts/`. No two packs write the same file.
+
+## The mod: a live board for the suite
+
+The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a Claude Code mod that shows which go-to-market step you are on, names the next pack to run, and keeps Claude from overwriting the brand config every pack shares. It reads the same files `/gtm:next` reads:
+
+- **Above the prompt:** `GTM 2/11  Next: /evp:evp — no value line yet`, with a button that puts the command in your prompt.
+- **`/gtm-board`:** a pane with every step, done or open, and the install line for the next pack.
+- **The guard:** a write that would drop or change a filled `brand-config.json` value, or remove a `SOUL.md` section, is refused until you approve it (`/gtm-guard off`).
+
+```text
+/plugin install gtm-operator@gtm-operator-skills
+```
 
 ## The gate
 
