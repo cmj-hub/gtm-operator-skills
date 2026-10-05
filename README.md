@@ -23,7 +23,7 @@ Give the instrument. Sell the compounding.
 /gtm:next
 ```
 
-Want the next step on screen the whole time? Add [the mod](#the-mod-a-live-board-for-the-suite): `/plugin install gtm-operator@gtm-operator-skills`.
+Want every draft scored as you go? Add [the mod](#the-mod-scores-and-checks-across-the-suite): `/plugin install gtm-operator@gtm-operator-skills`.
 
 `gtm` installs all ten packs. `/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp — no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
 
@@ -110,12 +110,15 @@ Every pack reads one `brand-config.json` and one `SOUL.md` at your project root.
 - **SOUL.md is voice, sectioned by pack.** Each pack edits its own `##` section. Voice can change word choice. It cannot lift a pack's limits.
 - **Drafts live in `gtm/`, one file per pack.** `gtm/list.json`, `gtm/letter.json`, `gtm/offer.json`, `gtm/price.json`, `gtm/page.json`, `gtm/sequence.json`, `gtm/findability.json`. Founder posts stay in `drafts/`. No two packs write the same file.
 
-## The mod: a live board for the suite
+## The mod: scores and checks across the suite
 
-The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a Claude Code mod that shows which go-to-market step you are on, names the next pack to run, and keeps Claude from overwriting the brand config every pack shares. It reads the same files `/gtm:next` reads:
+The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a Claude Code mod that runs each pack's own scorer on its draft and shows the results in Claude Code. It reads the same files `/gtm:next` reads, and adds:
 
-- **Above the prompt:** `GTM 2/11  Next: /evp:evp — no value line yet`, with a button that puts the command in your prompt.
-- **`/gtm-board`:** a pane with every step, done or open, and the install line for the next pack.
+- **Scores:** every step on the `/gtm-board` pane shows its draft's score (`37/100 · 9 fixes`, `pass`) and trend. Press a step for the fixes and **Fix with Claude**. A saved draft is scored at once, and an optional minimum score refuses a draft below it.
+- **Cross-pack checks:** drafts gone stale after a PSP, EVP or price change; a landing page that doesn't lead with the EVP or name the price tiers; a letter or sequence with none of the buyer's words; roles the prospect list leaves out.
+- **Views:** pricing waterfall and tier check, prospect board, cold email (lint, subject, replies, deliverability), EVP ladder, GEO, founder posting rotation.
+- **Actions:** the band above the prompt names the next pack, with **Use** and **Run**. `/gtm-sprint` runs the packs in order, each only after the one before passes its scorer. Claude gets `gtm_status`, `gtm_score` and `gtm_consistency` tools and a read-only `reviewer` subagent.
+- **Analytics:** drafts and time to pass, fixes resolved, replies and meetings you log against the live cold email, and a weekly digest.
 - **The guard:** a write that would drop or change a filled `brand-config.json` value, or remove a `SOUL.md` section, is refused until you approve it (`/gtm-guard off`).
 
 ```text
