@@ -112,7 +112,7 @@ Every pack reads one `brand-config.json` and one `SOUL.md` at your project root.
 
 ## The mod: a live board for the suite
 
-[gtm-operator-claude-mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a Claude Code mod that reads the same files `/gtm:next` reads and keeps the answer on screen:
+The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a Claude Code mod that shows which go-to-market step you are on, names the next pack to run, and keeps Claude from overwriting the brand config every pack shares. It reads the same files `/gtm:next` reads:
 
 - **Above the prompt:** `GTM 2/11  Next: /evp:evp — no value line yet`, with a button that puts the command in your prompt.
 - **`/gtm-board`:** a pane with every step, done or open, and the install line for the next pack.

@@ -21,7 +21,7 @@
         "source": "url",
         "url": "https://github.com/cmj-hub/gtm-operator-claude-mod.git"
       },
-      "description": "A Claude Code mod for the suite: the next step above the prompt, a /gtm-board pane, and a guard that keeps brand-config.json and SOUL.md merged, never overwritten.",
+      "description": "The GTM operator mod for Claude Code: the next go-to-market step above your prompt, a /gtm-board pane for all ten packs, and a guard that keeps brand-config.json and SOUL.md merged, never overwritten.",
       "category": "suite",
       "homepage": "https://github.com/cmj-hub/gtm-operator-claude-mod"
     },
