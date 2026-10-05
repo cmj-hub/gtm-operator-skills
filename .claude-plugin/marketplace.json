@@ -16,6 +16,16 @@
       "category": "suite"
     },
     {
+      "name": "gtm-operator",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/cmj-hub/gtm-operator-claude-mod.git"
+      },
+      "description": "A Claude Code mod for the suite: the next step above the prompt, a /gtm-board pane, and a guard that keeps brand-config.json and SOUL.md merged, never overwritten.",
+      "category": "suite",
+      "homepage": "https://github.com/cmj-hub/gtm-operator-claude-mod"
+    },
+    {
       "name": "psp",
       "source": {
         "source": "github",
