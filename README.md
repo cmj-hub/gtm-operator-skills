@@ -8,7 +8,7 @@
 
 # GTM skills for Claude Code
 
-Ten MIT skill packs for Claude Code: ideal customer profile, value proposition, cold email, LinkedIn posts, pricing strategy, landing page, generative engine optimization, sales offer, sales prospecting, and email sequence.
+Fifteen MIT skill packs for Claude Code: ideal customer profile, value proposition, cold email, LinkedIn posts, pricing strategy, landing page, generative engine optimization, sales offer, sales prospecting, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, and inbound-from-domain.
 
 The build guide teaches the framework to a human. The pack teaches the same framework to an agent.
 
@@ -25,7 +25,7 @@ Give the instrument. Sell the compounding.
 
 Want every draft scored as you go? Add [the mod](#the-mod-scores-and-checks-across-the-suite): `/plugin install gtm-operator@gtm-operator-skills`.
 
-`gtm` installs all ten packs. `/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp — no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
+`gtm` installs all fifteen packs. `/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp — no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
 
 ## Install one pack at a time
 
@@ -42,6 +42,11 @@ npx skills add cmj-hub/claude-geo --all -g --full-depth
 npx skills add cmj-hub/claude-sales-offer --all -g --full-depth
 npx skills add cmj-hub/claude-prospect-list --all -g --full-depth
 npx skills add cmj-hub/claude-email-sequence --all -g --full-depth
+npx skills add cmj-hub/claude-qualify-before-enrich --all -g --full-depth
+npx skills add cmj-hub/claude-found-vs-deliverable --all -g --full-depth
+npx skills add cmj-hub/claude-signal-with-a-link --all -g --full-depth
+npx skills add cmj-hub/claude-waterfall-email --all -g --full-depth
+npx skills add cmj-hub/claude-inbound-from-domain --all -g --full-depth
 ```
 
 Claude Code, one pack at a time:
@@ -58,6 +63,11 @@ Claude Code, one pack at a time:
 /plugin install sales-offer@gtm-operator-skills
 /plugin install prospect-list@gtm-operator-skills
 /plugin install email-sequence@gtm-operator-skills
+/plugin install qualify-before-enrich@gtm-operator-skills
+/plugin install found-vs-deliverable@gtm-operator-skills
+/plugin install signal-with-a-link@gtm-operator-skills
+/plugin install waterfall-email@gtm-operator-skills
+/plugin install inbound-from-domain@gtm-operator-skills
 ```
 
 ## The packs
@@ -74,6 +84,11 @@ Claude Code, one pack at a time:
 | [claude-sales-offer](https://github.com/cmj-hub/claude-sales-offer) | A sales offer is what the buyer gets, what it costs, and why now. | Score the sample offer. A pitch of the paid product fails. |
 | [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) | Sales prospecting builds the B2B prospect list you are willing to write to. | Score the sample list. A title-only list fails. |
 | [claude-email-sequence](https://github.com/cmj-hub/claude-email-sequence) | An email sequence is the series of emails after someone raises their hand. | Score the sample sequence. A generic drip fails. |
+| [claude-qualify-before-enrich](https://github.com/cmj-hub/claude-qualify-before-enrich) | Qualify-before-enrich is the rule that every list row must pass an ICP field check before any paid finder runs. | Score the sample rows. A paid lookup on a failing row fails. |
+| [claude-found-vs-deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable) | A found email is not sendable until verify returns deliverable — catch-all, unknown, and invalid stay in their buckets. | Score the sample verify. A catch-all marked valid fails. |
+| [claude-signal-with-a-link](https://github.com/cmj-hub/claude-signal-with-a-link) | A buying signal is a dated, linkable event — something the prospect did publicly, on a day you can name, at a URL you can open. | Score the sample signal. An intent score without a URL and a date fails. |
+| [claude-waterfall-email](https://github.com/cmj-hub/claude-waterfall-email) | An email waterfall is a cheapest-first cascade that finds a work email, burning inputs you hold before any paid finder. | Score the sample cascade. A 4xx retry or found-before-verify fails. |
+| [claude-inbound-from-domain](https://github.com/cmj-hub/claude-inbound-from-domain) | Inbound-from-domain enrichment takes an inbound email, classifies the domain, and routes the lead in seconds. | Score the sample inbound. A CRM write-back fails. |
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
 
@@ -93,12 +108,20 @@ Each pack does one job and hands off to the next. Install the ones you need; a p
 | 8 | email-sequence | `/email-sequence:lifecycle-email` | `psp.vocabulary`, `evp` | — |
 | 9 | geo | `/geo:geo` | `psp.vocabulary` | landing-page |
 | 10 | founder-brand | `/founder-brand:founder-brand` | `operator`, `audience`, `pillars` | — |
+| 11 | qualify-before-enrich | `/qualify-before-enrich:qualify-before-enrich` | `icp`, list rows | prospect-list, waterfall-email |
+| 12 | signal-with-a-link | `/signal-with-a-link:signal-with-a-link` | public event | psp, prospect-list, cold-email |
+| 13 | waterfall-email | `/waterfall-email:waterfall-email` | held inputs, person | found-vs-deliverable, cold-email |
+| 14 | found-vs-deliverable | `/found-vs-deliverable:found-vs-deliverable` | found address | cold-email |
+| 15 | inbound-from-domain | `/inbound-from-domain:inbound-from-domain` | inbound email | — |
 
 Where two packs sound alike, they split the job:
 
 - **cold-email** writes a signal-anchored first touch and its follow-ups. **sales-offer** writes a give-first first touch that hands over a finding and does not pitch.
 - **prospect-list** picks who to contact this week. **cold-email** cleans a send list you already have.
 - **email-sequence** writes to people who opted in. **cold-email** nurtures prospects who have not.
+- **qualify-before-enrich** holds paid finders until the row passes ICP. **waterfall-email** finds the address cheapest-first after that gate.
+- **found-vs-deliverable** decides whether a found address is sendable. **waterfall-email** ends in that verify step.
+- **signal-with-a-link** scores a dated public event. **psp** turns that signal into the buying brief.
 
 ### Shared files
 
@@ -129,7 +152,7 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 
 The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
 
-To check all ten packs together, clone them next to this repo and run:
+To check all fifteen packs together, clone them next to this repo and run:
 
 ```bash
 python3 scripts/check_suite.py

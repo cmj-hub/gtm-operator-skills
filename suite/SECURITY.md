@@ -2,7 +2,7 @@
 
 ## What this plugin does on your machine
 
-- Installs the ten suite packs as dependencies. Each pack's own SECURITY.md says what it does.
+- Installs the fifteen suite packs as dependencies. Each pack's own SECURITY.md says what it does.
 - `/gtm:setup` reads and writes `brand-config.json` and `SOUL.md` at your project root, filling gaps only, and creates an empty `gtm/` folder.
 - `/gtm:next` reads `brand-config.json`, `gtm/`, and `drafts/`. It writes nothing.
 - No scripts. No network connection. No telemetry. It asks for no credentials and sends, posts, or publishes nothing.

@@ -1,6 +1,6 @@
 # gtm — the GTM operator suite in one install
 
-Installs all ten GTM packs and adds two commands that tie them together. It does not draft anything itself; each pack does one job and refuses the generic version of it.
+Installs all fifteen GTM packs and adds two commands that tie them together. It does not draft anything itself; each pack does one job and refuses the generic version of it.
 
 ## In 60 seconds
 
@@ -25,7 +25,7 @@ npx skills add cmj-hub/claude-psp --all -g --full-depth
 
 ## What it installs
 
-psp, evp, prospect-list, cold-email, sales-offer, pricing, landing-page, email-sequence, geo, founder-brand. The order and what each reads are in the [suite README](../README.md#how-the-packs-work-together).
+psp, evp, prospect-list, cold-email, sales-offer, pricing, landing-page, email-sequence, geo, founder-brand, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain. The order and what each reads are in the [suite README](../README.md#how-the-packs-work-together).
 
 ## Files
 

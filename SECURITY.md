@@ -12,6 +12,11 @@ This repo is the marketplace for the GTM operator suite. Each pack is its own re
 - [email-sequence](https://github.com/cmj-hub/claude-email-sequence/blob/main/SECURITY.md)
 - [geo](https://github.com/cmj-hub/claude-geo/blob/main/SECURITY.md)
 - [founder-brand](https://github.com/cmj-hub/claude-founder-brand/blob/main/SECURITY.md)
+- [qualify-before-enrich](https://github.com/cmj-hub/claude-qualify-before-enrich/blob/main/SECURITY.md)
+- [found-vs-deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable/blob/main/SECURITY.md)
+- [signal-with-a-link](https://github.com/cmj-hub/claude-signal-with-a-link/blob/main/SECURITY.md)
+- [waterfall-email](https://github.com/cmj-hub/claude-waterfall-email/blob/main/SECURITY.md)
+- [inbound-from-domain](https://github.com/cmj-hub/claude-inbound-from-domain/blob/main/SECURITY.md)
 - [build-pack](build/SECURITY.md)
 
 ## What this repo does on your machine
