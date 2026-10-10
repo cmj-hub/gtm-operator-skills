@@ -4,7 +4,7 @@
   "subtitle": "Install a pack. Score the sample. Fifteen minutes.",
   "accent_color": "#00D4FF",
   "tagline_top": "Free · MIT · No paid APIs",
-  "proof": "10 packs · local Python scorers · no paid APIs",
+  "proof": "15 packs · local Python scorers · no paid APIs",
   "cta": "jaymountconsulting.com/skills",
   "command": "npx skills add",
   "user_prompt": "cmj-hub/claude-psp --all -g --full-depth",

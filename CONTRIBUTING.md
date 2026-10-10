@@ -6,7 +6,7 @@ before you contribute.
 ## What this repo is
 
 `gtm-operator-skills` is the **suite marketplace** for the JMC GTM skill
-packs (ten MIT packs). Individual frameworks, scorers, examples, and
+packs (fifteen MIT packs). Individual frameworks, scorers, examples, and
 sub-skills live in the per-pack repos (`cmj-hub/claude-psp`,
 `claude-evp`, `claude-cold-email`, and the rest). Changes to a pack's
 scripts or skills belong in that pack's repo, not here.

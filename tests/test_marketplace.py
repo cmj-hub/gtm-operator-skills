@@ -44,7 +44,7 @@ class MarketplaceTest(unittest.TestCase):
 
     def test_readme_lists_every_pack(self):
         count = len(github_plugins())
-        words = {10: "Ten"}
+        words = {10: "Ten", 15: "Fifteen"}
         self.assertIn(words.get(count, str(count)), MARKETPLACE["metadata"]["description"])
         for plugin in github_plugins():
             repo = plugin["source"]["repo"]

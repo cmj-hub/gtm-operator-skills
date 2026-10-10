@@ -6,13 +6,13 @@
     "url": "https://jaymountconsulting.com"
   },
   "metadata": {
-    "description": "Ten MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence. Install all ten with the gtm plugin. Plus build-pack, the gate for the next pack."
+    "description": "Fifteen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain. Install all fifteen with the gtm plugin. Plus build-pack, the gate for the next pack."
   },
   "plugins": [
     {
       "name": "gtm",
       "source": "./suite",
-      "description": "The whole suite in one install: all ten packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
+      "description": "The whole suite in one install: all fifteen packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
       "category": "suite"
     },
     {
@@ -124,6 +124,56 @@
       "description": "The series of emails after someone raises their hand. Refuses a generic drip.",
       "category": "email",
       "homepage": "https://github.com/cmj-hub/claude-email-sequence"
+    },
+    {
+      "name": "qualify-before-enrich",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-qualify-before-enrich"
+      },
+      "description": "ICP field check on every list row before any paid finder. Refuses paid lookup on a failing row.",
+      "category": "outbound",
+      "homepage": "https://github.com/cmj-hub/claude-qualify-before-enrich"
+    },
+    {
+      "name": "found-vs-deliverable",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-found-vs-deliverable"
+      },
+      "description": "A found email is not sendable until verify returns deliverable. Catch-all, unknown, and invalid stay in their buckets.",
+      "category": "outbound",
+      "homepage": "https://github.com/cmj-hub/claude-found-vs-deliverable"
+    },
+    {
+      "name": "signal-with-a-link",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-signal-with-a-link"
+      },
+      "description": "A buying signal is a dated, linkable event. Refuses firmographic state and any intent score without a URL and a date.",
+      "category": "outbound",
+      "homepage": "https://github.com/cmj-hub/claude-signal-with-a-link"
+    },
+    {
+      "name": "waterfall-email",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-waterfall-email"
+      },
+      "description": "Cheapest-first email waterfall: held inputs first, stop on 4xx, refuse sendable until verify = deliverable.",
+      "category": "outbound",
+      "homepage": "https://github.com/cmj-hub/claude-waterfall-email"
+    },
+    {
+      "name": "inbound-from-domain",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-inbound-from-domain"
+      },
+      "description": "Enrich inbound from the email domain and route in seconds. Refuses CRM write-back in the free pack.",
+      "category": "email",
+      "homepage": "https://github.com/cmj-hub/claude-inbound-from-domain"
     },
     {
       "name": "build-pack",

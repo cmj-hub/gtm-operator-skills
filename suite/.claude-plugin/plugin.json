@@ -2,7 +2,7 @@
   "name": "gtm",
   "version": "1.0.0",
   "icon": ".claude-plugin/icon.png",
-  "description": "The GTM operator suite in one install: all ten packs, plus /gtm:setup to answer the shared questions once and /gtm:next to name the next pack to run.",
+  "description": "The GTM operator suite in one install: all fifteen packs, plus /gtm:setup to answer the shared questions once and /gtm:next to name the next pack to run.",
   "author": {
     "name": "Jay Mount Consulting",
     "url": "https://jaymountconsulting.com"
@@ -30,6 +30,11 @@
     "landing-page",
     "email-sequence",
     "geo",
-    "founder-brand"
+    "founder-brand",
+    "qualify-before-enrich",
+    "found-vs-deliverable",
+    "signal-with-a-link",
+    "waterfall-email",
+    "inbound-from-domain"
   ]
 }

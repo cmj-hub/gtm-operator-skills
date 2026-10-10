@@ -9,7 +9,7 @@ models: ""
 
 # Set up the suite once
 
-Ten packs read one `brand-config.json` and one `SOUL.md` at the project root. This skill fills the part they all share. Each pack then asks only its own questions.
+Fifteen packs read one `brand-config.json` and one `SOUL.md` at the project root. This skill fills the part they all share. Each pack then asks only its own questions.
 
 ## Checklist
 

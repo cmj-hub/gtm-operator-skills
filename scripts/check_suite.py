@@ -31,7 +31,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 GATE = ROOT / "build" / "scripts" / "check_pack.py"
 # Skill descriptions load into every session. One front-door skill per pack
-# keeps all ten installed under ~4k tokens.
+# keeps the suite installed under a tight always-on token budget.
 ALWAYS_ON_BUDGET = 400
 NAME_RE = re.compile(r"^name:\s*['\"]?([a-z0-9-]+)", re.M)
 MANIFEST_KEYS = ("repository", "license", "documentationUrl", "supportUrl")
