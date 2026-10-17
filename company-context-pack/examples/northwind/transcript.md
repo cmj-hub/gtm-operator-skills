@@ -40,7 +40,7 @@ Anything to add or fix?
 
 **Interviewer:** For the best segment, the first one: size, industry, region, and tools they already run? This fills Firmographics in icp.
 
-**Dana:** 50 to 400 employees, North America and the UK. They bill in a card and invoice billing system and run their help desk in a hosted help desk.
+**Dana:** 50 to 400 employees, North America and the UK. They bill in a hosted billing system and run their help desk a hosted help desk.
 
 **Interviewer:** What happens in a buyer's world that makes them look for you now? Things someone could observe, like a hire, a launch, or a missed target. This fills Buying triggers in icp.
 
@@ -54,7 +54,7 @@ Anything to add or fix?
 
 **Dana:** Companies under 100 paying accounts, because there is too little history to score. Consumer subscription apps. And companies with no billing system.
 
-**Interviewer:** Here is what I will write for icp.md. Two segments, mid-market B2B software and vertical software; firmographics are given for the first only (50 to 400 employees, North America and UK, a card and invoice billing system, a hosted help desk). Triggers: a churn-up quarter, a new CS head, a renewal forecast request, a price increase; head of CS feels it, CFO or COO signs; out: under 100 accounts, consumer apps, no billing system.
+**Interviewer:** Here is what I will write for icp.md. Two segments, mid-market B2B software and vertical software; firmographics are given for the first only (50 to 400 employees, North America and UK, a hosted billing system, a hosted help desk). Triggers: a churn-up quarter, a new CS head, a renewal forecast request, a price increase; head of CS feels it, CFO or COO signs; out: under 100 accounts, consumer apps, no billing system.
 Anything to add or fix?
 
 **Dana:** No, that covers it.

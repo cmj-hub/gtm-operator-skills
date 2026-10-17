@@ -6,7 +6,7 @@ Updated: 2026-10-17
 - Vertical software: software for a single industry, such as clinics or logistics, where churn comes in clusters.
 
 ## Firmographics
-- Mid-market B2B software: 50 to 400 employees. North America and the UK. Billing in a card and invoice billing system. Help desk in a hosted help desk.
+- Mid-market B2B software: 50 to 400 employees. North America and the UK. A hosted billing system and a hosted help desk.
 - Vertical software: Unknown: size, region, and stack were not given.
 
 ## Buying triggers
