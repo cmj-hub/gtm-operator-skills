@@ -40,7 +40,7 @@ Anything to add or fix?
 
 **Interviewer:** For the best segment, the first one: size, industry, region, and tools they already run? This fills Firmographics in icp.
 
-**Dana:** 50 to 400 employees, North America and the UK. They bill in a hosted billing system and run their help desk a hosted help desk.
+**Dana:** 50 to 400 employees, North America and the UK. They use a hosted billing system and a hosted help desk.
 
 **Interviewer:** What happens in a buyer's world that makes them look for you now? Things someone could observe, like a hire, a launch, or a missed target. This fills Buying triggers in icp.
 
