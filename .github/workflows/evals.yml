@@ -35,3 +35,8 @@ jobs:
           python3 -c "import json,sys; p=sys.argv[1]; m=json.load(open(p)); m.pop('dependencies', None); json.dump(m, open(p, 'w'), indent=2)" "$RUNNER_TEMP/suite/.claude-plugin/plugin.json"
           cd "$RUNNER_TEMP/suite"
           claude plugin eval . --trust-plugin --runs 1 --no-publish --threshold 0.8 --allow-tools Bash --judge-model sonnet
+      - name: Run company-context-pack evals
+        if: env.ANTHROPIC_API_KEY != ''
+        run: |
+          cd company-context-pack
+          claude plugin eval . --trust-plugin --runs 1 --no-publish --threshold 0.8 --allow-tools Bash --judge-model sonnet

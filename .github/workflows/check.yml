@@ -24,5 +24,9 @@ jobs:
         run: python -m unittest discover -s build/tests -v
       - name: Build-pack gates itself
         run: python build/scripts/check_pack.py pack build --public
+      - name: Company-context-pack tests
+        run: python -m unittest discover -s company-context-pack/tests -v
+      - name: Company-context-pack gates itself
+        run: python build/scripts/check_pack.py pack company-context-pack --public
       - name: Suite checker compiles
         run: python -m py_compile scripts/check_suite.py

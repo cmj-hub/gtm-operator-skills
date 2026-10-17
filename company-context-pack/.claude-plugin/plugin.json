@@ -1,0 +1,14 @@
+{
+  "name": "company-context-pack",
+  "version": "0.1.0",
+  "description": "A short interview that writes agent-readable company context files: company, ICP, offer, proof, voice, objections, and categories, plus an index any other skill or agent reads first.",
+  "author": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/company-context-pack",
+  "repository": "https://github.com/cmj-hub/gtm-operator-skills",
+  "keywords": ["agent-skills", "context", "gtm", "icp", "voice"],
+  "skills": ["./"]
+}
