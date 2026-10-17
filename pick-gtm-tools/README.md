@@ -113,4 +113,4 @@ The skill writes no files. The agent sends your search terms and tool slugs to `
 
 ## License
 
-MIT. Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+MIT. Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
