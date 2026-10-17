@@ -1,0 +1,16 @@
+{
+  "name": "pick-gtm-tools",
+  "version": "0.1.0",
+  "description": "Pick GTM tools with The GTM Directory: search, compare and shortlist go-to-market software through TGD's free MCP server, with the TGD page cited for every tool named.",
+  "author": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/pick-gtm-tools",
+  "repository": "https://github.com/cmj-hub/gtm-operator-skills",
+  "keywords": ["agent-skills", "gtm-tools", "the-gtm-directory", "mcp", "gtm"],
+  "icon": ".claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/pick-gtm-tools#readme",
+  "supportUrl": "https://github.com/cmj-hub/gtm-operator-skills/issues"
+}
