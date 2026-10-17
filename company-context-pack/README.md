@@ -18,7 +18,7 @@ context/
 
 The pack does not invent proof. A result with no source is marked `unverified`, and the checker refuses a result line that has neither. It does not name competitors: `categories.md` holds kinds of alternatives, not companies.
 
-The model is the same one everyone else has. What makes its output yours is what you feed it. This pack is the feeding part. Background: [the Context System](https://jaymountconsulting.com/frameworks/context-system).
+The model is the same one everyone else has. What makes its output yours is what you feed it. This pack is the feeding part.
 
 ## In 60 seconds
 
@@ -75,4 +75,4 @@ Going the other way is simple. Tell any pack's agent, "Read context/CONTEXT.md f
 
 ## License
 
-MIT. Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+MIT. Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

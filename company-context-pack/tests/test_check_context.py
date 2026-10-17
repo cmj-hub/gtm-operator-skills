@@ -83,6 +83,14 @@ class CheckFolderTest(unittest.TestCase):
                 result = self.check(overrides={"proof": proof})
                 self.assertTrue(any("has no Source" in r for r in result["refusals"]))
 
+    def test_control_characters_are_stripped_from_the_snippet(self):
+        proof = GOOD["proof"] + "- Revenue \x1b[31mdoubled\x07 now.\n"
+        result = self.check(overrides={"proof": proof})
+        text = " ".join(result["refusals"])
+        self.assertIn("has no Source", text)
+        self.assertNotIn("\x1b", text)
+        self.assertNotIn("\x07", text)
+
     def test_unverified_source_passes_and_counts(self):
         proof = GOOD["proof"] + "- Revenue doubled. Source: Unverified\n"
         result = self.check(overrides={"proof": proof})

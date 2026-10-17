@@ -1,6 +1,6 @@
 # Update mode
 
-Refresh one file without redoing the interview. Run as `update <file>`, for example `update icp`. The file name is `company`, `icp`, `offer`, `proof`, `voice`, `objections`, or `categories`.
+Refresh one file without redoing the interview. Run as `update <file>`, for example `update icp`. The file name is `company`, `icp`, `offer`, `proof`, `voice`, `objections`, or `categories`. Refuse any other name, and any name with a slash or "..".
 
 ## Checklist
 

@@ -43,7 +43,8 @@ def check_proof(text: str) -> tuple[list[str], int]:
         if value == "unverified" or value.startswith("unverified"):
             unverified += 1
         elif value in NOT_A_SOURCE:
-            snippet = item[:50] + ("..." if len(item) > 50 else "")
+            clean = re.sub(r"[\x00-\x1f\x7f]", " ", item)
+            snippet = clean[:50] + ("..." if len(clean) > 50 else "")
             refusals.append(
                 f'proof.md: "{snippet}" has no Source → '
                 "add a Source: with a link, document, or date, or write Source: unverified"

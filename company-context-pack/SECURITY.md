@@ -10,4 +10,4 @@ Network: none from the pack's script. Telemetry: none. Credentials: none read, n
 
 Your answers stay in your `context/` folder. Check the files before you commit them: they hold what you tell the agent about your company and customers, and a result you cite may name a customer.
 
-Report a vulnerability by email to jay@jaymountconsulting.com with "security" and "company-context-pack" in the subject, or open a private advisory under this repo's Security tab. Do not open a public issue for it.
+Report privately through GitHub's "Report a vulnerability" button on this repo.
