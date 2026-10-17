@@ -79,7 +79,21 @@ class Pair:
     a_source: str
     b_source: str
     score: float
-    shared: list = field(default_factory=list)
+
+
+SAFE_RE = re.compile(r"[A-Za-z0-9._:@/-]{1,64}")
+TRANSPORTS = {"stdio", "http", "sse", "ws"}
+
+
+def clean(value):
+    """Config- and frontmatter-derived text is untrusted: print it only if it is a plain identifier."""
+    if isinstance(value, str) and SAFE_RE.fullmatch(value):
+        return value
+    return "<unprintable>"
+
+
+def clean_transport(value):
+    return value if isinstance(value, str) and value in TRANSPORTS else "other"
 
 
 def estimate_tokens(text):
@@ -291,15 +305,14 @@ def find_overlaps(skills):
         for j in range(i + 1, len(skills)):
             a, b = skills[i], skills[j]
             if a.name == b.name and a.path.resolve() != b.path.resolve():
-                pairs.append(Pair(a.name, b.name, a.source, b.source, 1.0, ["same name"]))
+                pairs.append(Pair(a.name, b.name, a.source, b.source, 1.0))
                 continue
             union = sets[i] | sets[j]
             if not union:
                 continue
-            shared = sets[i] & sets[j]
-            score = len(shared) / len(union)
+            score = len(sets[i] & sets[j]) / len(union)
             if score >= OVERLAP_THRESHOLD:
-                pairs.append(Pair(a.name, b.name, a.source, b.source, round(score, 2), sorted(shared)[:6]))
+                pairs.append(Pair(a.name, b.name, a.source, b.source, round(score, 2)))
     return sorted(pairs, key=lambda p: -p.score)
 
 
@@ -320,9 +333,9 @@ def build_report(home, project):
         others = overlap_with.get((s.name, s.source), [])
         codes = [f.code for f in flags]
         if missing:
-            action, reason = "disable", "referenced file missing: " + ", ".join(missing[:3])
+            action, reason = "disable", "referenced file missing: " + ", ".join(clean(m) for m in missing[:3])
         elif others:
-            action, reason = "merge", "overlaps " + ", ".join(sorted(set(others))[:3])
+            action, reason = "merge", "overlaps " + ", ".join(clean(o) for o in sorted(set(others))[:3])
         elif any(c in codes for c in ("over-spec", "long-description", "vague-description")):
             action = "rewrite"
             reason = "; ".join(f.detail for f in flags if f.code != "heavy-body")
@@ -339,8 +352,8 @@ def build_report(home, project):
             codes.append("overlap")
         rows.append(
             {
-                "name": s.name,
-                "source": s.source,
+                "name": clean(s.name),
+                "source": clean(s.source),
                 "desc_chars": s.desc_chars,
                 "always_on_tokens": s.always_on_tokens,
                 "body_tokens": s.body_tokens,
@@ -350,7 +363,10 @@ def build_report(home, project):
             }
         )
     rows.sort(key=lambda r: (ACTION_ORDER[r["action"]], bool(not r["flags"]), -r["always_on_tokens"], -r["body_tokens"]))
-    mcp = [{"name": m.name, "scope": m.scope, "transport": m.transport} for m in discover_mcp(home, project)]
+    mcp = [
+        {"name": clean(m.name), "scope": clean(m.scope), "transport": clean_transport(m.transport)}
+        for m in discover_mcp(home, project)
+    ]
     return {
         "totals": {
             "skills": len(rows),
@@ -359,7 +375,10 @@ def build_report(home, project):
             "actions": {a: sum(1 for r in rows if r["action"] == a) for a in ACTION_ORDER},
         },
         "skills": rows,
-        "overlaps": [p.__dict__ for p in pairs],
+        "overlaps": [
+            {"a": clean(p.a), "b": clean(p.b), "a_source": clean(p.a_source), "b_source": clean(p.b_source), "score": p.score}
+            for p in pairs
+        ],
         "mcp": mcp,
     }
 
@@ -382,7 +401,7 @@ def render_text(report, top=10):
     if report["overlaps"]:
         out += ["", "Overlapping trigger descriptions"]
         for p in report["overlaps"][:5]:
-            out.append(f"  {p['a']} ({p['a_source']}) and {p['b']} ({p['b_source']}): similarity {p['score']}, shared terms: {', '.join(p['shared'])}")
+            out.append(f"  {p['a']} ({p['a_source']}) and {p['b']} ({p['b_source']}): similarity {p['score']}")
     if report["mcp"]:
         out += ["", "MCP servers (name, scope, transport)"]
         for m in report["mcp"]:
