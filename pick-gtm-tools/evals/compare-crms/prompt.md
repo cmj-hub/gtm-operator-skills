@@ -1,6 +1,6 @@
 ---
 max_turns: 12
-allowed_tools: [Read, Glob, Grep, Bash, Skill]
+allowed_tools: [Read, Glob, Grep, Bash, Skill, ToolSearch, mcp__plugin_pick-gtm-tools_gtm-directory__search_tools, mcp__plugin_pick-gtm-tools_gtm-directory__get_tool, mcp__plugin_pick-gtm-tools_gtm-directory__list_categories]
 ---
 
 Attio or Twenty for our CRM? We want an AI agent to read and write it.
