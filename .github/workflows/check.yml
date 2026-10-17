@@ -24,5 +24,9 @@ jobs:
         run: python -m unittest discover -s build/tests -v
       - name: Build-pack gates itself
         run: python build/scripts/check_pack.py pack build --public
+      - name: pick-gtm-tools tests
+        run: python -m unittest discover -s pick-gtm-tools/tests -v
+      - name: Gate pick-gtm-tools
+        run: python build/scripts/check_pack.py pack pick-gtm-tools --public
       - name: Suite checker compiles
         run: python -m py_compile scripts/check_suite.py
