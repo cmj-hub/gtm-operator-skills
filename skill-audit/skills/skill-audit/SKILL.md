@@ -2,7 +2,7 @@
 name: skill-audit
 description: "Audits the skills and MCP servers installed in Claude Code: lists them, estimates what each costs in context, and flags overlapping descriptions, descriptions that are too long or vague, and skills whose referenced files are missing. Prints a short ranked report with a keep, merge, disable or rewrite suggestion for each. Use when asked to audit, review or clean up installed skills or MCP servers, when someone has installed too many, when Claude keeps picking the wrong skill, or when installed skills are eating context. Read-only: it never deletes or edits anything."
 argument-hint: "[top N]"
-allowed-tools: Bash(python3:*) Read Glob
+allowed-tools: Bash(python3 *audit.py*) Read Glob
 license: MIT
 models: ""
 ---

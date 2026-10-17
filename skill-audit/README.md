@@ -44,4 +44,6 @@ Python 3.8 or newer, standard library only. See [SECURITY.md](SECURITY.md) for e
 python3 -m unittest discover -s tests
 ```
 
+Built by JMC Go-to-Market Systems.
+
 Free build guides and Skills: https://jaymountconsulting.com/resources
