@@ -44,4 +44,4 @@ Python 3.8 or newer, standard library only. See [SECURITY.md](SECURITY.md) for e
 python3 -m unittest discover -s tests
 ```
 
-Free guides to skills and MCP servers: https://jaymountconsulting.com/resources
+Free build guides and Skills: https://jaymountconsulting.com/resources

@@ -10,4 +10,4 @@ What this pack does on your machine:
 - Network: None. It starts no MCP server and makes no request.
 - No telemetry, no credentials asked for or stored.
 
-To report a vulnerability, email jay@jaymountconsulting.com with "security" and "skill-audit" in the subject, or open a private advisory under the repo's Security tab. Do not open a public issue. Expect a reply within five business days.
+To report a vulnerability, email jay@jaymountconsulting.com with "security" and "skill-audit" in the subject, or open a private advisory under the repo's Security tab. Do not open a public issue.
