@@ -1,0 +1,13 @@
+{
+  "name": "skill-audit",
+  "version": "0.1.0",
+  "description": "Audit the skills and MCP servers you have installed: context cost, overlapping descriptions, vague or long descriptions, and skills with missing files. Read-only.",
+  "author": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/skill-audit",
+  "repository": "https://github.com/cmj-hub/gtm-operator-skills",
+  "keywords": ["agent-skills", "mcp", "context", "audit"]
+}

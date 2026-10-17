@@ -180,6 +180,12 @@
       "source": "./build",
       "description": "The gate for the next GTM skill pack: knowledge card, design card, security, README, and plugin checks. For pack authors, not a customer pack.",
       "category": "development"
+    },
+    {
+      "name": "skill-audit",
+      "source": "./skill-audit",
+      "description": "Audit the skills and MCP servers you have installed: context cost, overlapping descriptions, vague or long descriptions, and skills with missing files. Read-only.",
+      "category": "development"
     }
   ]
 }
