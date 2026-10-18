@@ -148,6 +148,14 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 /plugin install gtm-operator@gtm-operator-skills
 ```
 
+## The company context pack
+
+[company-context-pack](company-context-pack/README.md) is a short interview that writes `company.md`, `icp.md`, `offer.md`, `proof.md`, `voice.md`, `objections.md`, and `categories.md` into a `context/` folder, with an index any pack or agent reads first. It is not one of the fifteen: it feeds them. It lives in this repo for now.
+
+```text
+/plugin install company-context-pack@gtm-operator-skills
+```
+
 ## The gate
 
 The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
