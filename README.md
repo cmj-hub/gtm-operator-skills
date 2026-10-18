@@ -148,6 +148,14 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 /plugin install gtm-operator@gtm-operator-skills
 ```
 
+## The company context pack
+
+[company-context-pack](company-context-pack/README.md) is a short interview that writes `company.md`, `icp.md`, `offer.md`, `proof.md`, `voice.md`, `objections.md`, and `categories.md` into a `context/` folder, with an index any pack or agent reads first. It is not one of the fifteen: it feeds them. It lives in this repo for now.
+
+```text
+/plugin install company-context-pack@gtm-operator-skills
+```
+
 ## Pick GTM tools with The GTM Directory
 
 [pick-gtm-tools](pick-gtm-tools) teaches your agent to search, compare and shortlist GTM tools through [The GTM Directory](https://thegtmdirectory.com)'s free, read-only MCP server. Every tool it names links its TGD page and a dated, vendor-verified fact. It will not name a tool TGD does not list, and it does not quote prices. In Claude Code the plugin connects the server for you:

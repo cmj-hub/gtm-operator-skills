@@ -18,6 +18,7 @@ This repo is the marketplace for the GTM operator suite. Each pack is its own re
 - [waterfall-email](https://github.com/cmj-hub/claude-waterfall-email/blob/main/SECURITY.md)
 - [inbound-from-domain](https://github.com/cmj-hub/claude-inbound-from-domain/blob/main/SECURITY.md)
 - [pick-gtm-tools](pick-gtm-tools/SECURITY.md)
+- [company-context-pack](company-context-pack/SECURITY.md)
 - [build-pack](build/SECURITY.md)
 - [skill-audit](skill-audit/SECURITY.md)
 

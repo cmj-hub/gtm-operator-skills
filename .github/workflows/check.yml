@@ -28,6 +28,10 @@ jobs:
         run: python -m unittest discover -s pick-gtm-tools/tests -v
       - name: Gate pick-gtm-tools
         run: python build/scripts/check_pack.py pack pick-gtm-tools --public
+      - name: Company-context-pack tests
+        run: python -m unittest discover -s company-context-pack/tests -v
+      - name: Company-context-pack gates itself
+        run: python build/scripts/check_pack.py pack company-context-pack --public
       - name: Skill-audit tests
         run: python -m unittest discover -s skill-audit/tests -v
       - name: Skill-audit gates itself
