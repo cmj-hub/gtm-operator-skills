@@ -29,7 +29,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-GATE = ROOT / "build" / "scripts" / "check_pack.py"
+GATE = ROOT / "build-pack" / "scripts" / "check_pack.py"
 # Skill descriptions load into every session. One front-door skill per pack
 # keeps the suite installed under a tight always-on token budget.
 ALWAYS_ON_BUDGET = 400

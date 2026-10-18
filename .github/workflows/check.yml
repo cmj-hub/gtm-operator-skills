@@ -21,20 +21,20 @@ jobs:
       - name: Suite
         run: python -m unittest discover -s tests -v
       - name: Build-pack gate tests
-        run: python -m unittest discover -s build/tests -v
+        run: python -m unittest discover -s build-pack/tests -v
       - name: Build-pack gates itself
-        run: python build/scripts/check_pack.py pack build --public
+        run: python build-pack/scripts/check_pack.py pack build-pack --public
       - name: pick-gtm-tools tests
         run: python -m unittest discover -s pick-gtm-tools/tests -v
       - name: Gate pick-gtm-tools
-        run: python build/scripts/check_pack.py pack pick-gtm-tools --public
+        run: python build-pack/scripts/check_pack.py pack pick-gtm-tools --public
       - name: Company-context-pack tests
         run: python -m unittest discover -s company-context-pack/tests -v
       - name: Company-context-pack gates itself
-        run: python build/scripts/check_pack.py pack company-context-pack --public
+        run: python build-pack/scripts/check_pack.py pack company-context-pack --public
       - name: Skill-audit tests
         run: python -m unittest discover -s skill-audit/tests -v
       - name: Skill-audit gates itself
-        run: python build/scripts/check_pack.py pack skill-audit --public
+        run: python build-pack/scripts/check_pack.py pack skill-audit --public
       - name: Suite checker compiles
         run: python -m py_compile scripts/check_suite.py

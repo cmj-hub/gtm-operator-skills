@@ -51,14 +51,16 @@ Check the suite before you open a pull request (Python 3.10+, stdlib):
 
 ```bash
 python3 -m unittest discover -s tests          # marketplace matches the README
-python3 -m unittest discover -s build/tests    # the build-pack gate
+python3 -m unittest discover -s build-pack/tests    # the build-pack gate
 python3 -m unittest discover -s skill-audit/tests  # the skill-audit helper
-python3 build/scripts/check_pack.py pack skill-audit --public
-python3 build/scripts/check_pack.py pack build --public
-claude plugin validate . && claude plugin validate build && claude plugin validate skill-audit   # if you have the Claude Code CLI
+python3 build-pack/scripts/check_pack.py pack skill-audit --public
+python3 build-pack/scripts/check_pack.py pack build-pack --public
+claude plugin validate . && claude plugin validate build-pack && claude plugin validate skill-audit   # if you have the Claude Code CLI
 ```
 
 CI runs the same Python checks on every push and pull request.
+
+Maintainer note: `gh skill publish` only indexes `SKILL.md` files at the repo root level (`*/SKILL.md`) and under `skills/`. Skills nested at `<plugin>/skills/<name>/` (`skill-audit`, `pick-gtm-tools`, `suite/skills/*`) are not in the gh index. They install through the plugin marketplace, and we keep that layout so install paths do not change. Each skill's directory name must equal its `name` field, or the publish dry-run fails.
 
 Regenerate suite artwork:
 
