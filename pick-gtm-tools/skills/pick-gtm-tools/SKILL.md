@@ -14,11 +14,11 @@ The reply is the shortlist in the [format](#format) below and nothing more: one 
 
 ## Connect first
 
-The TGD server is free, read-only and needs no key: `https://thegtmdirectory.com/api/mcp` (Streamable HTTP). Its tools are `search_tools`, `get_tool` and `list_categories`; your harness may prefix the names.
+The TGD server is free, read-only and needs no key: `https://thegtmdirectory.com/api/mcp` (Streamable HTTP). Its tools are `search_tools`, `get_tool`, `list_categories`, `compare_tools` and `recommend_stack`; your harness may prefix the names.
 
 - Not connected? Give the user the add line and stop: `claude mcp add --transport http gtm-directory https://thegtmdirectory.com/api/mcp`. Other clients: https://thegtmdirectory.com/mcp
 - No MCP client at all? The same data is a JSON API: `GET https://thegtmdirectory.com/api/v1/tools?q=<job>&category=<slug>&has_mcp=true` and `GET https://thegtmdirectory.com/api/v1/tools/<slug>`. Do not scrape the HTML pages.
-- Read the server's tool list once. If it lists `compare_tools` or `recommend_stack`, use them for those modes. If not, use the fallback each mode gives.
+- Read the server's tool list once. Use `compare_tools` and `recommend_stack` for those modes when it lists them. If a server does not, use the fallback each mode gives.
 
 ## Checklist
 
@@ -35,8 +35,8 @@ Copy this and tick it in order.
 ## Modes
 
 - **Shortlist** (default): the checklist above.
-- **Compare two tools**: `compare_tools` with `a` and `b` slugs when listed; otherwise `get_tool` on each and set the `verified_facts` side by side. Close on `https://thegtmdirectory.com/compare/<a>-vs-<b>` when the user names a pair TGD has written up (it may redirect to the fixed order); otherwise close on both tool pages.
-- **Starter stack**: `recommend_stack` with `job` (a slug from https://thegtmdirectory.com/jobs; an unknown slug returns the valid list) and `needs_mcp`, `needs_api`, `free_plan`, `clay_native` when listed. Otherwise one `search_tools` call per slot, then step 3 for the top pick in each slot. When the user already runs Clay, keep the tools with the fact "Works natively inside Clay". Close on https://thegtmdirectory.com/build
+- **Compare two tools**: `compare_tools` with `a` and `b`, two tool slugs taken from `search_tools` (never guessed; an unknown slug returns "No published tool with slug"). It returns `rows`. A `catalog` row (Category, Pricing tier) carries a `value` and the TGD page for each side. A `vendor_verified` row carries, per side, `{value: true, source_url, checked_on}` or `null`. `null` means TGD has not established the fact: write "not established on TGD", never "no". Use each row's `checked_on` as the as-of date. Name each tool with its `page_url` from the `tools` list. There are no practitioner mentions in the result, so do not mention any. Close on `https://thegtmdirectory.com/compare/<a>-vs-<b>` when the user names a pair TGD has written up (it may redirect to the fixed order); otherwise close on both tool pages. Without the tool: `get_tool` on each and set the `verified_facts` side by side.
+- **Starter stack**: `recommend_stack` with `job` and, only when the user asked for them, `needs_mcp`, `needs_api`, `free_plan`, `clay_native` (booleans). `job` must be one of the slugs TGD publishes under /jobs, /list-building and /persona, such as `find-a-work-email` or `verify-an-email`. It is not a `/best/<subcategory>` slug. Pick the slug from this list: `verify-an-email`, `find-a-mobile-number`, `waterfall-enrichment`, `enrich-a-company-by-domain`, `find-a-work-email`, `monitor-buying-signals`, `linkedin-active-buyers`, `local-businesses`, `ecommerce-stores`, `public-record-industries`, `content-marketer`, `revops-leader`, `demand-gen`, `sdr-bdr`, `gtm-engineer`, `founder-0-to-1`. An unknown slug returns the current list; retry once only if one of them clearly fits, and never invent a slug such as `send-cold-email`. The result has `slots`, each with at most 5 ranked tools, each with `page_url`, a fact-only `reason` and `facts` (`label`, `source_url`, `checked_on`). A constraint drops every tool without a vendor-verified match, so a short or empty slot means "not established", not "none exist". Pass no constraint the user did not ask for. The ranking does not use practitioner mentions. Close on `resolved.page_url`. For a job outside the published list, or a slot of your own design, use one `search_tools` call per slot, then step 3 for the top pick in each slot. When the user already runs Clay and the tool has no Clay fact, say "not established". Without `recommend_stack`, close on https://thegtmdirectory.com/build
 
 Worked examples with live calls and outputs: [references/examples.md](references/examples.md). Read it when a call shape or the format is unclear.
 

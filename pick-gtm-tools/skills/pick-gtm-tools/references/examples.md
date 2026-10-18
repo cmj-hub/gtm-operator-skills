@@ -1,12 +1,12 @@
 # Worked examples
 
-Three real requests, run against the live TGD server on 2026-10-17 (read-only). The server listed `search_tools`, `get_tool` and `list_categories`, so the compare and stack examples use the fallback path. Outputs are trimmed to the fields the skill uses. Listings change; run the calls again before you rely on a result.
+Three real requests, run against the live TGD server on 2026-10-17 (read-only). Example 1 uses `search_tools` and `get_tool`; example 2 is a real `compare_tools` call; example 3 is a real `recommend_stack` call. Outputs are trimmed to the fields the skill uses. Listings change; run the calls again before you rely on a result.
 
 ## Contents
 
 - Example 1: a shortlist
 - Example 2: compare two tools
-- Example 3: a starter stack around Clay
+- Example 3: a starter stack for a job
 
 ## Example 1: a shortlist
 
@@ -65,12 +65,25 @@ Call 1. `search_tools` to get both slugs:
 
 Result: `twenty` and `attio`, both `sales-crms`, both `freemium`.
 
-Calls 2 and 3. `get_tool` on `attio` and `twenty`:
+Call 2. `compare_tools`:
 
 ```json
-{"slug": "attio", "verified_facts": {"as_of": "2026-10-17", "facts": ["Ships an official MCP server", "Documents a public API", "Free plan, no card", "Shows a price on the pricing page", "Works natively inside Clay"]}}
-{"slug": "twenty", "verified_facts": {"as_of": "2026-10-17", "facts": ["Ships an official MCP server", "Documents a public API", "Shows a price on the pricing page"]}}
+{"a": "attio", "b": "twenty"}
 ```
+
+Result, trimmed. Each `vendor_verified` row has a value and `checked_on` per side, or `null`:
+
+```text
+Category                           attio: CRM & Deal Management   twenty: CRM & Deal Management
+Pricing tier                       attio: freemium                twenty: freemium
+Ships an official MCP server       attio: true  (2026-10-17)      twenty: true  (2026-10-17)
+Documents a public API             attio: true  (2026-10-17)      twenty: true  (2026-10-17)
+Free plan, no card                 attio: true  (2026-10-17)      twenty: null
+Shows a price on the pricing page  attio: true  (2026-10-17)      twenty: true  (2026-10-17)
+Works natively inside Clay         attio: true  (2026-10-17)      twenty: null
+```
+
+Pages: `https://thegtmdirectory.com/tools/attio` and `https://thegtmdirectory.com/tools/twenty`. The result carries no practitioner mentions.
 
 Reply:
 
@@ -84,52 +97,42 @@ Both clear the must-have: an official MCP server.
 Open on The GTM Directory: https://thegtmdirectory.com/compare/attio-vs-twenty
 ```
 
-"Not established" is the right words for Twenty's missing facts. TGD has not verified them, which is not the same as the vendor lacking them.
+`null` is "not established on TGD". It is not the same as the vendor lacking the feature.
 
-## Example 3: a starter stack around Clay
+## Example 3: a starter stack for a job
 
-> "We run Clay. Give me a sending tool and a CRM that plug into it."
+> "I need to find work emails, and my agent has to drive the tool over MCP."
 
-Slots: data hub (Clay, named by the user), send, record. Constraint: works natively inside Clay.
+`job` is one of TGD's published slugs (here `find-a-work-email`); an unknown slug returns the valid list. The user asked for MCP, so only `needs_mcp` is set.
 
-Call 1. `search_tools` to get the slug the user named:
+Call 1. `recommend_stack`:
 
 ```json
-{"query": "Clay", "limit": 3}
+{"job": "find-a-work-email", "needs_mcp": true}
 ```
 
-Result: `clay` first, subcategory `data-enrichment`. Then `get_tool` on `clay`:
+Result, trimmed. `resolved.page_url` is `https://thegtmdirectory.com/best/contact-finders`. One slot, `find-a-work-email`, with 5 tools (the cap per slot). Each came back with a fact-only `reason`, a `page_url` and dated facts:
 
-```json
-{"as_of": "2026-10-17", "facts": ["Ships an official MCP server", "Documents a public API", "Free plan, no card", "Shows a price on the pricing page"]}
-```
-
-Send slot: Example 1's search and facts. Instantly is the top result with the Clay fact.
-
-Record slot. `search_tools`:
-
-```json
-{"query": "CRM", "has_mcp": true, "limit": 5}
-```
-
-Result: `espocrm`, `monday-sales-crm`, `zoho-crm`, `attio`, `close`. `get_tool` on all five; only two carry "Works natively inside Clay":
-
-```json
-{"slug": "attio", "facts": ["Ships an official MCP server", "Documents a public API", "Free plan, no card", "Shows a price on the pricing page", "Works natively inside Clay"]}
-{"slug": "close", "facts": ["Ships an official MCP server", "Documents a public API", "Shows a price on the pricing page", "Works natively inside Clay"]}
+```text
+hunterio    https://thegtmdirectory.com/tools/hunterio    MCP, API, free plan no card, price shown, Clay native  (checked 2026-10-17)
+prospeo     https://thegtmdirectory.com/tools/prospeo     MCP, API, free plan no card, price shown, Clay native  (checked 2026-10-17)
+wiza        https://thegtmdirectory.com/tools/wiza        MCP, API, free plan no card, price shown, Clay native  (checked 2026-10-17)
+contactout  https://thegtmdirectory.com/tools/contactout  MCP, API, free plan no card, price shown, Clay native  (checked 2026-10-17)
+icypeas     https://thegtmdirectory.com/tools/icypeas     MCP, API, price shown, Clay native  (checked 2026-10-17)
 ```
 
 Reply:
 
 ```text
-## Stack: Clay plus sending and a CRM
+## Stack: find work emails with an MCP server
 
-1. **Clay** (data hub): official MCP server, public API, free plan with no card (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/clay
-2. **Instantly** (send): official MCP server, public API, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/instantly
-3. **Attio** (record): official MCP server, public API, free plan with no card, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/attio
-4. **Close** (record, second choice): official MCP server, public API, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/close
+1. **Hunter.io**: official MCP server, public API, free plan with no card, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/hunterio
+2. **Prospeo**: official MCP server, public API, free plan with no card, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/prospeo
+3. **Wiza**: official MCP server, public API, free plan with no card, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/wiza
+4. **ContactOut**: official MCP server, public API, free plan with no card, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/contactout
+5. **Icypeas**: official MCP server, public API, works natively inside Clay (as of 2026-10-17). A free plan with no card is not established on TGD. Source: The GTM Directory, https://thegtmdirectory.com/tools/icypeas
 
-Open on The GTM Directory: https://thegtmdirectory.com/build
+Open on The GTM Directory: https://thegtmdirectory.com/best/contact-finders
 ```
 
-When the server lists `recommend_stack`, one call replaces the per-slot searches, for example `{"job": "<slug from /jobs>", "needs_mcp": true, "clay_native": true}`. Each pick comes back with a reason built from cited facts and a page URL. Use the same format.
+The ranking is the server's; the skill does not reorder it. A slot holds at most 5, so a longer list needs a second search. Do not claim the 5 are every tool that qualifies.

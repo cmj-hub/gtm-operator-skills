@@ -93,7 +93,7 @@ No MCP client? The skill falls back to TGD's read-only JSON API at `https://theg
 
 ## Tools the server offers
 
-`search_tools` (find tools by job, with category, pricing tier, MCP server and public API filters), `get_tool` (one listing with dated vendor-verified facts) and `list_categories`. When the server also lists `compare_tools` and `recommend_stack`, the skill uses them for the compare and stack modes; until then it builds both from `search_tools` and `get_tool`.
+`search_tools` (find tools by job, with category, pricing tier, MCP server and public API filters), `get_tool` (one listing with dated vendor-verified facts), `list_categories`, `compare_tools` (two tools side by side; a fact TGD has not established comes back empty, never "no") and `recommend_stack` (up to 5 ranked tools per slot for one of TGD's published jobs, such as `find-a-work-email`, not for any category). Practitioner mentions are not used. If a server lacks the last two, the skill builds both modes from `search_tools` and `get_tool`.
 
 ## Tests
 
