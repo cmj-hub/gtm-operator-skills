@@ -52,8 +52,10 @@ Check the suite before you open a pull request (Python 3.10+, stdlib):
 ```bash
 python3 -m unittest discover -s tests          # marketplace matches the README
 python3 -m unittest discover -s build/tests    # the build-pack gate
+python3 -m unittest discover -s skill-audit/tests  # the skill-audit helper
+python3 build/scripts/check_pack.py pack skill-audit --public
 python3 build/scripts/check_pack.py pack build --public
-claude plugin validate . && claude plugin validate build   # if you have the Claude Code CLI
+claude plugin validate . && claude plugin validate build && claude plugin validate skill-audit   # if you have the Claude Code CLI
 ```
 
 CI runs the same Python checks on every push and pull request.

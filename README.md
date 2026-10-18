@@ -160,6 +160,14 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 
 The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
 
+## Audit your own setup
+
+Too many skills and MCP servers installed? [skill-audit](skill-audit/README.md) reads your Claude Code setup and prints a short ranked report: context cost, overlapping descriptions, descriptions that are too long or vague, and skills with missing files. It is read-only. It does not delete or edit anything.
+
+```text
+/plugin install skill-audit@gtm-operator-skills
+```
+
 To check all fifteen packs together, clone them next to this repo and run:
 
 ```bash
@@ -195,7 +203,7 @@ The scorers and checkers are standard-library Python that run on your machine. N
 
 That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
 
-[**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one free edition a week on building GTM systems that compound. No pitch in it.
+[**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal): free emails on building GTM systems that compound. No pitch in it. One click unsubscribes.
 
 ## Site
 
