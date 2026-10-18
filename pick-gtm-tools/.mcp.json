@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "gtm-directory": {
+      "type": "http",
+      "url": "https://thegtmdirectory.com/api/mcp"
+    }
+  }
+}

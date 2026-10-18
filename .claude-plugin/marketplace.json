@@ -6,7 +6,7 @@
     "url": "https://jaymountconsulting.com"
   },
   "metadata": {
-    "description": "Fifteen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain. Install all fifteen with the gtm plugin. Plus company-context-pack, the interview that writes your company context files, and build-pack, the gate for the next pack."
+    "description": "Fifteen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain. Install all fifteen with the gtm plugin. Plus pick-gtm-tools, cited tool picks from The GTM Directory, company-context-pack, the interview that writes your company context files, and build-pack, the gate for the next pack."
   },
   "plugins": [
     {
@@ -180,6 +180,13 @@
       "source": "./company-context-pack",
       "description": "A short interview that writes agent-readable company context files (company, ICP, offer, proof, voice, objections, categories) plus an index any skill or agent reads first. Results without a source are marked unverified.",
       "category": "foundation"
+    },
+    {
+      "name": "pick-gtm-tools",
+      "source": "./pick-gtm-tools",
+      "description": "Search, compare and shortlist GTM tools through The GTM Directory's free MCP server. Every tool named links its TGD page and a dated fact; no prices.",
+      "category": "tools",
+      "homepage": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/pick-gtm-tools"
     },
     {
       "name": "build-pack",

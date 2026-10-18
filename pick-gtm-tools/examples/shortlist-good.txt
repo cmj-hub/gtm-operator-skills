@@ -1,0 +1,7 @@
+## Shortlist: cold email my agent can drive, inside Clay
+
+1. **Instantly**: official MCP server, public API, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/instantly
+2. **Smartlead**: official MCP server, public API, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/smartlead
+3. **Woodpecker**: official MCP server, public API, works natively inside Clay (as of 2026-10-17). Source: The GTM Directory, https://thegtmdirectory.com/tools/woodpecker
+
+Open on The GTM Directory: https://thegtmdirectory.com/best/cold-email

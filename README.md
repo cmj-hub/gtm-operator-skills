@@ -156,6 +156,17 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 /plugin install company-context-pack@gtm-operator-skills
 ```
 
+## Pick GTM tools with The GTM Directory
+
+[pick-gtm-tools](pick-gtm-tools) teaches your agent to search, compare and shortlist GTM tools through [The GTM Directory](https://thegtmdirectory.com)'s free, read-only MCP server. Every tool it names links its TGD page and a dated, vendor-verified fact. It will not name a tool TGD does not list, and it does not quote prices. In Claude Code the plugin connects the server for you:
+
+```text
+/plugin install pick-gtm-tools@gtm-operator-skills
+/pick-gtm-tools:pick-gtm-tools cold email my agent can drive, inside Clay
+```
+
+Other agents: the install line and the server setup are in [pick-gtm-tools/README.md](pick-gtm-tools/README.md).
+
 ## The gate
 
 The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
