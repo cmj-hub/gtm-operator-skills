@@ -21,16 +21,16 @@ This repo is the marketplace for the GTM operator suite. Each pack is its own re
 - [proof-assets](https://github.com/cmj-hub/claude-proof-assets/blob/main/SECURITY.md)
 - [pick-gtm-tools](pick-gtm-tools/SECURITY.md)
 - [company-context-pack](company-context-pack/SECURITY.md)
-- [build-pack](build/SECURITY.md)
+- [build-pack](build-pack/SECURITY.md)
 - [skill-audit](skill-audit/SECURITY.md)
 
 ## What this repo does on your machine
 
 - `.claude-plugin/marketplace.json` lists the packs. Adding the marketplace installs nothing until you install a pack.
-- `build/scripts/check_pack.py` (the build-pack gate) is standard-library Python. It reads the pack directory and cards you name, never edits them, and opens no network connection.
+- `build-pack/scripts/check_pack.py` (the build-pack gate) is standard-library Python. It reads the pack directory and cards you name, never edits them, and opens no network connection.
 - `scripts/check_suite.py` is standard-library Python. It runs locally, against clones you already have: the gate, each pack's own tests, `git ls-files`, and, when the `claude` CLI is on your PATH, `claude plugin validate --strict` and `claude plugin details`. It opens no network connection itself.
 - `skill-audit/skills/skill-audit/scripts/audit.py` is standard-library Python. It reads your skill folders and MCP server names, writes nothing, and opens no network connection. See [skill-audit/SECURITY.md](skill-audit/SECURITY.md).
-- `tests/`, `build/tests/`, and `skill-audit/tests/` are standard-library unit tests on throwaway directories. No network.
+- `tests/`, `build-pack/tests/`, and `skill-audit/tests/` are standard-library unit tests on throwaway directories. No network.
 - `assets/card.mjs` and `assets/demo.mjs` regenerate the README artwork for maintainers only. They load Google Fonts when run. No pack uses them.
 - No telemetry, no credentials asked for or stored, and nothing sent, posted, or published by any script here.
 

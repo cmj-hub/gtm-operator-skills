@@ -179,7 +179,7 @@ Other agents: the install line and the server setup are in [pick-gtm-tools/READM
 
 ## The gate
 
-The gate for the next pack is [build/SKILL.md](build/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
+The gate for the next pack is [build-pack/SKILL.md](build-pack/SKILL.md). Run it from that directory, or install it with `/plugin install build-pack@gtm-operator-skills`. It is for pack authors, not a customer pack.
 
 ## Audit your own setup
 

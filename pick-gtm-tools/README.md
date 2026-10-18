@@ -99,7 +99,7 @@ No MCP client? The skill falls back to TGD's read-only JSON API at `https://theg
 
 ```bash
 python3 -m unittest discover -s tests
-python3 ../build/scripts/check_pack.py pack . --public
+python3 ../build-pack/scripts/check_pack.py pack . --public
 ```
 
 ## Privacy and security
