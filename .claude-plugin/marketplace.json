@@ -176,6 +176,26 @@
       "homepage": "https://github.com/cmj-hub/claude-inbound-from-domain"
     },
     {
+      "name": "offer-stack",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-offer-stack"
+      },
+      "description": "Package what the buyer gets and the pain each part removes, with the math shown.",
+      "category": "offer",
+      "homepage": "https://github.com/cmj-hub/claude-offer-stack"
+    },
+    {
+      "name": "proof-assets",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-proof-assets"
+      },
+      "description": "Keep proof a buyer can check, from someone who agreed you could use it, dated.",
+      "category": "proof",
+      "homepage": "https://github.com/cmj-hub/claude-proof-assets"
+    },
+    {
       "name": "company-context-pack",
       "source": "./company-context-pack",
       "description": "A short interview that writes agent-readable company context files (company, ICP, offer, proof, voice, objections, categories) plus an index any skill or agent reads first. Results without a source are marked unverified.",

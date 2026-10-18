@@ -17,6 +17,8 @@ This repo is the marketplace for the GTM operator suite. Each pack is its own re
 - [signal-with-a-link](https://github.com/cmj-hub/claude-signal-with-a-link/blob/main/SECURITY.md)
 - [waterfall-email](https://github.com/cmj-hub/claude-waterfall-email/blob/main/SECURITY.md)
 - [inbound-from-domain](https://github.com/cmj-hub/claude-inbound-from-domain/blob/main/SECURITY.md)
+- [offer-stack](https://github.com/cmj-hub/claude-offer-stack/blob/main/SECURITY.md)
+- [proof-assets](https://github.com/cmj-hub/claude-proof-assets/blob/main/SECURITY.md)
 - [pick-gtm-tools](pick-gtm-tools/SECURITY.md)
 - [company-context-pack](company-context-pack/SECURITY.md)
 - [build-pack](build/SECURITY.md)

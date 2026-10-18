@@ -47,6 +47,8 @@ npx skills add cmj-hub/claude-found-vs-deliverable --all -g --full-depth
 npx skills add cmj-hub/claude-signal-with-a-link --all -g --full-depth
 npx skills add cmj-hub/claude-waterfall-email --all -g --full-depth
 npx skills add cmj-hub/claude-inbound-from-domain --all -g --full-depth
+npx skills add cmj-hub/claude-offer-stack --all -g --full-depth
+npx skills add cmj-hub/claude-proof-assets --all -g --full-depth
 ```
 
 Claude Code, one pack at a time:
@@ -68,6 +70,8 @@ Claude Code, one pack at a time:
 /plugin install signal-with-a-link@gtm-operator-skills
 /plugin install waterfall-email@gtm-operator-skills
 /plugin install inbound-from-domain@gtm-operator-skills
+/plugin install offer-stack@gtm-operator-skills
+/plugin install proof-assets@gtm-operator-skills
 ```
 
 ## The packs
@@ -89,6 +93,8 @@ Claude Code, one pack at a time:
 | [claude-signal-with-a-link](https://github.com/cmj-hub/claude-signal-with-a-link) | A buying signal is a dated, linkable event — something the prospect did publicly, on a day you can name, at a URL you can open. | Score the sample signal. An intent score without a URL and a date fails. |
 | [claude-waterfall-email](https://github.com/cmj-hub/claude-waterfall-email) | An email waterfall is a cheapest-first cascade that finds a work email, burning inputs you hold before any paid finder. | Score the sample cascade. A 4xx retry or found-before-verify fails. |
 | [claude-inbound-from-domain](https://github.com/cmj-hub/claude-inbound-from-domain) | Inbound-from-domain enrichment takes an inbound email, classifies the domain, and routes the lead in seconds. | Score the sample inbound. A CRM write-back fails. |
+| [claude-offer-stack](https://github.com/cmj-hub/claude-offer-stack) | Package what the buyer gets and the pain each part removes, with the math shown. | Score the sample stack. |
+| [claude-proof-assets](https://github.com/cmj-hub/claude-proof-assets) | Keep proof a buyer can check, from someone who agreed you could use it, dated. | Score the sample proof. |
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
 
@@ -122,6 +128,8 @@ Where two packs sound alike, they split the job:
 - **qualify-before-enrich** holds paid finders until the row passes ICP. **waterfall-email** finds the address cheapest-first after that gate.
 - **found-vs-deliverable** decides whether a found address is sendable. **waterfall-email** ends in that verify step.
 - **signal-with-a-link** scores a dated public event. **psp** turns that signal into the buying brief.
+- **offer-stack** packages what the buyer gets and the pain each part removes, with the math shown. **sales-offer** writes the give-first first email.
+- **proof-assets** keeps proof a buyer can check, from someone who agreed you could use it, dated. **founder-brand** writes the post from one receipt.
 
 ### Shared files
 
