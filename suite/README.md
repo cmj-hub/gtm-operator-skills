@@ -38,4 +38,4 @@ These two skills read and write only `brand-config.json`, `SOUL.md`, and the `gt
 
 ## License
 
-MIT. Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+MIT. Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
