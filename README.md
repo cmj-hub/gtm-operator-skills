@@ -232,7 +232,7 @@ That one does ask for an email, and it enrols you in a short follow-up on the sa
 
 ## License
 
-MIT on every pack. Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+MIT on every pack. Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
 
 ## Regenerating the artwork
 
