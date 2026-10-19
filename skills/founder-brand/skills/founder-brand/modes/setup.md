@@ -1,0 +1,282 @@
+# Setup — first-run voice and content config
+
+The most important setup in this pack. The point of founder-brand
+content is that it sounds like YOU. Without SOUL.md, the skill
+produces LinkedIn-influencer-voice slop.
+
+## Contents
+
+- Activation
+- Where the files go
+- Workflow
+
+## Activation
+
+Runs first when brand-config.json or SOUL.md is missing or unfilled.
+
+Also `/founder-brand:founder-brand setup` (`onboarding` works too),
+`setup refresh`, "Set up founder-brand onboarding", "Configure voice".
+
+## Where the files go
+
+Both files live in the operator's project folder (the current working
+directory), not inside the plugin. They are shared by every pack in the
+GTM operator suite.
+
+- One `brand-config.json` and one `SOUL.md` at the project root.
+- Merge at the field level. Read the existing file first, add or update
+  only the fields this pack owns — `audience`, `pillars`, `cadence`,
+  `business_outcomes` — and leave every other key exactly as it was.
+  Never rewrite the file from the example, never delete another pack's
+  keys (`psp`, `evp`, `pricing`, ...). Show the diff and ask before
+  changing a field that already has a value.
+- `operator` is shared: fill gaps only.
+- `SOUL.md`: append or update only this pack's `## ` sections. Never
+  rewrite another pack's section.
+
+The shapes come from the templates that ship with the pack:
+
+- `${CLAUDE_PLUGIN_ROOT}/SOUL.md` — the founder-brand sections
+- `${CLAUDE_PLUGIN_ROOT}/brand-config.example.json` — the four blocks this pack owns
+
+If a file does not exist yet, create it with this pack's blocks or
+sections only. Keep the template's `##` headings exactly —
+`scripts/score_post.py` and `scripts/check_setup.py` find the phrase
+lists and stories by heading. Replace every `<placeholder>` line; the
+checker counts the ones left.
+
+If this pack's fields or sections already exist, this is a
+**refresh**: read them, show what's there step by step, and change only
+what the operator changes.
+
+The example values in the templates (PSP, Series-B SaaS, JMC URLs) are
+Jay Mount Consulting's. None of them survive into the operator's files
+unless the operator says they're true for them.
+
+## Workflow
+
+Ask one step at a time. Write after each step so a half-finished
+onboarding still saves progress.
+
+### Step 0 — Shared basics (once for the whole suite)
+
+`operator` (name, company, title, calendar_url) is shared by every
+pack, and so are the SOUL.md sections `## Who I am`, `## Phrases I use
+a lot`, `## Phrases I refuse` and `## Stories I lean on`. If they are
+filled, skip this step and the matching steps below (2, 3, 5): show
+what is there and move on. This pack does not need `icp`; `audience`
+(Step 7) covers it.
+
+If `operator` is missing, say: "Run `/gtm:setup` once for the whole
+suite." If the gtm plugin is not installed (`/plugin install
+gtm@gtm-operator-skills`), ask only the operator questions inline, in
+one short batch, and fill gaps only. Then ask this pack's own
+questions; do not ask the shared ones twice.
+
+### Step 1 — Voice in 3 sentences
+
+```
+Describe how you actually write — in 3 sentences. Not "professional yet
+approachable." Specific.
+
+Examples of useful answers:
+  "I write declarative, with one claim per sentence."
+  "I lead with the receipt before the explanation."
+  "I don't soften with hedges — I either claim it or cut it."
+
+Don't generalize. Tell me what's true about YOUR writing.
+```
+
+Save to `SOUL.md` (top section).
+
+### Step 2 — Phrases I use a lot (5-10)
+
+Shared section. Skip when `/gtm:setup` (or another pack) already
+filled it with 5 or more phrases.
+
+```
+Pull up your last 10 emails / posts / messages. What phrases show up
+repeatedly? These are your voice fingerprints.
+
+Examples (not yours — yours will differ):
+  "The lever is..."
+  "Specifically:"
+  "Here's the receipt:"
+  "What actually moved the number..."
+
+5-10 phrases. These show up naturally in every output.
+
+Or paste 3-5 of your own posts / emails and I'll pull the candidates.
+```
+
+If the operator pastes writing, extract repeated phrases and openers
+and show them for a yes/no. Only confirmed phrases go in.
+
+Save to `SOUL.md`.
+
+### Step 3 — Phrases I refuse (5-10)
+
+Shared section. Skip when it already holds 5 or more phrases.
+
+```
+What phrases would you NEVER write? Be specific. These get banned in
+addition to the framework's banned-patterns list.
+
+Common refuses:
+  "Synergy"
+  "Leverage" (as verb)
+  "Circle back"
+  "Delve into"
+  "Game-changing"
+
+YOUR refuses might include things others use freely. Capture them.
+```
+
+Save to `SOUL.md`.
+
+### Step 4 — Voice settings
+
+```
+Pick your settings:
+
+Formality:        Casual / Professional / Direct
+Sentence length:  Short (≤15w) / Medium / Mixed
+Confidence:       High (outright) / Hedged / Calibrated
+Humor:            Dry / Never / Often
+Profanity:        Never / Sparingly / Often
+First-person:     I / We / Both
+Emoji:            Never / Sparingly (≤1/post) / Often
+```
+
+Save to `SOUL.md`.
+
+### Step 5 — Stories reservoir (3-5)
+
+Shared section (`## Stories I lean on`). Skip when it already holds 3
+or more stories.
+
+```
+Give me 3-5 specific receipts you can cite. Anonymized but specific.
+These become the case-study reservoir every Proof-pillar post pulls from.
+
+Examples:
+  "The Series-B SaaS that hit 14 SQLs in 30 days from a PSP rewrite"
+  "The bootstrapped agency that went 2% → 11% reply rate"
+  "The DevTools company that closed $80k ACV in 90 days after EVP retier"
+
+Each story needs:
+- A specific (anonymized) client/company descriptor
+- A specific number / metric / outcome
+- A specific lever that drove it
+```
+
+Save to `SOUL.md`.
+
+### Step 6 — Won't-write boundaries
+
+```
+Hard nos. What topics will you NOT touch?
+
+Common:
+  Political topics
+  Personal life specifics
+  Hot-takes-for-engagement
+  Industries you don't actually serve
+
+Capture yours.
+```
+
+Save to `SOUL.md`.
+
+### Step 7 — Audience + 4-pillar topic pools
+
+```
+Now the brand-config side.
+
+AUDIENCE:
+1. Primary ICP (1 sentence)
+2. What they already know
+3. What they don't know yet
+
+4-PILLAR TOPIC POOLS (3+ topics each):
+
+PILLAR pool — big claims / POVs / contrarian takes
+  • Topic 1
+  • Topic 2
+  • Topic 3
+
+PROOF pool — specific receipts / case studies / metrics
+  • <draws from your stories reservoir>
+
+PROCESS pool — how you do the work / SOPs / frameworks
+  • <Process you teach>
+  • <Framework you use>
+
+PERSON pool — human stories / stakes / why you care
+  • <Your story 1>
+  • <Your story 2>
+```
+
+If `brand-config.json` has a `psp` block, offer `psp.vocabulary` as the
+audience's own words and `evp.primary` (if present) as a Pillar topic.
+Only what the operator confirms goes in. Neither block is required.
+
+Save to `brand-config.audience` + `brand-config.pillars`.
+
+### Step 8 — Cadence + business outcomes
+
+```
+CADENCE:
+  Posts per week (default 4 — 1 per pillar)
+  Rotation order (default: pillar → proof → process → person)
+  Default platform (linkedin / x / both)
+  Auto-critique before post (yes/no)
+
+BUSINESS OUTCOMES:
+  Drive-to URL (the primary CTA destination)
+  Lead magnet URL (the soft offer for skeptical readers)
+  Call URL (booking link for hot replies)
+```
+
+Save to `brand-config.cadence` + `brand-config.business_outcomes`.
+
+### Step 9 — Verify the files + smoke test
+
+Run the checker. Exit 0 means setup is complete; otherwise its `Next:`
+line names the gap — go back to that step.
+
+```
+python3 ${CLAUDE_PLUGIN_ROOT}/scripts/check_setup.py --dir .
+```
+
+Create an empty `drafts/` folder — the [content](content.md) mode saves posts there. This pack keeps `drafts/` (not `gtm/`).
+
+```
+✓ brand-config.json — audience + 4 pillars (×3 topics each) + cadence + outcomes
+✓ SOUL.md — voice + 8 phrases used + 7 refused + 5 stories, 0 placeholders
+✓ drafts/
+
+Try a smoke test:
+> Generate a Proof pillar post about <one of your stories>
+
+The output will:
+- Use your phrases-I-use list naturally
+- Refuse your phrases-I-refuse list
+- Cite the actual story (not invent one)
+- Match your voice settings
+- Be ≤200 words, 1-sentence opener, scannable body, no engagement bait
+- Pass scripts/score_post.py with your SOUL.md
+
+Next: /founder-brand:founder-brand content <pillar>
+```
+
+### Step 10 — Refresh cadence
+
+```
+Voice evolves. Re-run onboarding when:
+- You catch yourself using phrases not in your fingerprint list (add them)
+- The audience shifts
+- Quarterly minimum
+
+Re-run: `/founder-brand:founder-brand setup refresh`
+```

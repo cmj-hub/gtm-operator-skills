@@ -1,0 +1,19 @@
+{
+  "name": "claude-waterfall-email",
+  "owner": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Email waterfall skill pack: cheapest-first cascade, held inputs first, deliverable gate."
+  },
+  "plugins": [
+    {
+      "name": "waterfall-email",
+      "source": "./",
+      "description": "Score a cheapest-first email waterfall and refuse 4xx retries and sendable-before-deliverable drafts.",
+      "category": "sales",
+      "version": "0.1.0"
+    }
+  ]
+}

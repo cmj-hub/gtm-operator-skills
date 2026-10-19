@@ -1,0 +1,19 @@
+{
+  "name": "claude-proof-assets",
+  "owner": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Proof assets skill pack: a claim a buyer can check, from someone who agreed, dated."
+  },
+  "plugins": [
+    {
+      "name": "proof-assets",
+      "source": "./",
+      "description": "Collect and score proof: results, metrics, testimonials, logos. Refuses a claim without a source and a permission.",
+      "category": "productivity",
+      "version": "0.1.0"
+    }
+  ]
+}

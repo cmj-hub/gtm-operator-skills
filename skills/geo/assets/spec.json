@@ -1,0 +1,26 @@
+{
+  "title": "Generative engine optimization",
+  "subtitle": "How a page gets quoted by an answer engine.",
+  "accent_color": "#8B5CF6",
+  "proof": "score.py \u00b7 one brief passes \u00b7 calendar fails",
+  "cta": "github.com/cmj-hub/claude-geo",
+  "command": "python3 scripts/score.py",
+  "user_prompt": "--file examples/findability-good.json",
+  "response_lines": [
+    "Buyer question named",
+    "Citation record: this brand was not named",
+    "One brief \u00b7 one kill date",
+    "Good draft exits 0",
+    "Calendar draft exits 1"
+  ],
+  "artifact": {
+    "label": "examples/findability-good.json",
+    "lines": [
+      "One page. First paragraph answers",
+      "the buyer question.",
+      "Kill date: 2026-12-15"
+    ]
+  },
+  "renderer_version": 3,
+  "tagline_top": "JMC Skill Pack"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "proof-assets",
+  "version": "0.1.0",
+  "description": "Proof assets a buyer can check: results with before and after, metrics, testimonials and logos, each with a source, a date and recorded permission. Refuses multiples with no numbers behind them, empty praise, named buyers without written permission, and stale proof. Stdlib-only Python scorer. No network.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-proof-assets",
+  "license": "MIT",
+  "keywords": [
+    "proof",
+    "case-study",
+    "testimonials",
+    "social-proof",
+    "b2b",
+    "gtm",
+    "agent-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-proof-assets#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-proof-assets/issues",
+  "icon": ".claude-plugin/icon.png"
+}

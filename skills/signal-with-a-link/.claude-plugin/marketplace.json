@@ -1,0 +1,19 @@
+{
+  "name": "claude-signal-with-a-link",
+  "owner": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Buying-signal skill pack: a dated, linkable event, or it is not a signal."
+  },
+  "plugins": [
+    {
+      "name": "signal-with-a-link",
+      "source": "./",
+      "description": "Score a buying signal as a dated, linkable event. Refuse intent scores without a URL and a date.",
+      "category": "productivity",
+      "version": "0.1.0"
+    }
+  ]
+}

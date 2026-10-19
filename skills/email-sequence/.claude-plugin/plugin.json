@@ -1,0 +1,24 @@
+{
+  "name": "email-sequence",
+  "version": "0.7.0",
+  "description": "Draft and score the email sequence after someone opts in: welcome, bargain, nurture. Use when someone already raised their hand. Not for cold outreach.",
+  "author": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-email-sequence",
+  "license": "MIT",
+  "keywords": [
+    "email-sequence",
+    "lifecycle-email",
+    "welcome-email",
+    "nurture",
+    "onboarding",
+    "marketing",
+    "gtm"
+  ],
+  "icon": ".claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/cmj-hub/claude-email-sequence#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-email-sequence/issues"
+}

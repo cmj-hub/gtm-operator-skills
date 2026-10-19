@@ -1,0 +1,21 @@
+{
+  "person": "Ops lead at Northwind",
+  "field": "work_email",
+  "inputs_held": ["crm email", "company domain"],
+  "cascade_order": [
+    "cheap finder",
+    "crm email",
+    "company domain",
+    "verify"
+  ],
+  "on_4xx": "fix_input",
+  "rows": [
+    {
+      "id": "northwind-ops",
+      "email": "ops@northwind.example",
+      "verify": "deliverable",
+      "sendable": true,
+      "step_reached": "cheap finder"
+    }
+  ]
+}

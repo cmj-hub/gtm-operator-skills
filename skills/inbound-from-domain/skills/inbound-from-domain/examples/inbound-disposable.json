@@ -1,0 +1,10 @@
+{
+  "email": "x@mailinator.com",
+  "domain": "mailinator.com",
+  "kind": "disposable",
+  "evidence": [
+    "mailinator.com is on the disposable list"
+  ],
+  "route": "disqualify",
+  "crm_write": false
+}

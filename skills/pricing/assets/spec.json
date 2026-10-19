@@ -1,0 +1,27 @@
+{
+  "renderer_version": 3,
+  "title": "Pricing strategy",
+  "subtitle": "What you charge, what it is compared with, where the discount leaks.",
+  "accent_color": "#CC4714",
+  "tagline_top": "JMC Skill Pack",
+  "proof": "decoy_validator.py · healthy 100 · broken 10.5 · no LLM",
+  "cta": "jaymountconsulting.com/tools/pricing-page-lab",
+  "command": "/pricing",
+  "user_prompt": "score examples/tiers-healthy.json",
+  "response_lines": [
+    "Scoring examples/tiers-healthy.json",
+    "Three tiers · same metric: seat",
+    "Healthy set scored 100",
+    "Broken two-tier set scored 10.5",
+    "No LLM · no paid API"
+  ],
+  "artifact": {
+    "label": "examples/tiers-healthy.json",
+    "lines": [
+      "Starter  $99 monthly · 5 seats",
+      "Pro      $299 monthly · 25 seats",
+      "Scale    $999 monthly · 100 seats",
+      "score 100"
+    ]
+  }
+}

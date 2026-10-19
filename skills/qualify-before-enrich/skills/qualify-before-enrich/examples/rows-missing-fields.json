@@ -1,0 +1,20 @@
+{
+  "icp": {
+    "industries": ["3PL / freight", "warehousing"],
+    "employee_min": 50,
+    "employee_max": 500,
+    "titles_include": ["VP Operations", "Director of Operations", "Head of Ops"],
+    "titles_exclude": ["Intern", "SDR", "Recruiter", "Student"],
+    "geos": ["US", "CA"]
+  },
+  "rows": [
+    {
+      "company": "Contoso Freight",
+      "title": "Director of Operations",
+      "industry": "",
+      "employees": 90,
+      "geo": "US",
+      "verdict": "enrich"
+    }
+  ]
+}

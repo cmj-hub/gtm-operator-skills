@@ -1,0 +1,11 @@
+{
+  "email": "alex@northwind.io",
+  "domain": "northwind.io",
+  "kind": "corporate",
+  "company_guess": "Northwind",
+  "evidence": [
+    "Domain is not on the free-mail list"
+  ],
+  "route": "build-review",
+  "crm_write": true
+}

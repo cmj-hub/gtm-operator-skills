@@ -1,0 +1,19 @@
+{
+  "name": "claude-offer-stack",
+  "owner": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Offer stack skill pack: every line removes a pain the buyer has put a number on."
+  },
+  "plugins": [
+    {
+      "name": "offer-stack",
+      "source": "./",
+      "description": "Build and score an offer stack against numbered pains. Refuses a component with no pain behind it.",
+      "category": "productivity",
+      "version": "0.1.0"
+    }
+  ]
+}

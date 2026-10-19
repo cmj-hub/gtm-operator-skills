@@ -1,0 +1,19 @@
+{
+  "name": "claude-prospect-list",
+  "owner": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Sales prospecting skill pack: score who to contact from one buying signal."
+  },
+  "plugins": [
+    {
+      "name": "prospect-list",
+      "source": "./",
+      "description": "Score who to contact this week from one public buying signal, and refuse a title-only list.",
+      "category": "sales",
+      "version": "0.4.0"
+    }
+  ]
+}
