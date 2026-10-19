@@ -1,21 +1,24 @@
 # Security
 
-## What this pack does on your machine
+Run `python3 scripts/check_pack.py pack <dir> --public` or `--private`.
 
-- One script runs locally: `scripts/check_pack.py`, standard-library Python 3.10+. No dependencies are installed.
-- It reads the pack directory and the knowledge and design cards you name. It reads; it never edits a pack.
-- The skill writes nothing on its own. The cards and the pack are files you author.
-- Network: none. The script opens no network connection, and the skill pre-approves no tool.
-- No telemetry. Nothing is logged or sent anywhere.
-- No credentials are asked for or stored. The key scan reports a file path, never the matched value.
-- Nothing is published. Release is a pull request a person opens and merges.
+The script refuses:
 
-The suite policy is in the hub's [SECURITY.md](https://github.com/cmj-hub/gtm-operator-skills/blob/main/SECURITY.md).
+- a `.env` file (`.env.example`, `.env.sample`, and `.env.template` may ship, and they are still scanned)
+- key material in a text file: a private-key block, a cloud access-key id, a vendor key prefix, or an assigned secret. A value read from the environment, a function call, an empty string, or a `<placeholder>` is not a secret.
+- a public pack with no `SECURITY.md` at its root, or an empty one. It says what the pack does on the user's machine (scripts, files read and written, network, telemetry, credentials) and how to report a vulnerability. A private pack may skip it.
+- a public LICENSE missing the word MIT
+- a public LICENSE that carries the Operator Pass license id
+- a private LICENSE missing that id
+- a private LICENSE that carries the MIT grant sentence
+- a third-party Python import, in a `.py` file or a code fence, with no install line on that line or in the five above it (`pip install`, `uv add`, `npm install`, `pnpm add`, `bun add`, or `brew install`)
 
-## Reporting a vulnerability
+The standard library and a module that lives anywhere in the pack do not need an install line.
 
-Email jay@jaymountconsulting.com with "security" and the repo name in the subject, or open a private advisory under this repo's Security tab. Do not open a public issue for a vulnerability. Expect a reply within five business days.
+A `.claude-plugin/plugin.json` is checked too: a JSON object, a lowercase hyphen `name`, a semver `version`, `skills` paths inside the pack, and at least one SKILL.md it installs.
 
-## Supported versions
+Repo docs at the pack root (README, CHANGELOG, CONTRIBUTING, AGENTS, CLAUDE, SECURITY, CODE_OF_CONDUCT, INSTALL) and markdown under `agents/`, `commands/`, `hooks/`, `.github/`, and `.claude-plugin/` are not skill references. They need no Contents list and no link from SKILL.md.
 
-Only the latest release on `main` gets fixes.
+No live send, no live ad write, no charge.
+
+The publisher scan is the gate for private-pack URLs and for writing-skill names. This checker does not carry that list.
