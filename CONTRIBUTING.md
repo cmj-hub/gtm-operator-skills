@@ -14,15 +14,15 @@ the packs point here.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case (broken
+- **Bug reports**: open an issue with a reproducible case (broken
   install command, wrong marketplace plugin source, dead link, etc.).
-- **Pack listing accuracy** — the README catalog and
+- **Pack listing accuracy**: the README catalog and
   `.claude-plugin/marketplace.json` must match the real pack repos
   (name, description, install command). Corrections welcome.
-- **Marketplace / install docs** — clearer install steps for the skills
+- **Marketplace / install docs**: clearer install steps for the skills
   CLI or Claude Code marketplace commands, as long as they stay
   accurate.
-- **Suite artwork** — regenerating `assets/header.png` /
+- **Suite artwork**: regenerating `assets/header.png` /
   `assets/social-preview.png` / `assets/demo.gif` from `assets/spec.json`
   when the suite card copy changes.
 
@@ -100,4 +100,3 @@ license already on this repo.
 ## About
 
 Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).

@@ -54,8 +54,8 @@ Want every draft scored as you go? Add [the mod](#the-mod-scores-and-checks-acro
 | [prospect-list](skills/prospect-list) ([repo](https://github.com/cmj-hub/claude-prospect-list)) | Sales prospecting builds the B2B prospect list you are willing to write to. | Score the sample list. A title-only list fails. |
 | [email-sequence](skills/email-sequence) ([repo](https://github.com/cmj-hub/claude-email-sequence)) | An email sequence is the series of emails after someone raises their hand. | Score the sample sequence. A generic drip fails. |
 | [qualify-before-enrich](skills/qualify-before-enrich) ([repo](https://github.com/cmj-hub/claude-qualify-before-enrich)) | Qualify-before-enrich is the rule that every list row must pass an ICP field check before any paid finder runs. | Score the sample rows. A paid lookup on a failing row fails. |
-| [found-vs-deliverable](skills/found-vs-deliverable) ([repo](https://github.com/cmj-hub/claude-found-vs-deliverable)) | A found email is not sendable until verify returns deliverable — catch-all, unknown, and invalid stay in their buckets. | Score the sample verify. A catch-all marked valid fails. |
-| [signal-with-a-link](skills/signal-with-a-link) ([repo](https://github.com/cmj-hub/claude-signal-with-a-link)) | A buying signal is a dated, linkable event — something the prospect did publicly, on a day you can name, at a URL you can open. | Score the sample signal. An intent score without a URL and a date fails. |
+| [found-vs-deliverable](skills/found-vs-deliverable) ([repo](https://github.com/cmj-hub/claude-found-vs-deliverable)) | A found email is not sendable until verify returns deliverable: catch-all, unknown, and invalid stay in their buckets. | Score the sample verify. A catch-all marked valid fails. |
+| [signal-with-a-link](skills/signal-with-a-link) ([repo](https://github.com/cmj-hub/claude-signal-with-a-link)) | A buying signal is a dated, linkable event: something the prospect did publicly, on a day you can name, at a URL you can open. | Score the sample signal. An intent score without a URL and a date fails. |
 | [waterfall-email](skills/waterfall-email) ([repo](https://github.com/cmj-hub/claude-waterfall-email)) | An email waterfall is a cheapest-first cascade that finds a work email, burning inputs you hold before any paid finder. | Score the sample cascade. A 4xx retry or found-before-verify fails. |
 | [inbound-from-domain](skills/inbound-from-domain) ([repo](https://github.com/cmj-hub/claude-inbound-from-domain)) | Inbound-from-domain enrichment takes an inbound email, classifies the domain, and routes the lead in seconds. | Score the sample inbound. A CRM write-back fails. |
 | [offer-stack](skills/offer-stack) ([repo](https://github.com/cmj-hub/claude-offer-stack)) | Package what the buyer gets and the pain each part removes, with the math shown. | Score the sample stack. |
@@ -263,7 +263,7 @@ MIT on every pack. Built by [JMC Go-to-Market Systems](https://jaymountconsultin
 
 ## Regenerating the artwork
 
-`assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer — no CI, no shared workflow, no network beyond the webfonts:
+`assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer. No CI, no shared workflow, no network beyond the webfonts:
 
 ```bash
 node assets/card.mjs assets/spec.json assets/
