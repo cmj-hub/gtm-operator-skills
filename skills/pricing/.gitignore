@@ -1,0 +1,10 @@
+.DS_Store
+*.log
+.idea/
+.vscode/
+node_modules/
+.env
+.env.*
+__pycache__/
+*.pyc
+evals/results/

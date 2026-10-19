@@ -1,0 +1,24 @@
+{
+  "name": "qualify-before-enrich",
+  "version": "0.1.0",
+  "description": "ICP field check on every list row before any paid finder. Refuse paid lookup on a failing row. Deterministic, stdlib-only Python scorer. No network, no paid APIs.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills/claude-qualify-before-enrich",
+  "repository": "https://github.com/cmj-hub/claude-qualify-before-enrich",
+  "license": "MIT",
+  "keywords": [
+    "gtm",
+    "icp",
+    "enrichment",
+    "prospect-list",
+    "qualify",
+    "agent-skills",
+    "b2b"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-qualify-before-enrich#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-qualify-before-enrich/issues",
+  "icon": ".claude-plugin/icon.png"
+}

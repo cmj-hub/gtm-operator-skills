@@ -1,20 +1,32 @@
 <p align="center">
-  <img src="./assets/header.png" alt="GTM skills for Claude Code" width="100%">
+  <img src="./assets/header.png" alt="GTM skills for Claude Code, Codex and Cursor" width="100%">
 </p>
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="GTM skills — install a pack, score the sample" width="100%">
+  <img src="./assets/demo.gif" alt="GTM skills: install a pack, score the sample" width="100%">
 </p>
 
-# GTM skills for Claude Code
+# GTM skills for Claude Code, Codex and Cursor
 
-Seventeen MIT skill packs for Claude Code: ideal customer profile, value proposition, cold email, LinkedIn posts, pricing strategy, landing page, generative engine optimization, sales offer, sales prospecting, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain, offer-stack, and proof-assets.
+Seventeen MIT go-to-market skill packs for Claude Code, Codex, Cursor and any agent that reads `SKILL.md`. Each pack refuses the generic version of its job and scores its own draft with a Python script. The scorers use no LLM judge, no key and no network call.
 
 The build guide teaches the framework to a human. The pack teaches the same framework to an agent.
 
-Give the instrument. Sell the compounding.
+## Install
 
-## In 60 seconds
+Paste this into your agent:
+
+```text
+Install the GTM skills from https://github.com/cmj-hub/gtm-operator-skills
+```
+
+Or run it yourself:
+
+```bash
+npx skills add cmj-hub/gtm-operator-skills --all -g --full-depth
+```
+
+Claude Code, the whole suite and its two setup commands:
 
 ```text
 /plugin marketplace add cmj-hub/gtm-operator-skills
@@ -23,9 +35,65 @@ Give the instrument. Sell the compounding.
 /gtm:next
 ```
 
+`/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp - no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
+
 Want every draft scored as you go? Add [the mod](#the-mod-scores-and-checks-across-the-suite): `/plugin install gtm-operator@gtm-operator-skills`.
 
-`gtm` installs all seventeen packs. `/gtm:setup` asks the shared questions once (who you are, who you sell to, your voice), so no pack asks them again. `/gtm:next` reads what you have so far and names the next command, for example `Next: /evp:evp — no value line yet`. Each pack saves its draft in a `gtm/` folder in your project, one file per pack.
+## The packs
+
+| Pack | What it is | 15-minute artifact |
+|---|---|---|
+| [psp](skills/psp) ([repo](https://github.com/cmj-hub/claude-psp)) | An ideal customer profile is who buys, drawn from a public signal and the words they use. | Score the sample 100 vs 37, then do yours |
+| [evp](skills/evp) ([repo](https://github.com/cmj-hub/claude-evp)) | A value proposition is one line that says why this buyer should care. | Three lines for three readers |
+| [cold-email](skills/cold-email) ([repo](https://github.com/cmj-hub/claude-cold-email)) | A cold email is a short note to someone who has not asked to hear from you, anchored to a public signal. | One T1, linted |
+| [founder-brand](skills/founder-brand) ([repo](https://github.com/cmj-hub/claude-founder-brand)) | LinkedIn posts for founders are posts a buyer can tell came from the operator, written from a real receipt. | One Proof post from a real receipt |
+| [pricing](skills/pricing) ([repo](https://github.com/cmj-hub/claude-pricing)) | A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks. | `decoy_validator` on the sample tiers |
+| [landing-page](skills/landing-page) ([repo](https://github.com/cmj-hub/claude-landing-page)) | A landing page is one page, one offer, and one action. | Score the sample page. A sitemap fails. |
+| [geo](skills/geo) ([repo](https://github.com/cmj-hub/claude-geo)) | Generative engine optimization is how a page gets quoted by an answer engine. | Score the sample page. A content calendar fails. |
+| [sales-offer](skills/sales-offer) ([repo](https://github.com/cmj-hub/claude-sales-offer)) | A sales offer is what the buyer gets, what it costs, and why now. | Score the sample offer. A pitch of the paid product fails. |
+| [prospect-list](skills/prospect-list) ([repo](https://github.com/cmj-hub/claude-prospect-list)) | Sales prospecting builds the B2B prospect list you are willing to write to. | Score the sample list. A title-only list fails. |
+| [email-sequence](skills/email-sequence) ([repo](https://github.com/cmj-hub/claude-email-sequence)) | An email sequence is the series of emails after someone raises their hand. | Score the sample sequence. A generic drip fails. |
+| [qualify-before-enrich](skills/qualify-before-enrich) ([repo](https://github.com/cmj-hub/claude-qualify-before-enrich)) | Qualify-before-enrich is the rule that every list row must pass an ICP field check before any paid finder runs. | Score the sample rows. A paid lookup on a failing row fails. |
+| [found-vs-deliverable](skills/found-vs-deliverable) ([repo](https://github.com/cmj-hub/claude-found-vs-deliverable)) | A found email is not sendable until verify returns deliverable: catch-all, unknown, and invalid stay in their buckets. | Score the sample verify. A catch-all marked valid fails. |
+| [signal-with-a-link](skills/signal-with-a-link) ([repo](https://github.com/cmj-hub/claude-signal-with-a-link)) | A buying signal is a dated, linkable event: something the prospect did publicly, on a day you can name, at a URL you can open. | Score the sample signal. An intent score without a URL and a date fails. |
+| [waterfall-email](skills/waterfall-email) ([repo](https://github.com/cmj-hub/claude-waterfall-email)) | An email waterfall is a cheapest-first cascade that finds a work email, burning inputs you hold before any paid finder. | Score the sample cascade. A 4xx retry or found-before-verify fails. |
+| [inbound-from-domain](skills/inbound-from-domain) ([repo](https://github.com/cmj-hub/claude-inbound-from-domain)) | Inbound-from-domain enrichment takes an inbound email, classifies the domain, and routes the lead in seconds. | Score the sample inbound. A CRM write-back fails. |
+| [offer-stack](skills/offer-stack) ([repo](https://github.com/cmj-hub/claude-offer-stack)) | Package what the buyer gets and the pain each part removes, with the math shown. | Score the sample stack. |
+| [proof-assets](skills/proof-assets) ([repo](https://github.com/cmj-hub/claude-proof-assets)) | Keep proof a buyer can check, from someone who agreed you could use it, dated. | Score the sample proof. |
+
+Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
+
+
+## Skills by outcome
+
+Say what you would say to a person. The skill fires on the phrase.
+
+**Find who to sell to**
+- "Who actually buys from us?" "Build my ICP." `/psp:psp`
+- "Is this a real signal?" "Can I cite this?" `/signal-with-a-link:signal-with-a-link`
+- "Who should I call this week?" "My list is just job titles." `/prospect-list:who-to-contact`
+- "Clean this list before I enrich it." "Credits are burning on bad-fit accounts." `/qualify-before-enrich:qualify-before-enrich`
+
+**Say it so they care**
+- "Write my value proposition." "What do we say in one line?" `/evp:evp`
+- "What should I post this week?" "My posts sound like AI." `/founder-brand:founder-brand`
+- "Write a case study." "Can I use this logo?" `/proof-assets:proof-assets`
+
+**Reach them**
+- "Write a cold email." "Nobody is replying to my emails." "Will this hit spam?" `/cold-email:cold-email`
+- "A first email that does not pitch." `/sales-offer:cold-offer`
+- "Find work emails for this list." `/waterfall-email:waterfall-email`
+- "Can I send to this address?" "What do I do with catch-all emails?" `/found-vs-deliverable:found-vs-deliverable`
+
+**Turn interest into a deal**
+- "Write a landing page." "Page with one CTA." `/landing-page:page`
+- "Package my offer." "What is the cost of inaction?" `/offer-stack:offer-stack`
+- "How should I price this?" "We discount too much." `/pricing:pricing`
+- "What do I send after the lead magnet?" "My drip feels generic." `/email-sequence:lifecycle-email`
+- "Route this inbound lead." "Is this a real company?" `/inbound-from-domain:inbound-from-domain`
+
+**Be quoted by answer engines**
+- "Do we show up in ChatGPT?" "Get quoted by Perplexity." `/geo:geo`
 
 ## Install one pack at a time
 
@@ -73,30 +141,6 @@ Claude Code, one pack at a time:
 /plugin install offer-stack@gtm-operator-skills
 /plugin install proof-assets@gtm-operator-skills
 ```
-
-## The packs
-
-| Pack | What it is | 15-minute artifact |
-|---|---|---|
-| [claude-psp](https://github.com/cmj-hub/claude-psp) | An ideal customer profile is who buys, drawn from a public signal and the words they use. | Score the sample 100 vs 37, then do yours |
-| [claude-evp](https://github.com/cmj-hub/claude-evp) | A value proposition is one line that says why this buyer should care. | Three lines for three readers |
-| [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) | A cold email is a short note to someone who has not asked to hear from you, anchored to a public signal. | One T1, linted |
-| [claude-founder-brand](https://github.com/cmj-hub/claude-founder-brand) | LinkedIn posts for founders are posts a buyer can tell came from the operator, written from a real receipt. | One Proof post from a real receipt |
-| [claude-pricing](https://github.com/cmj-hub/claude-pricing) | A pricing strategy is how you choose what to charge, what the price is compared with, and where the discount leaks. | `decoy_validator` on the sample tiers |
-| [claude-landing-page](https://github.com/cmj-hub/claude-landing-page) | A landing page is one page, one offer, and one action. | Score the sample page. A sitemap fails. |
-| [claude-geo](https://github.com/cmj-hub/claude-geo) | Generative engine optimization is how a page gets quoted by an answer engine. | Score the sample page. A content calendar fails. |
-| [claude-sales-offer](https://github.com/cmj-hub/claude-sales-offer) | A sales offer is what the buyer gets, what it costs, and why now. | Score the sample offer. A pitch of the paid product fails. |
-| [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) | Sales prospecting builds the B2B prospect list you are willing to write to. | Score the sample list. A title-only list fails. |
-| [claude-email-sequence](https://github.com/cmj-hub/claude-email-sequence) | An email sequence is the series of emails after someone raises their hand. | Score the sample sequence. A generic drip fails. |
-| [claude-qualify-before-enrich](https://github.com/cmj-hub/claude-qualify-before-enrich) | Qualify-before-enrich is the rule that every list row must pass an ICP field check before any paid finder runs. | Score the sample rows. A paid lookup on a failing row fails. |
-| [claude-found-vs-deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable) | A found email is not sendable until verify returns deliverable — catch-all, unknown, and invalid stay in their buckets. | Score the sample verify. A catch-all marked valid fails. |
-| [claude-signal-with-a-link](https://github.com/cmj-hub/claude-signal-with-a-link) | A buying signal is a dated, linkable event — something the prospect did publicly, on a day you can name, at a URL you can open. | Score the sample signal. An intent score without a URL and a date fails. |
-| [claude-waterfall-email](https://github.com/cmj-hub/claude-waterfall-email) | An email waterfall is a cheapest-first cascade that finds a work email, burning inputs you hold before any paid finder. | Score the sample cascade. A 4xx retry or found-before-verify fails. |
-| [claude-inbound-from-domain](https://github.com/cmj-hub/claude-inbound-from-domain) | Inbound-from-domain enrichment takes an inbound email, classifies the domain, and routes the lead in seconds. | Score the sample inbound. A CRM write-back fails. |
-| [claude-offer-stack](https://github.com/cmj-hub/claude-offer-stack) | Package what the buyer gets and the pain each part removes, with the math shown. | Score the sample stack. |
-| [claude-proof-assets](https://github.com/cmj-hub/claude-proof-assets) | Keep proof a buyer can check, from someone who agreed you could use it, dated. | Score the sample proof. |
-
-Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
 
 ## How the packs work together
 
@@ -168,7 +212,7 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 
 ## Pick GTM tools with The GTM Directory
 
-[pick-gtm-tools](pick-gtm-tools) teaches your agent to search, compare and shortlist GTM tools through [The GTM Directory](https://thegtmdirectory.com)'s free, read-only MCP server. Every tool it names links its TGD page and a dated, vendor-verified fact. It will not name a tool TGD does not list, and it does not quote prices. In Claude Code the plugin connects the server for you:
+[pick-gtm-tools](pick-gtm-tools) teaches your agent to search, compare and shortlist GTM tools through [The GTM Directory](https://thegtmdirectory.com?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills)'s free, read-only MCP server. Every tool it names links its TGD page and a dated, vendor-verified fact. It will not name a tool TGD does not list, and it does not quote prices. In Claude Code the plugin connects the server for you:
 
 ```text
 /plugin install pick-gtm-tools@gtm-operator-skills
@@ -197,46 +241,29 @@ python3 scripts/check_suite.py
 
 It runs the gate, each pack's tests, `claude plugin validate --strict`, and a load check that every SKILL.md becomes a skill. It also fails a pack with no `SECURITY.md`, no icon, a `plugin.json` without `repository`, `license`, `documentationUrl`, or `supportUrl`, or a tracked `.pyc` or `__pycache__`.
 
-## The split
-
-| Layer | What it is | Where it lives |
-|---|---|---|
-| Instrument | Framework, banned list, scorer, one worked example | These repos |
-| Hosted | The same jobs, in a browser, no install | [Free tools](https://jaymountconsulting.com/prototypes) |
-| Reference | Frameworks, playbooks, prompt library | [Frameworks](https://jaymountconsulting.com/frameworks) · [Prompt Library](https://jaymountconsulting.com/resources/prompt-library) |
-| Growth Audit | Where your own book stands today | [Growth Audit](https://jaymountconsulting.com/growth-audit) |
-
-This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data. This pack gives you the instrument and the rubric; you bring the account.
-
 ## Privacy and security
 
 The scorers and checkers are standard-library Python that run on your machine. No telemetry, no credentials, and no pack sends, posts, or publishes anything for you. Skills that reach the network do it through your agent, for public pages or DNS you point them at (psp, cold-email, and pricing can fetch public pages; cold-email runs `dig`; geo checks the URL you name), and each pack's `SECURITY.md` says which. The suite policy and the per-pack links are in [SECURITY.md](SECURITY.md).
 
-## Free, no signup
+## Free first
 
-- **[All 30+ free tools](https://jaymountconsulting.com/prototypes)** — the same jobs these packs do, hosted. No account, no key.
-- [Frameworks](https://jaymountconsulting.com/frameworks) — the written method behind each pack
-- [Playbooks](https://jaymountconsulting.com/playbooks) · [Prompt Library](https://jaymountconsulting.com/resources/prompt-library) · [Calculator Pack](https://jaymountconsulting.com/resources/calculator-pack)
+Every file in this repo is complete and MIT. Nothing here needs an account, a key, or a paid tool. If you want more, take the steps in order and stop wherever it is enough:
 
-## Free, by email
+1. **[Hosted tools](https://jaymountconsulting.com/prototypes?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills)** - the same jobs these packs do, in a browser. No account, no key.
+2. **[Growth Audit](https://jaymountconsulting.com/growth-audit?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills)** - where your go-to-market stack is leaking, sent to your inbox. It asks for an email and enrols you in a short follow-up on the same topic. Unsubscribe whenever.
+3. **[The Friday Signal](https://jaymountconsulting.com/newsletter/signal?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills)** - free emails on building GTM systems. One click unsubscribes.
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — where your go-to-market stack is leaking, sent to your inbox.
+Pack pages with the written method behind each pack: [psp](https://jaymountconsulting.com/skills/claude-psp?utm_source=github&utm_medium=readme&utm_campaign=psp), [evp](https://jaymountconsulting.com/skills/claude-evp?utm_source=github&utm_medium=readme&utm_campaign=evp), [cold-email](https://jaymountconsulting.com/skills/claude-cold-email?utm_source=github&utm_medium=readme&utm_campaign=cold-email), [founder-brand](https://jaymountconsulting.com/skills/claude-founder-brand?utm_source=github&utm_medium=readme&utm_campaign=founder-brand), [pricing](https://jaymountconsulting.com/skills/claude-pricing?utm_source=github&utm_medium=readme&utm_campaign=pricing), [landing-page](https://jaymountconsulting.com/skills/claude-landing-page?utm_source=github&utm_medium=readme&utm_campaign=landing-page), [geo](https://jaymountconsulting.com/skills/claude-geo?utm_source=github&utm_medium=readme&utm_campaign=geo), [sales-offer](https://jaymountconsulting.com/skills/claude-sales-offer?utm_source=github&utm_medium=readme&utm_campaign=sales-offer), [prospect-list](https://jaymountconsulting.com/skills/claude-prospect-list?utm_source=github&utm_medium=readme&utm_campaign=prospect-list), [email-sequence](https://jaymountconsulting.com/skills/claude-email-sequence?utm_source=github&utm_medium=readme&utm_campaign=email-sequence). Also [Frameworks](https://jaymountconsulting.com/frameworks?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills), [Playbooks](https://jaymountconsulting.com/playbooks?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills), [Prompt Library](https://jaymountconsulting.com/resources/prompt-library?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills) and [Calculator Pack](https://jaymountconsulting.com/resources/calculator-pack?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills).
 
-That one does ask for an email, and it enrols you in a short follow-up on the same topic. Unsubscribe whenever.
-
-[**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal): free emails on building GTM systems that compound. No pitch in it. One click unsubscribes.
-
-## Site
-
-[jaymountconsulting.com/skills](https://jaymountconsulting.com/skills)
+This suite drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when Gmail changes the spam window. Those are judgement calls and live data: you bring the account.
 
 ## License
 
-MIT on every pack. Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
+MIT on every pack. Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com?utm_source=github&utm_medium=readme&utm_campaign=gtm-operator-skills).
 
 ## Regenerating the artwork
 
-`assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer — no CI, no shared workflow, no network beyond the webfonts:
+`assets/social-preview.png` and `assets/header.png` are generated from `assets/spec.json` by a vendored renderer. No CI, no shared workflow, no network beyond the webfonts:
 
 ```bash
 node assets/card.mjs assets/spec.json assets/

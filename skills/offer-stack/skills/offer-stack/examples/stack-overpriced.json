@@ -1,0 +1,11 @@
+{
+  "buyer": "Founder of a 3-person agency",
+  "pains": [
+    {"id": "p1", "pain": "Two hours a week formatting client reports", "count": 2, "unit": "hours", "people": 1, "cost_each": 80, "period": "week", "source": "founder, intake form, 2026-10-09"}
+  ],
+  "components": [
+    {"name": "Client reports built from the ad accounts every Monday", "removes": ["p1"]}
+  ],
+  "risk_reversal": "If the first report is not in your inbox by the second Monday, the first month is free.",
+  "price": {"amount": 900, "period": "month"}
+}

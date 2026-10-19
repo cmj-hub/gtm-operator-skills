@@ -1,0 +1,24 @@
+{
+  "name": "signal-with-a-link",
+  "version": "0.1.0",
+  "description": "Score a buying signal as a dated, linkable event. Refuse firmographic state and any intent score that lacks both a URL and a date. Deterministic, stdlib-only Python scorer. No network, no paid APIs.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-signal-with-a-link",
+  "license": "MIT",
+  "keywords": [
+    "buying-signal",
+    "intent",
+    "b2b",
+    "gtm",
+    "agent-skills",
+    "cursor-skills",
+    "codex-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-signal-with-a-link#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-signal-with-a-link/issues",
+  "icon": ".claude-plugin/icon.png"
+}

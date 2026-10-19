@@ -1,0 +1,19 @@
+{
+  "name": "claude-inbound-from-domain",
+  "owner": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Inbound from domain skill pack: enrich from email domain, route in seconds, no CRM write-back."
+  },
+  "plugins": [
+    {
+      "name": "inbound-from-domain",
+      "source": "./",
+      "description": "Enrich inbound from the email domain and route in seconds. Refuse CRM write-back in the free pack.",
+      "category": "sales",
+      "version": "0.1.0"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "name": "geo",
+  "version": "0.7.0",
+  "description": "Score generative engine optimization (GEO) and answer engine optimization (AEO) findability for one buyer question. Use when a page must be quotable by ChatGPT, Perplexity, Claude, Gemini, Copilot, or Google AI Overviews. Refuses a content calendar or a health-score dump.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills/claude-geo",
+  "repository": "https://github.com/cmj-hub/claude-geo",
+  "license": "MIT",
+  "keywords": [
+    "geo",
+    "aeo",
+    "generative-engine-optimization",
+    "answer-engine-optimization",
+    "ai-search",
+    "citations",
+    "seo"
+  ],
+  "icon": ".claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/cmj-hub/claude-geo#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-geo/issues"
+}

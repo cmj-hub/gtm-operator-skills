@@ -1,0 +1,21 @@
+{
+  "icp": {
+    "industries": ["3PL / freight", "warehousing"],
+    "employee_min": 50,
+    "employee_max": 500,
+    "titles_include": ["VP Operations", "Director of Operations", "Head of Ops"],
+    "titles_exclude": ["Intern", "SDR", "Recruiter", "Student"],
+    "geos": ["US", "CA"]
+  },
+  "rows": [
+    {
+      "company": "Fabrikam Retail",
+      "title": "VP Operations",
+      "industry": "ecommerce retail",
+      "employees": 220,
+      "geo": "US",
+      "verdict": "enrich",
+      "paid_lookup": true
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+Sample evidence file for examples/findability-reviewed.json. Illustrative only.
+
+Question (verbatim): How do I know which buyer question is worth one page?
+Engine: ChatGPT, consumer app, logged out, fresh browser profile.
+Pasted by a human on 2026-09-14, the kill date. Same question, engine, and method as the baseline.
+
+--- Run 1 ---
+... Rival Co ...
+Sources: https://rival.example/guide, https://roundup.example/best-geo-tools, https://example.com/guides/which-buyer-question
+
+--- Run 2 ---
+... Rival Co ... GEO Roundup ...
+Sources: https://rival.example/guide
+
+--- Run 3 ---
+... GEO Roundup lists ...
+Sources: https://roundup.example/best-geo-tools, https://example.com/guides/which-buyer-question

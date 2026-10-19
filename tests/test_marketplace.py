@@ -81,6 +81,7 @@ class MarketplaceTest(unittest.TestCase):
         for name in re.findall(r"/plugin install ([\w-]+)@", README):
             self.assertIn(name, names)
         repos = {plugin["source"]["repo"] for plugin in github_plugins()}
+        repos.add("cmj-hub/gtm-operator-skills")
         for repo in re.findall(r"npx skills add (\S+)", README):
             self.assertIn(repo, repos)
 

@@ -1,0 +1,15 @@
+{
+  "assets": [
+    {"id": "a1", "type": "result", "claim": "Time to first reply on inbound demo requests went from 2 days to 4 hours.",
+     "metric": "time to first reply", "before": "2 days", "after": "4 hours", "timeframe": "first 60 days",
+     "who": "Head of Sales, 30-person logistics software company (fictional sample)", "named": false, "permission": "verbal",
+     "source": "CRM export of demo requests, Jul-Sep 2026, shared by the buyer", "date": "2026-09-30"},
+    {"id": "a2", "type": "testimonial", "claim": "We stopped losing Friday demo requests to Monday. Every one gets a reply the same day.",
+     "who": "Priya Shah, Head of Sales, Harbor Logistics (sample)", "named": true, "permission": "written",
+     "source": "email from Priya, 2026-10-03, permission line included", "date": "2026-10-03"},
+    {"id": "a3", "type": "metric", "claim": "412 inbound demo requests routed in Q3, median reply 3 h 50 min.",
+     "metric": "median reply time", "timeframe": "Q3 2026",
+     "who": "same account as a1 (fictional sample)", "named": false, "permission": "verbal",
+     "source": "routing log export, 2026-10-01", "date": "2026-10-01"}
+  ]
+}

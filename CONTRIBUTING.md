@@ -6,22 +6,23 @@ before you contribute.
 ## What this repo is
 
 `gtm-operator-skills` is the **suite marketplace** for the JMC GTM skill
-packs (seventeen MIT packs). Individual frameworks, scorers, examples, and
-sub-skills live in the per-pack repos (`cmj-hub/claude-psp`,
-`claude-evp`, `claude-cold-email`, and the rest). Changes to a pack's
-scripts or skills belong in that pack's repo, not here.
+packs (seventeen MIT packs). Each pack's frameworks, scorers, examples, and
+sub-skills are vendored under `skills/<pack>/`. The standalone pack repos
+(`cmj-hub/claude-psp`, `claude-evp`, `claude-cold-email`, and the rest)
+still exist; a change to a pack's scripts or skills goes in both until
+the packs point here.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case (broken
+- **Bug reports**: open an issue with a reproducible case (broken
   install command, wrong marketplace plugin source, dead link, etc.).
-- **Pack listing accuracy** — the README catalog and
+- **Pack listing accuracy**: the README catalog and
   `.claude-plugin/marketplace.json` must match the real pack repos
   (name, description, install command). Corrections welcome.
-- **Marketplace / install docs** — clearer install steps for the skills
+- **Marketplace / install docs**: clearer install steps for the skills
   CLI or Claude Code marketplace commands, as long as they stay
   accurate.
-- **Suite artwork** — regenerating `assets/header.png` /
+- **Suite artwork**: regenerating `assets/header.png` /
   `assets/social-preview.png` / `assets/demo.gif` from `assets/spec.json`
   when the suite card copy changes.
 
@@ -99,4 +100,3 @@ license already on this repo.
 ## About
 
 Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).

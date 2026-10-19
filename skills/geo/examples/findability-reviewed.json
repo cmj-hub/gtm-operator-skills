@@ -1,0 +1,152 @@
+{
+  "channel_decision": "Search is a channel for this offer. Own one orientation question before any new URL.",
+  "buyer_question": "How do I know which buyer question is worth one page?",
+  "citation_record": {
+    "brand": "Example Co",
+    "brand_domain": "example.com",
+    "observations": [
+      {
+        "engine": "ChatGPT",
+        "method": "pasted answer",
+        "query": "How do I know which buyer question is worth one page?",
+        "observed_at": "2026-07-06",
+        "run": 1,
+        "clean_session": true,
+        "brands_named": [
+          "Rival Co"
+        ],
+        "cited_urls": [
+          "https://rival.example/guide",
+          "https://roundup.example/best-geo-tools"
+        ],
+        "brand_status": "neither",
+        "evidence": "evidence/2026-07-06-chatgpt-runs.txt"
+      },
+      {
+        "engine": "ChatGPT",
+        "method": "pasted answer",
+        "query": "How do I know which buyer question is worth one page?",
+        "observed_at": "2026-07-06",
+        "run": 2,
+        "clean_session": true,
+        "brands_named": [
+          "Rival Co",
+          "GEO Roundup"
+        ],
+        "cited_urls": [
+          "https://rival.example/guide"
+        ],
+        "brand_status": "neither",
+        "evidence": "evidence/2026-07-06-chatgpt-runs.txt"
+      },
+      {
+        "engine": "ChatGPT",
+        "method": "pasted answer",
+        "query": "How do I know which buyer question is worth one page?",
+        "observed_at": "2026-07-06",
+        "run": 3,
+        "clean_session": true,
+        "brands_named": [
+          "GEO Roundup"
+        ],
+        "cited_urls": [
+          "https://roundup.example/best-geo-tools"
+        ],
+        "brand_status": "neither",
+        "evidence": "evidence/2026-07-06-chatgpt-runs.txt"
+      }
+    ]
+  },
+  "indexability_pass": {
+    "url": "https://example.com/guides/which-buyer-question",
+    "checked_at": "2026-07-06",
+    "status": 200,
+    "redirects": 0,
+    "robots": {
+      "Googlebot": "allowed",
+      "Bingbot": "allowed",
+      "OAI-SearchBot": "allowed",
+      "Claude-SearchBot": "allowed",
+      "PerplexityBot": "allowed",
+      "GPTBot": "blocked"
+    },
+    "noindex": false,
+    "in_sitemap": true,
+    "raw_html_has_answer": true
+  },
+  "brief": {
+    "page": "https://example.com/guides/which-buyer-question",
+    "summary": "One page. First paragraph answers the buyer question in 40 to 60 words, then the claim, then one section per follow-up question.",
+    "unique_claim": "Across 212 sales calls in 2026, the question asked right before pricing decided the deal 3 times in 4.",
+    "follow_up_questions": [
+      "Where do real buyer questions come from?",
+      "How do I tell a question from a keyword?"
+    ]
+  },
+  "kill_date": "2026-09-14",
+  "review": {
+    "date": "2026-09-14",
+    "observations": [
+      {
+        "engine": "ChatGPT",
+        "method": "pasted answer",
+        "query": "How do I know which buyer question is worth one page?",
+        "observed_at": "2026-09-14",
+        "run": 1,
+        "clean_session": true,
+        "brands_named": [
+          "Rival Co"
+        ],
+        "cited_urls": [
+          "https://rival.example/guide",
+          "https://roundup.example/best-geo-tools",
+          "https://example.com/guides/which-buyer-question"
+        ],
+        "brand_status": "cited",
+        "evidence": "evidence/2026-09-14-chatgpt-runs.txt"
+      },
+      {
+        "engine": "ChatGPT",
+        "method": "pasted answer",
+        "query": "How do I know which buyer question is worth one page?",
+        "observed_at": "2026-09-14",
+        "run": 2,
+        "clean_session": true,
+        "brands_named": [
+          "Rival Co",
+          "GEO Roundup"
+        ],
+        "cited_urls": [
+          "https://rival.example/guide"
+        ],
+        "brand_status": "neither",
+        "evidence": "evidence/2026-09-14-chatgpt-runs.txt"
+      },
+      {
+        "engine": "ChatGPT",
+        "method": "pasted answer",
+        "query": "How do I know which buyer question is worth one page?",
+        "observed_at": "2026-09-14",
+        "run": 3,
+        "clean_session": true,
+        "brands_named": [
+          "GEO Roundup"
+        ],
+        "cited_urls": [
+          "https://roundup.example/best-geo-tools",
+          "https://example.com/guides/which-buyer-question"
+        ],
+        "brand_status": "cited",
+        "evidence": "evidence/2026-09-14-chatgpt-runs.txt"
+      }
+    ],
+    "metrics": {
+      "indexed": true,
+      "impressions": 1840,
+      "qualified_visits": 37,
+      "conversions": 2
+    },
+    "decision": "expand",
+    "reason": "Cited in 2 of 3 runs, indexed, and two demo requests came from the page; take the next buyer question."
+  }
+}

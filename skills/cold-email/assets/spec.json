@@ -1,0 +1,27 @@
+{
+  "renderer_version": 3,
+  "title": "Cold email",
+  "subtitle": "A short note anchored to a public signal.",
+  "accent_color": "#00D4FF",
+  "tagline_top": "JMC Skill Pack",
+  "proof": "spam_word_lint.py \u00b7 sample T1 100 \u00b7 no LLM",
+  "cta": "jaymountconsulting.com/tools/cold-email-linter",
+  "command": "/cold-email",
+  "user_prompt": "lint examples/t1.email.md",
+  "response_lines": [
+    "Linting the sample T1",
+    "Subject anchored to the Q3 hire freeze",
+    "URGENT / ACT NOW rejected",
+    "Sample T1 scored 100",
+    "No LLM \u00b7 no paid API"
+  ],
+  "artifact": {
+    "label": "examples/t1.email.md",
+    "lines": [
+      "subject: Pipeline gap after the",
+      "         Q3 hire freeze?",
+      "saw the Demand Gen Lead role,",
+      "four days ago."
+    ]
+  }
+}

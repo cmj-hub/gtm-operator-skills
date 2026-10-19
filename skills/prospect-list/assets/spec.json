@@ -1,0 +1,27 @@
+{
+  "title": "Sales prospecting",
+  "subtitle": "The B2B prospect list you are willing to write to.",
+  "accent_color": "#00D4FF",
+  "proof": "score.py \u00b7 signal earns a call \u00b7 title-only fails",
+  "cta": "github.com/cmj-hub/claude-prospect-list",
+  "command": "python3 scripts/score.py",
+  "user_prompt": "--file examples/list-good.json",
+  "response_lines": [
+    "title: Ops lead at Northwind",
+    "signal: posted a role this week",
+    "score: call this week",
+    "Good draft exits 0",
+    "Title-only draft exits 1"
+  ],
+  "artifact": {
+    "label": "examples/list-good.json",
+    "lines": [
+      "title: Ops lead at Northwind",
+      "signal: Posted a role for an",
+      "        outbound lead this week.",
+      "slot: call this week"
+    ]
+  },
+  "renderer_version": 3,
+  "tagline_top": "JMC Skill Pack"
+}

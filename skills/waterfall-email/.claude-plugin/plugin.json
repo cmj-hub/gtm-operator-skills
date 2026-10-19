@@ -1,0 +1,22 @@
+{
+  "name": "waterfall-email",
+  "version": "0.1.0",
+  "description": "Score a cheapest-first email waterfall: held inputs first, stop on 4xx, refuse sendable until verify = deliverable. Deterministic, stdlib-only Python scorer. No network, no spend, no send.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-waterfall-email",
+  "license": "MIT",
+  "keywords": [
+    "email-waterfall",
+    "enrichment",
+    "deliverability",
+    "b2b",
+    "gtm",
+    "agent-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-waterfall-email#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-waterfall-email/issues"
+}

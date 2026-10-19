@@ -1,0 +1,10 @@
+{
+  "email": "sam@gmail.com",
+  "domain": "gmail.com",
+  "kind": "free-mail",
+  "evidence": [
+    "gmail.com is on the free-mail list"
+  ],
+  "route": "personal",
+  "crm_write": false
+}

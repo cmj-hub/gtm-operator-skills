@@ -1,0 +1,20 @@
+{
+  "icp": {
+    "industries": ["3PL / freight", "warehousing"],
+    "employee_min": 50,
+    "employee_max": 500,
+    "titles_include": ["VP Operations", "Director of Operations", "Head of Ops"],
+    "titles_exclude": ["Intern", "SDR", "Recruiter", "Student"],
+    "geos": ["US", "CA"]
+  },
+  "rows": [
+    {
+      "company": "Northwind Logistics",
+      "title": "VP Operations",
+      "industry": "3PL / freight",
+      "employees": 180,
+      "geo": "US",
+      "verdict": "enrich"
+    }
+  ]
+}

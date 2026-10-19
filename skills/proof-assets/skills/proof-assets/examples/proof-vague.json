@@ -1,0 +1,8 @@
+{
+  "assets": [
+    {"id": "a1", "type": "result", "claim": "Tripled pipeline for a leading SaaS brand.", "metric": "pipeline",
+     "who": "a leading SaaS brand", "permission": "none", "source": ""},
+    {"id": "a2", "type": "testimonial", "claim": "Amazing team, highly recommend!",
+     "who": "Happy customer", "permission": "verbal", "source": "LinkedIn DM", "date": "2026-08-12"}
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "offer-stack",
+  "version": "0.1.0",
+  "description": "Offer stack and pain quantification: every component removes a pain the buyer has put a number on. Prints each pain's yearly cost as a sum the buyer can check, and refuses filler lines, open pains, satisfaction-only guarantees and a price bigger than the pain. Stdlib-only Python scorer. No network.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-offer-stack",
+  "license": "MIT",
+  "keywords": [
+    "offer",
+    "offer-stack",
+    "pain-quantification",
+    "b2b",
+    "gtm",
+    "agent-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-offer-stack#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-offer-stack/issues",
+  "icon": ".claude-plugin/icon.png"
+}

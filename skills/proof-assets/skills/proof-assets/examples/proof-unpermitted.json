@@ -1,0 +1,9 @@
+{
+  "assets": [
+    {"id": "a1", "type": "logo", "claim": "Harbor Logistics uses it", "named": true, "permission": "verbal",
+     "source": "signed order form", "date": "2026-06-02"},
+    {"id": "a2", "type": "result", "claim": "Cut no-shows from 31% to 12%.", "metric": "demo no-show rate",
+     "before": "31%", "after": "12%", "timeframe": "one quarter", "who": "Marco Diaz, CRO, Fernway (sample)",
+     "named": true, "permission": "verbal", "source": "calendar export", "date": "2023-11-20"}
+  ]
+}

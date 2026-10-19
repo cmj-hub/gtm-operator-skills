@@ -1,0 +1,39 @@
+{
+  "channel_decision": "",
+  "buyer_question": "",
+  "citation_record": {
+    "brand": "",
+    "brand_domain": "",
+    "observations": [
+      {
+        "engine": "",
+        "method": "",
+        "query": "",
+        "observed_at": "",
+        "run": null,
+        "clean_session": false,
+        "brands_named": [],
+        "cited_urls": [],
+        "brand_status": "",
+        "evidence": ""
+      }
+    ]
+  },
+  "indexability_pass": {
+    "url": "",
+    "checked_at": "",
+    "status": null,
+    "redirects": null,
+    "robots": {},
+    "noindex": null,
+    "in_sitemap": null,
+    "raw_html_has_answer": null
+  },
+  "brief": {
+    "page": "",
+    "summary": "",
+    "unique_claim": "",
+    "follow_up_questions": []
+  },
+  "kill_date": ""
+}

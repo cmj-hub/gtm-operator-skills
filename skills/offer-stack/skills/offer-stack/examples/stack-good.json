@@ -1,0 +1,16 @@
+{
+  "buyer": "Head of RevOps at a 40-rep B2B software company",
+  "currency": "USD",
+  "pains": [
+    {"id": "p1", "pain": "Reps re-type call notes into the CRM after every call", "count": 3, "unit": "hours", "people": 40, "cost_each": 55, "period": "week", "source": "discovery call with the Head of RevOps, 2026-10-02"},
+    {"id": "p2", "pain": "The two-hour weekly forecast call is spent arguing about which numbers are right", "count": 2, "unit": "hours", "people": 6, "cost_each": 120, "period": "week", "source": "same call; six managers on the weekly forecast"},
+    {"id": "p3", "pain": "Deals stall because nobody followed up after the demo", "count": 2, "unit": "deals", "people": 1, "cost_each": 3000, "period": "month", "source": "assumption: 2 slipped deals a month at a 25% margin on a $12,000 deal; confirm on the next call"}
+  ],
+  "components": [
+    {"name": "Call notes written to the CRM within ten minutes of each call", "removes": ["p1"]},
+    {"name": "One forecast view every manager reads from, refreshed before the call", "removes": ["p2"]},
+    {"name": "A follow-up task on every deal with no touch three days after a demo", "removes": ["p3"]}
+  ],
+  "risk_reversal": "If notes are not in the CRM within ten minutes for 90% of calls by day 30, month two is free.",
+  "price": {"amount": 4000, "period": "month"}
+}

@@ -1,0 +1,24 @@
+{
+  "name": "inbound-from-domain",
+  "version": "0.1.0",
+  "description": "Enrich inbound from the email domain and route in seconds. Refuse CRM write-back in the free pack. Deterministic, stdlib-only Python scorer. No network, no paid API.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills/claude-inbound-from-domain",
+  "repository": "https://github.com/cmj-hub/claude-inbound-from-domain",
+  "license": "MIT",
+  "keywords": [
+    "inbound",
+    "lead-routing",
+    "email-domain",
+    "enrichment",
+    "gtm",
+    "b2b",
+    "agent-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-inbound-from-domain#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-inbound-from-domain/issues",
+  "icon": ".claude-plugin/icon.png"
+}

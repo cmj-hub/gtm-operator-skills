@@ -1,0 +1,27 @@
+{
+  "renderer_version": 3,
+  "title": "Ideal customer profile",
+  "subtitle": "Who buys, drawn from a public signal and their words.",
+  "accent_color": "#00D4FF",
+  "tagline_top": "JMC Skill Pack",
+  "proof": "score_psp.py \u00b7 signal 100 \u00b7 costume 37 \u00b7 no LLM",
+  "cta": "jaymountconsulting.com/tools/psp-extractor",
+  "command": "/psp",
+  "user_prompt": "score examples/good.json",
+  "response_lines": [
+    "Scoring examples/good.json",
+    "Signal: Demand Gen Lead role, 4 days ago",
+    "Costume persona scored 37",
+    "This signal scored 100",
+    "No LLM \u00b7 no paid API"
+  ],
+  "artifact": {
+    "label": "examples/good.json",
+    "lines": [
+      "signal: Posted Senior Demand Gen Lead",
+      "pain: pipeline gap",
+      "vocabulary: \"pipeline gap\"",
+      "score: 100 vs costume 37"
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "renderer_version": 3,
+  "title": "Value proposition",
+  "subtitle": "One line for why this buyer should care.",
+  "accent_color": "#CC4714",
+  "tagline_top": "JMC Skill Pack",
+  "proof": "score_evp.py \u00b7 tier-3 100 \u00b7 vague 59 \u00b7 no LLM",
+  "cta": "jaymountconsulting.com/tools/evp-generator",
+  "command": "/evp",
+  "user_prompt": "score the tier-3 line",
+  "response_lines": [
+    "Scoring examples/t3.good.txt",
+    "18 words \u00b7 tier 3 \u00b7 ICP named",
+    "Tier-3 line scored 100",
+    "Vague line scored 59",
+    "No LLM \u00b7 no paid API"
+  ],
+  "artifact": {
+    "label": "examples/t3.good.txt",
+    "lines": [
+      "For Series-B SaaS in a pipeline gap,",
+      "we ship 14+ SQLs per month without",
+      "hiring 2 more SDRs."
+    ]
+  }
+}

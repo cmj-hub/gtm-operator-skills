@@ -1,0 +1,12 @@
+{
+  "buyer": "Head of RevOps at a 40-rep B2B software company",
+  "pains": [
+    {"id": "p1", "pain": "Reps waste time on admin", "source": "assumption"}
+  ],
+  "components": [
+    {"name": "AI note-taker", "removes": ["p1"]},
+    {"name": "Unlimited dashboards and much more"},
+    {"name": "Premium support"}
+  ],
+  "risk_reversal": "Money back if you're not satisfied."
+}

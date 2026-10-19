@@ -1,0 +1,19 @@
+{
+  "name": "claude-qualify-before-enrich",
+  "owner": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Qualify-before-enrich skill pack: ICP check on list fields before any paid finder."
+  },
+  "plugins": [
+    {
+      "name": "qualify-before-enrich",
+      "source": "./",
+      "description": "ICP field check before any paid finder. Refuse paid lookup on a failing row.",
+      "category": "sales",
+      "version": "0.1.0"
+    }
+  ]
+}

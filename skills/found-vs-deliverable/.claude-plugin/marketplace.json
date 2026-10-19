@@ -1,0 +1,19 @@
+{
+  "name": "claude-found-vs-deliverable",
+  "owner": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "Found vs deliverable skill pack: find then verify; never send catch-all as valid."
+  },
+  "plugins": [
+    {
+      "name": "found-vs-deliverable",
+      "source": "./",
+      "description": "Gate a found email behind verify before send. Buckets: deliverable, catch-all, unknown, invalid.",
+      "category": "sales",
+      "version": "0.1.0"
+    }
+  ]
+}

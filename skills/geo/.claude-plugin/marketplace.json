@@ -1,0 +1,17 @@
+{
+  "name": "jmc-geo",
+  "owner": {
+    "name": "JMC Go-to-Market Systems"
+  },
+  "metadata": {
+    "description": "JMC Go-to-Market Systems skill packs: generative engine optimization findability for one buyer question."
+  },
+  "plugins": [
+    {
+      "name": "geo",
+      "source": "./",
+      "description": "Score generative engine optimization (GEO) and answer engine optimization (AEO) findability for one buyer question. Use when a page must be quotable by ChatGPT, Perplexity, Claude, Gemini, Copilot, or Google AI Overviews. Refuses a content calendar or a health-score dump.",
+      "version": "0.7.0"
+    }
+  ]
+}

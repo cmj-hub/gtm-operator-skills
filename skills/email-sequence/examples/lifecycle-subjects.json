@@ -1,0 +1,9 @@
+{
+  "pain": "the trial dies after the first login",
+  "welcome_subject": "You asked for the trial checklist",
+  "welcome": "You asked for the trial checklist. This note starts there, and the next one hands it over.",
+  "bargain_subject": "The trial checklist is attached",
+  "bargain": "The checklist is the bargain. It is attached, the thing you opted in to receive.",
+  "nurture_subject": "When the trial dies after the first login",
+  "nurture": "The next note stays on the pain you showed: the trial dies after the first login. Work the second box on the checklist once."
+}

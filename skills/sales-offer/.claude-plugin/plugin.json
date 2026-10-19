@@ -1,0 +1,23 @@
+{
+  "name": "sales-offer",
+  "version": "0.7.0",
+  "description": "A sales offer is what the buyer gets, what it costs, and why now.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-sales-offer",
+  "license": "MIT",
+  "keywords": [
+    "sales",
+    "cold-email",
+    "outbound",
+    "offer",
+    "give-first",
+    "b2b-sales"
+  ],
+  "icon": ".claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/cmj-hub/claude-sales-offer#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-sales-offer/issues"
+}

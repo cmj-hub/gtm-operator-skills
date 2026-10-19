@@ -1,0 +1,6 @@
+{
+  "email": "ops@fabrikam.com",
+  "stage": "verified",
+  "bucket": "catch-all",
+  "sendable": false
+}
