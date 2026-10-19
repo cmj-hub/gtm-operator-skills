@@ -52,7 +52,7 @@ Swap `claude-code` for `cursor`, `codex`, `grok`, `github-copilot`, `windsurf`, 
 | `skills/proof-assets/SKILL.md` | The instrument: kickoff checklist, ask mode, rewrite mode, score. |
 | `skills/proof-assets/references/proof-assets-context.md` | The context file: the four kinds, permission, freshness, better quotes, placement. |
 | `skills/proof-assets/scripts/score_proof.py` | Deterministic scorer. Exit 0 / 1 / 2. |
-| `skills/proof-assets/examples/` | Good, vague and unpermitted samples, and the worked example. |
+| `skills/proof-assets/examples/` | Good, vague and unpermitted samples, and the worked example. Every client, person and figure in them is fictional. |
 | `tests/` | `python3 -m unittest discover -s tests` |
 
 ## What this pack will not do

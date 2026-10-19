@@ -4,13 +4,13 @@ Thanks for opening this repo. A few notes on how this project works before you c
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The scorer is deterministic, so bugs there are usually one-line fixes.
-- **Calibration improvements** to the scoring script — if you can show a case where the script scores wrong, that is gold.
-- **Cross-runtime ports** (Cursor, Codex, Grok) — see companion packs listed in the README.
+- **Bug reports**: open an issue with a reproducible case. The scorer is deterministic, so bugs there are usually one-line fixes.
+- **Calibration improvements** to the scoring script: if you can show a case where the script scores wrong, that is gold.
+- **Cross-runtime ports** (Cursor, Codex, Grok): see companion packs listed in the README.
 
 ## What does not land
 
-- CRM write-back inside the free pack. That is Operator Pass / Build Partnership.
+- CRM write-back inside the free pack. That stays out of the free pack.
 - Adding paid-API dependencies to scripts. Scripts must work zero-dep.
 - Adding LLM calls inside the scorer. The scorer stays deterministic.
 - Publishing private writing skills into this repo.

@@ -5,15 +5,15 @@ before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The
+- **Bug reports**: open an issue with a reproducible case. The
   scripts in `scripts/` are deterministic, so bugs there are usually
   one-line fixes.
 - **New steps** that extend the existing framework, inside the one
   skill at `skills/lifecycle-email/SKILL.md`. Discuss in an issue first
   if it's a substantial addition.
-- **Calibration improvements** to the scoring scripts — if you can
+- **Calibration improvements** to the scoring scripts: if you can
   show a case where the script scores wrong, that's gold.
-- **Cross-runtime ports** (Cursor, Gemini CLI, Codex) — host paths
+- **Cross-runtime ports** (Cursor, Gemini CLI, Codex): host paths
   are on the skill packs catalog linked from the README.
 - **Translation** of the framework reference docs.
 
@@ -21,7 +21,7 @@ before you contribute.
 
 - Renaming the JMC framework concepts (welcome → bargain → nurture,
   Signal → Pain → EVP → Ask, the 5 Schwartz tiers, the 4 content
-  pillars) — these are course-anchored.
+  pillars): these are course-anchored.
 - Adding LLM calls inside the skills. The whole point is that the
   skills are deterministic.
 - Adding third-party packages to scripts. Scripts must work with the
@@ -61,7 +61,7 @@ If `scripts/score.py` scores something obviously wrong:
 
 1. Paste the input JSON that produced the wrong result
 2. State your expected exit code + actual exit code (and printed parts)
-3. Note which gate misfired — the scorer prints it on each `- ` line
+3. Note which gate misfired: the scorer prints it on each `- ` line
    (generic drip, cold email, missing, or pain mismatch)
 
 Keep the deterministic path stable. Prefer new paired examples under
@@ -74,5 +74,5 @@ license already on this repo.
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
+Part of the JMC public-build spine: see [/build](https://jaymountconsulting.com/build).

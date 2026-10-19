@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Enrich inbound from the email domain and route in seconds. Refuse CRM write-back in the free pack. Deterministic, stdlib-only Python scorer. No network, no paid API.",
   "author": {
-    "name": "Jay Mount Consulting",
+    "name": "JMC Go-to-Market Systems",
     "url": "https://jaymountconsulting.com"
   },
   "homepage": "https://jaymountconsulting.com/skills/claude-inbound-from-domain",

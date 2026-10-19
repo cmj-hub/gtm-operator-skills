@@ -33,7 +33,7 @@ python3 skills/inbound-from-domain/scripts/score.py --file skills/inbound-from-d
 python3 skills/inbound-from-domain/scripts/score.py --file skills/inbound-from-domain/examples/inbound-crm-write.json
 ```
 
-Good exits 0: `alex@northwind.io` → corporate → `build-review`, `crm_write: false`. CRM-write exits 1: write-back is banned. Then write yours to `gtm/inbound.json`.
+Good exits 0: `alex@northwind.io` → corporate → `high-touch`, `crm_write: false`. CRM-write exits 1: write-back is banned. Then write yours to `gtm/inbound.json`.
 
 ## Welcome
 
@@ -41,7 +41,7 @@ Good exits 0: `alex@northwind.io` → corporate → `build-review`, `crm_write: 
 Enrich inbound from the email domain. Route in seconds.
 
 Kinds: corporate | free-mail | disposable | personal-looking
-Routes: build-review | operator-pass | need-more | personal | disqualify
+Routes: high-touch | self-serve | need-more | personal | disqualify
 Banned: no CRM write-back in the free pack.
 
 1. Score the sample (good vs CRM-write)     ← start here
@@ -55,6 +55,6 @@ Ready to score the sample?
 ## Rules to repeat
 
 - `crm_write` stays `false`. The route card is the artifact.
-- Free-mail never routes to `build-review`.
+- Free-mail never routes to `high-touch`.
 - Disposable always routes to `disqualify`.
 - This pack does not call a paid enrichment API. You classify from the domain; the scorer gates the card.

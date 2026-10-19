@@ -1,10 +1,10 @@
 {
   "name": "jmc-geo",
   "owner": {
-    "name": "Jay Mount Consulting"
+    "name": "JMC Go-to-Market Systems"
   },
   "metadata": {
-    "description": "Jay Mount Consulting skill packs: generative engine optimization findability for one buyer question."
+    "description": "JMC Go-to-Market Systems skill packs: generative engine optimization findability for one buyer question."
   },
   "plugins": [
     {

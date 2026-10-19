@@ -21,7 +21,7 @@ python3 skills/cold-offer/scripts/score.py --file skills/cold-offer/examples/off
 python3 skills/cold-offer/scripts/score.py --file skills/cold-offer/examples/offer-sells.json   # exit 1: - email one that sells the paid product (buy the, retainer, book a demo, our pricing) → Cut the ask to buy. Offer the full report only if they want it.
 ```
 
-Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all seventeen.
+Part of the GTM operator suite: `/plugin install gtm@gtm-operator-skills` installs all seventeen.
 
 Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt and keep `brand-config.json` from being overwritten: `/plugin install gtm-operator@gtm-operator-skills`.
 
@@ -30,7 +30,7 @@ The sample homepage asks for a meeting before it shows any work.
 The good first email hands over that finding. The draft that says "buy the retainer" fails the score.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Sales offer skill — email one delivers the finding" width="100%">
+  <img src="./assets/demo.gif" alt="Sales offer skill: email one delivers the finding" width="100%">
 </p>
 
 The build guide teaches a human. The pack teaches an agent.
@@ -39,7 +39,7 @@ The scorer is Python in this repo. It does not call a paid API. Host paths are o
 
 ## Install
 
-Claude Code: the two lines above. The command is `/sales-offer:cold-offer`; `/sales-offer:cold-offer score` scores the draft already in `gtm/offer.json`.
+Claude Code: the two lines above. The command is `/sales-offer:cold-offer`; `/sales-offer:cold-offer full` writes the full offer (what they get, proof, price, why now, one first step); `/sales-offer:cold-offer score` scores the draft already in `gtm/offer.json`.
 
 Other agents:
 
@@ -79,6 +79,8 @@ Email one that sells the paid product. The first email delivers the finding. The
 
 The scorer also fails email one that asks for a meeting, that never states the finding, or that runs past 120 words. A leak or prototype that sells the paid product fails too. Optional `scope` must name one deliverable, and optional `deadline` must be a real `YYYY-MM-DD` date (not before `--today`, when given). Each failure names the phrase that tripped it and the fix.
 
+The full offer (`--mode full`) fails when the price has no number, why now names no dated signal, the first step is more than one action, or the offer adds a guarantee, discount, trial or number the facts do not hold.
+
 ## Layout
 
 ```
@@ -91,8 +93,8 @@ tests/                          python3 -m unittest discover -s tests
 
 ## On the site
 
-- [Sales offer pack](https://jaymountconsulting.com/skills/claude-sales-offer) — this pack's page
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
+- [Sales offer pack](https://jaymountconsulting.com/skills/claude-sales-offer): this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
 
 ## Free, no signup
 
@@ -100,9 +102,9 @@ tests/                          python3 -m unittest discover -s tests
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 
 ## Next
 
@@ -113,6 +115,8 @@ Next: [Landing page](https://github.com/cmj-hub/claude-landing-page)
 ## Privacy and security
 
 The scorer is local Python 3 standard library and reads only the draft JSON you pass it. No script opens a network connection. The skill reads `brand-config.json` if present and writes only the draft, `gtm/offer.json`; the agent reads the buyer's public page only when you give it a URL. No telemetry, no credentials, and nothing is sent. See [SECURITY.md](SECURITY.md).
+
+All sample companies, people, results and figures in this repo are fictional.
 
 ## License
 

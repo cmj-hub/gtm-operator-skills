@@ -23,14 +23,14 @@
 
   "evp_drafts": {
     "tier_2_problem_aware": {
-      "primary": "If your demand-gen motion isn't producing SQLs, hiring 2 more SDRs won't fix it — the problem is upstream.",
+      "primary": "If your demand-gen motion isn't producing SQLs, hiring 2 more SDRs won't fix it: the problem is upstream.",
       "proof": "62% of Series-B SaaS hit this within 18 months of funding."
     },
     "tier_3_solution_aware": {
       "primary": "For Series-B SaaS in a pipeline gap, we ship 14+ SQLs/month without hiring 2 more SDRs.",
       "outcome": "14+ SQLs per month",
       "tradeoff": "without hiring 2 more SDRs",
-      "proof": "Series-B SaaS hit 14 SQLs in 30 days from a PSP rewrite."
+      "proof": "Series-B SaaS hit 14 SQLs in 30 days from a PSP rewrite (fictional example)."
     },
     "tier_4_product_aware": {
       "primary": "Versus generic agencies: targeted outbound CPM is $640 vs $2,800. Same volume, 4x efficiency.",
@@ -50,7 +50,7 @@
     "primary": "For Series-B SaaS in a pipeline gap, we ship 14+ SQLs/month without hiring 2 more SDRs.",
     "outcome": "14+ SQLs per month",
     "tradeoff": "without hiring 2 more SDRs",
-    "proof": "Series-B SaaS hit 14 SQLs in 30 days from a PSP rewrite."
+    "proof": "Series-B SaaS hit 14 SQLs in 30 days from a PSP rewrite (fictional example)."
   },
 
   "primary_outreach_tier": 3,

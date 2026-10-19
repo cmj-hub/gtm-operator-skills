@@ -19,7 +19,7 @@ Qualify-before-enrich is the rule that every list row must pass an ICP field che
 
 ```bash
 python3 skills/qualify-before-enrich/scripts/score.py --file skills/qualify-before-enrich/examples/rows-good.json
-# qualify pass — ICP before finder
+# qualify pass: ICP before finder
 # enrich: 1  hold: 0  drop: 0
 # - Northwind Logistics: enrich
 # Next: /prospect-list:who-to-contact
@@ -58,7 +58,7 @@ npx skills add cmj-hub/claude-qualify-before-enrich --skill '*' -g --full-depth 
 
 Swap `claude-code` for `cursor`, `codex`, `grok`, `github-copilot`, `windsurf`, `cline`, or `opencode`. The scorer is Python in this repo. It does not call a paid API, and it does not buy data.
 
-Part of the GTM operator suite — see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
+Part of the GTM operator suite: see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
 
 ## What you walk out with in 15 minutes
 
@@ -87,7 +87,7 @@ The good draft exits 0 and prints which rows may take a finder. The fail-icp dra
 
 It will not run Apollo, ZoomInfo, Hunter, Clay, or any paid finder. It will not invent missing ICP fields. It will not send email or write back to your CRM.
 
-This pack drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when a vendor changes credit pricing. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
+This pack drafts and scores. It will not pick this quarter's PSP, ingest your CRM, or update when a vendor changes credit pricing.
 
 ## How is this different from a prospect list?
 
@@ -105,22 +105,16 @@ No. The scorer is standard-library Python on sample JSON. Zero paid APIs inside 
 
 The scorer refuses it. If `paid_lookup` / `finder_ran` / `enriched` is set on a non-enrich row, exit 1 names the ban in plain language.
 
-## Suite → course → Operator Pass
+## Part of the suite
 
-1. [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths for every public pack
-2. [Qualify-before-enrich on the site](https://jaymountconsulting.com/skills/claude-qualify-before-enrich) — this pack's page (when published)
-3. [Operator Pass](https://jaymountconsulting.com/operator-pass) — compounding: next frameworks in order, live calibrated tools, Friday room, prototypes that ship
-
-**Operator Pass pricing (current):** Founder $97/mo billed annually ($1,164/yr), locked for life if bought before October 31, 2026. After that: $197/mo billed annually ($2,364/yr), no lock.
-
-The named gap this pack leaves open: which ICP this quarter, live finder wiring in *your* stack, and the failure library of lists that burned credits anyway.
+Part of the GTM operator suite: see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
 
 ## Companion packs + marketplace
 
-- [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) — signal → call / hold / drop
-- [claude-psp](https://github.com/cmj-hub/claude-psp) — Pain Signal Profile that feeds the ICP
-- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) — first touch after the list is clean
-- [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills) — suite install for all public magnets
+- [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list): signal → call / hold / drop
+- [claude-psp](https://github.com/cmj-hub/claude-psp). Pain Signal Profile that feeds the ICP
+- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email): first touch after the list is clean
+- [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills): suite install for all packs
 
 ```text
 /plugin marketplace add cmj-hub/gtm-operator-skills
@@ -136,4 +130,4 @@ MIT. Python 3 standard library only. See [LICENSE](./LICENSE).
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com). Public MIT magnet: give the instrument, sell the compounding.
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

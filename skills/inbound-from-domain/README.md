@@ -18,28 +18,28 @@ Or score the sample without an agent:
 
 ```bash
 python3 skills/inbound-from-domain/scripts/score.py --file skills/inbound-from-domain/examples/inbound-good.json
-# exit 0 — a build-review route from the domain
+# exit 0: a high-touch route from the domain
 python3 skills/inbound-from-domain/scripts/score.py --file skills/inbound-from-domain/examples/inbound-crm-write.json
-# exit 1 — a CRM write-back → set crm_write false
+# exit 1: a CRM write-back → set crm_write false
 ```
 
-Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs the catalog.
+Part of the GTM operator suite: `/plugin install gtm@gtm-operator-skills` installs the catalog.
 
 Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt: `/plugin install gtm-operator@gtm-operator-skills`.
 
-Inbound-from-domain enrichment takes an inbound email, extracts the company domain, classifies it (corporate, free-mail, disposable, personal-looking), writes a short public-domain enrichment card, and routes the lead in seconds — Build review, Operator Pass, need-more, personal, or disqualify — without writing back to a CRM.
+Inbound-from-domain enrichment takes an inbound email, extracts the company domain, classifies it (corporate, free-mail, disposable, personal-looking), writes a short public-domain enrichment card, and routes the lead in seconds. high-touch, self-serve, need-more, personal, or disqualify: without writing back to a CRM.
 
-`alex@northwind.io` scores **build-review**. The same card with `crm_write: true` is **refused**. Python. No LLM. No paid API.
+`alex@northwind.io` scores **high-touch**. The same card with `crm_write: true` is **refused**. Python. No LLM. No paid API.
 
 The build guide teaches a human. The pack teaches an agent.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Inbound from domain — corporate routes to build-review; CRM write-back fails" width="100%">
+  <img src="./assets/demo.gif" alt="Inbound from domain: corporate routes to high-touch; CRM write-back fails" width="100%">
 </p>
 
 ## What this replaces
 
-The first five minutes of “who is this inbound?” — domain classify + route — before a human opens the CRM.
+The first five minutes of “who is this inbound?”: domain classify + route: before a human opens the CRM.
 
 ## Install
 
@@ -76,7 +76,7 @@ python3 scripts/score.py --file examples/inbound-good.json
 python3 scripts/score.py --file examples/inbound-crm-write.json
 ```
 
-The good draft exits 0 and prints a `build-review` route from `northwind.io`. The CRM-write draft exits 1 and prints one `- what is wrong → what to change` line, then `Next: fix the lines above and run this again.` Free-mail routed to Build fails the same way. Add `--json` for one result object (`fixes` and `next` included). Then drop in yours at `gtm/inbound.json` in your project.
+The good draft exits 0 and prints a `high-touch` route from `northwind.io`. The CRM-write draft exits 1 and prints one `- what is wrong → what to change` line, then `Next: fix the lines above and run this again.` Free-mail routed to Build fails the same way. Add `--json` for one result object (`fixes` and `next` included). Then drop in yours at `gtm/inbound.json` in your project.
 
 ## What's in the pack
 
@@ -93,11 +93,11 @@ The good draft exits 0 and prints a `build-review` route from `northwind.io`. Th
 
 It will not write your CRM. It will not call a paid firmographic API. It will not send an auto-reply.
 
-This pack drafts and scores a route card. It will not pick this quarter's PSP, ingest your CRM, or update when a free-mail provider list changes. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
+This pack drafts and scores a route card. It will not pick this quarter's PSP, ingest your CRM, or update when a free-mail provider list changes.
 
 ## How is this different from a CRM enrichment tool?
 
-A CRM enrichment tool writes firmographics into the record. This pack stops at the route card: domain kind, evidence, and a route. A human (or Operator Pass) owns the write-back.
+A CRM enrichment tool writes firmographics into the record. This pack stops at the route card: domain kind, evidence, and a route. A human owns the write-back.
 
 ## Do I need live data to start?
 
@@ -109,9 +109,9 @@ No. You classify from the domain you already have on the inbound email. The pack
 
 ## On the site
 
-- [Inbound from domain pack](https://jaymountconsulting.com/skills/claude-inbound-from-domain) — this pack's page
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
-- [Course twin](https://jaymountconsulting.com/learn/courses/inbound-from-domain) — human build guide for this pack
+- [Inbound from domain pack](https://jaymountconsulting.com/skills/claude-inbound-from-domain): this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
+- [Course twin](https://jaymountconsulting.com/learn/courses/inbound-from-domain): human build guide for this pack
 
 ## Free, no signup
 
@@ -119,9 +119,9 @@ No. You classify from the domain you already have on the inbound email. The pack
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 
 ## Next
 
@@ -129,24 +129,16 @@ Previous: [Qualify before enrich](https://github.com/cmj-hub/claude-qualify-befo
 
 Next: [Found vs deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable)
 
-## Suite → course → Operator Pass
+## Part of the suite
 
-| Layer | What you get |
-| --- | --- |
-| This pack (MIT) | Framework, banned list, scorer, kickoff, one worked example |
-| [Course](https://jaymountconsulting.com/learn/courses/inbound-from-domain) | How a human runs the instrument on their inbound |
-| [Operator Pass](https://jaymountconsulting.com/operator-pass) | Live tools, Friday room, CRM write-back seams, next framework in order |
-
-Founder: **$97/mo** billed annually ($1,164/yr), locked for life if bought before October 31, 2026. After that: **$197/mo** billed annually ($2,364/yr).
-
-Start at [/skills](https://jaymountconsulting.com/skills) → this pack's course → [/operator-pass](https://jaymountconsulting.com/operator-pass).
+Part of the GTM operator suite: see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
 
 ## Companion packs
 
-- [Qualify before enrich](https://github.com/cmj-hub/claude-qualify-before-enrich) — ICP check before any finder
-- [Found vs deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable) — find then verify before send
-- [Waterfall email](https://github.com/cmj-hub/claude-waterfall-email) — cheapest-first cascade
-- [Prospect list](https://github.com/cmj-hub/claude-prospect-list) — who to contact this week
+- [Qualify before enrich](https://github.com/cmj-hub/claude-qualify-before-enrich): ICP check before any finder
+- [Found vs deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable): find then verify before send
+- [Waterfall email](https://github.com/cmj-hub/claude-waterfall-email): cheapest-first cascade
+- [Prospect list](https://github.com/cmj-hub/claude-prospect-list): who to contact this week
 - Suite install: [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills)
 
 ## Privacy and security
@@ -159,4 +151,4 @@ MIT. Python 3 standard library only. See [LICENSE](./LICENSE).
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

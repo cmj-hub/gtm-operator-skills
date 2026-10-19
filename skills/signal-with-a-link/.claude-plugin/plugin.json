@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Score a buying signal as a dated, linkable event. Refuse firmographic state and any intent score that lacks both a URL and a date. Deterministic, stdlib-only Python scorer. No network, no paid APIs.",
   "author": {
-    "name": "Jay Mount Consulting",
+    "name": "JMC Go-to-Market Systems",
     "url": "https://jaymountconsulting.com"
   },
   "homepage": "https://jaymountconsulting.com/skills",

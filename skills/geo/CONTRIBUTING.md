@@ -5,22 +5,22 @@ before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The
+- **Bug reports**: open an issue with a reproducible case. The
   scripts in `scripts/` are deterministic, so bugs there are usually
   one-line fixes.
 - **New modes** that extend the existing framework (a file under
   `skills/geo/modes/`, routed from `skills/geo/SKILL.md`). Discuss in
   an issue first if it's a substantial addition.
-- **Calibration improvements** to the scoring scripts — if you can
+- **Calibration improvements** to the scoring scripts: if you can
   show a case where the script scores wrong, that's gold.
-- **Cross-runtime ports** (Cursor, Gemini CLI, Codex) — ship as
+- **Cross-runtime ports** (Cursor, Gemini CLI, Codex): ship as
   separate plugins; clone this repo to work on the files locally.
 - **Translation** of the framework reference docs.
 
 ## What doesn't land
 
 - Renaming the findability artifacts (channel decision, buyer question,
-  citation record, indexability pass, brief, kill date) — these are
+  citation record, indexability pass, brief, kill date): these are
   course-anchored.
 - Turning the pack into a health-score dump, an llms.txt project, or a
   40-article calendar.
@@ -40,7 +40,7 @@ cd claude-geo
 For Python scripts:
 
 ```bash
-# All scripts are zero-dep Python 3.8+ — just run them
+# All scripts are zero-dep Python 3.8+: just run them
 python3 scripts/score.py --help
 python3 scripts/score.py --file examples/findability-good.json
 python3 -m unittest discover -s tests
@@ -77,7 +77,7 @@ If `score.py` scores something obviously wrong:
 
 The scorer is stdlib-only and deterministic. New calibration cases add
 to fixtures under `examples/` and `tests/`, not to script side paths
-that call a network — keep the deterministic path stable.
+that call a network: keep the deterministic path stable.
 
 ## License
 
@@ -86,5 +86,5 @@ license already on this repo.
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
+Part of the JMC public-build spine: see [/build](https://jaymountconsulting.com/build).

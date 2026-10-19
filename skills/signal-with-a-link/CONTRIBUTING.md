@@ -4,9 +4,9 @@ Thanks for opening this repo. A few notes before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The scorer is deterministic, so bugs there are usually small fixes.
-- **Calibration improvements** — a case where the script scores wrong is gold. Include the JSON and the expected exit.
-- **Cross-runtime ports** (Cursor, Codex, others) — discuss in an issue first.
+- **Bug reports**: open an issue with a reproducible case. The scorer is deterministic, so bugs there are usually small fixes.
+- **Calibration improvements**: a case where the script scores wrong is gold. Include the JSON and the expected exit.
+- **Cross-runtime ports** (Cursor, Codex, others): discuss in an issue first.
 
 ## What does not land
 

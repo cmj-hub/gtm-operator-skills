@@ -1,7 +1,7 @@
 {
   "name": "jmc-inbound-from-domain",
   "version": "0.1.0",
-  "description": "Inbound-from-domain enrichment takes an inbound email, extracts the company domain, classifies it, writes a short enrichment card, and routes the lead in seconds — without writing back to a CRM.",
+  "description": "Inbound-from-domain enrichment takes an inbound email, extracts the company domain, classifies it, writes a short enrichment card, and routes the lead in seconds: without writing back to a CRM.",
   "license": "MIT",
   "repository": {
     "type": "git",

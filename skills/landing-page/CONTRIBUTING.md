@@ -5,10 +5,10 @@ before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The
+- **Bug reports**: open an issue with a reproducible case. The
   scorer in `scripts/` is deterministic, so bugs there are usually
   one-line fixes.
-- **Scoring cases** — a draft the scorer passes that should fail, or
+- **Scoring cases**: a draft the scorer passes that should fail, or
   fails that should pass. Add it as a test in `tests/test_score.py`.
 - **Wording** in `skills/page/SKILL.md` that helps an agent write a tighter offer
   or action.
@@ -57,5 +57,5 @@ license already on this repo.
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
+Part of the JMC public-build spine: see [/build](https://jaymountconsulting.com/build).

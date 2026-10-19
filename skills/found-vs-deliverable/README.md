@@ -4,7 +4,7 @@
 
 # Found vs deliverable skill for Claude Code
 
-A found-vs-deliverable gate is the rule that a found email is not sendable until verify returns deliverable — catch-all, unknown, and invalid stay in their buckets.
+A found-vs-deliverable gate is the rule that a found email is not sendable until verify returns deliverable: catch-all, unknown, and invalid stay in their buckets.
 
 Replace a $15K list-ops cleanse with a scorer you run in fifteen minutes on one address.
 
@@ -23,14 +23,14 @@ python3 skills/found-vs-deliverable/scripts/score.py --file skills/found-vs-deli
 python3 skills/found-vs-deliverable/scripts/score.py --file skills/found-vs-deliverable/examples/verify-catchall.json   # exit 1: never send catch-all as valid
 ```
 
-Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs the catalog.
+Part of the GTM operator suite: `/plugin install gtm@gtm-operator-skills` installs the catalog.
 
 Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt: `/plugin install gtm-operator@gtm-operator-skills`.
 
 `alex@northwind.io` verified deliverable → sendable. `ops@fabrikam.com` catch-all marked sendable → refused.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Found vs deliverable — deliverable passes, catch-all marked valid fails" width="100%">
+  <img src="./assets/demo.gif" alt="Found vs deliverable: deliverable passes, catch-all marked valid fails" width="100%">
 </p>
 
 The build guide teaches a human. The pack teaches an agent.
@@ -87,7 +87,7 @@ It will not call a paid email verifier. It will not send mail. It will not promo
 
 ## What is found vs deliverable?
 
-Find then verify. Every address lands in one bucket — deliverable, catch-all, unknown, or invalid. Catch-all, unknown, and invalid are never "valid." Found is not sendable until verify = deliverable.
+Find then verify. Every address lands in one bucket: deliverable, catch-all, unknown, or invalid. Catch-all, unknown, and invalid are never "valid." Found is not sendable until verify = deliverable.
 
 ## Does this verify emails for me?
 
@@ -99,13 +99,13 @@ No. Catch-all means the domain accepts any local-part; the mailbox may not exist
 
 ## Do I need Operator Pass to use this?
 
-No. The instrument is MIT in this repo. The course teaches a human to run it on their book of business. Operator Pass is the compounding layer: live tools, Friday room, the next framework in order.
+No, and there is no key to enter. The pack, the scorer, and the sample are MIT in this repo.
 
 ## On the site
 
-- [Found vs deliverable pack](https://jaymountconsulting.com/skills/claude-found-vs-deliverable) — this pack's page
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
-- [Cold Email & Outreach Craft](https://jaymountconsulting.com/learn/courses/cold-email-outreach-craft) — the build guide for humans
+- [Found vs deliverable pack](https://jaymountconsulting.com/skills/claude-found-vs-deliverable): this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
+- [Cold Email & Outreach Craft](https://jaymountconsulting.com/learn/courses/cold-email-outreach-craft): the build guide for humans
 
 ## Free, no signup
 
@@ -113,24 +113,20 @@ No. The instrument is MIT in this repo. The course teaches a human to run it on 
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 
-## Suite → course → Operator Pass
+## Part of the suite
 
-This pack drafts and scores. It will not pick this quarter's verifier vendor, ingest your CRM, or update when a provider changes catch-all behavior. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
-
-- Suite: [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills) / [jaymountconsulting.com/skills](https://jaymountconsulting.com/skills)
-- Course: [Cold Email & Outreach Craft](https://jaymountconsulting.com/learn/courses/cold-email-outreach-craft)
-- Operator Pass: [jaymountconsulting.com/operator-pass](https://jaymountconsulting.com/operator-pass) — Founder $97/mo billed annually ($1,164/yr), locked for life if bought before October 31, 2026; after that $197/mo billed annually ($2,364/yr)
+Part of the GTM operator suite: see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
 
 ## Companion packs
 
-- [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) — who to contact from a buying signal
-- [claude-qualify-before-enrich](https://github.com/cmj-hub/claude-qualify-before-enrich) — ICP check before any finder
-- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) — signal-anchored first touch after a deliverable row
-- [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills) — suite install
+- [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list): who to contact from a buying signal
+- [claude-qualify-before-enrich](https://github.com/cmj-hub/claude-qualify-before-enrich): ICP check before any finder
+- [claude-cold-email](https://github.com/cmj-hub/claude-cold-email): signal-anchored first touch after a deliverable row
+- [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills): suite install
 
 ## Privacy and security
 
@@ -148,4 +144,4 @@ MIT. See [LICENSE](LICENSE).
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com). Public MIT magnet: give the instrument, sell the compounding.
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

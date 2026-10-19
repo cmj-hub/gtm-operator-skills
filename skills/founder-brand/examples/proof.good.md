@@ -1,4 +1,4 @@
-Most outbound programs blame the SDRs. The real issue is upstream.
+Most outbound programs blame the copy. The real issue is upstream.
 
 Series-B SaaS, 30 days, 14 SQLs.
 The lever wasn't the sequence — it was a PSP rewrite.
@@ -11,3 +11,5 @@ Specifically:
 Reply rate went 2% to 11%.
 
 Try anchoring outbound on what they just did, not who they are.
+
+(Example post. The client and figures are fictional.)

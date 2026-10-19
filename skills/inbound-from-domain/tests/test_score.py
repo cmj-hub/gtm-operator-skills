@@ -35,7 +35,7 @@ GOOD = {
         "Domain is not on the free-mail list",
         "Company-shaped second-level name",
     ],
-    "route": "build-review",
+    "route": "high-touch",
     "crm_write": False,
 }
 
@@ -44,7 +44,7 @@ class ScoreInbound(unittest.TestCase):
     def test_good_draft_prints_route(self):
         result = run(["--file", str(EXAMPLES / "inbound-good.json")])
         self.assertEqual(result.returncode, 0)
-        self.assertIn("a build-review route from the domain", result.stdout)
+        self.assertIn("a high-touch route from the domain", result.stdout)
         self.assertIn("domain: northwind.io", result.stdout)
         self.assertIn("crm_write: false", result.stdout)
         self.assertNotIn("a CRM write-back", result.stdout)
@@ -69,8 +69,8 @@ class ScoreInbound(unittest.TestCase):
     def test_freemail_build_exits_1(self):
         result = run(["--file", str(EXAMPLES / "inbound-freemail-build.json")])
         self.assertEqual(result.returncode, 1)
-        self.assertIn("a free-mail build route", result.stdout)
-        self.assertIn("free-mail routed to build-review", result.stdout)
+        self.assertIn("a free-mail high-touch route", result.stdout)
+        self.assertIn("free-mail routed to high-touch", result.stdout)
 
     def test_domain_mismatch(self):
         result = score({**GOOD, "domain": "other.io"})
@@ -92,16 +92,16 @@ class ScoreInbound(unittest.TestCase):
         self.assertIn("company_guess", result.stdout)
 
     def test_route_alias_folds(self):
-        result = score({**GOOD, "route": "Build"})
+        result = score({**GOOD, "route": "High Touch"})
         self.assertEqual(result.returncode, 0)
-        self.assertIn("route: build-review", result.stdout)
+        self.assertIn("route: high-touch", result.stdout)
 
     def test_json_output(self):
         result = score(GOOD, "--json")
         self.assertEqual(result.returncode, 0)
         payload = json.loads(result.stdout)
         self.assertTrue(payload["ok"])
-        self.assertEqual(payload["route"], "build-review")
+        self.assertEqual(payload["route"], "high-touch")
         self.assertFalse(payload["crm_write"])
         refused = json.loads(score({**GOOD, "crm_write": True}, "--json").stdout)
         self.assertFalse(refused["ok"])

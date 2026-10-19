@@ -5,16 +5,16 @@ before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The
+- **Bug reports**: open an issue with a reproducible case. The
   scripts in `scripts/` are deterministic, so bugs there are usually
   one-line fixes.
 - **New steps** that extend the existing framework, inside the one
   skill at `skills/qualify-before-enrich/SKILL.md` (the suite ships one
   skill per pack). Discuss in an issue first if it's a substantial
   addition.
-- **Calibration improvements** to the scoring scripts — if you can
+- **Calibration improvements** to the scoring scripts: if you can
   show a case where the script scores wrong, that's gold.
-- **Cross-runtime ports** (Cursor, Gemini CLI, Codex) — see the
+- **Cross-runtime ports** (Cursor, Gemini CLI, Codex): see the
   companion packs listed in the README.
 - **Translation** of the framework reference docs.
 
@@ -26,7 +26,7 @@ before you contribute.
 - Adding paid-API dependencies to scripts. Scripts must work zero-dep.
 - Renaming `claude-*` → `<other-runtime>-*`. We ship per-runtime ports
   as separate plugins instead.
-- Private writing skills or gated scorers. This pack is a public MIT magnet.
+- Private writing skills or gated scorers. This pack is a free MIT pack.
 
 ## Development setup
 
@@ -65,7 +65,7 @@ If `skills/qualify-before-enrich/scripts/score.py` scores something obviously wr
 3. Note which field is mis-calibrated (`industry` / `employees` / `title` / `geo` / paid flags)
 
 The scorer refuses paid lookup on a failing row. New calibration cases should keep
-the deterministic path stable — no LLM calls, no network, no paid APIs.
+the deterministic path stable: no LLM calls, no network, no paid APIs.
 
 ## License
 
@@ -74,5 +74,5 @@ license already on this repo.
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).
+Part of the JMC public-build spine: see [/build](https://jaymountconsulting.com/build).

@@ -43,14 +43,12 @@ KINDS = {
 }
 
 ROUTES = {
-    "build-review": "build-review",
-    "build": "build-review",
-    "build_review": "build-review",
-    "build review": "build-review",
-    "operator-pass": "operator-pass",
-    "operator_pass": "operator-pass",
-    "operator pass": "operator-pass",
-    "op": "operator-pass",
+    "high-touch": "high-touch",
+    "high_touch": "high-touch",
+    "high touch": "high-touch",
+    "self-serve": "self-serve",
+    "self_serve": "self-serve",
+    "self serve": "self-serve",
     "need-more": "need-more",
     "need_more": "need-more",
     "need more": "need-more",
@@ -240,11 +238,11 @@ def evaluate(data: dict) -> dict:
 
     if not raw_route:
         reasons.append(
-            "missing route; use build-review, operator-pass, need-more, personal, or disqualify"
+            "missing route; use high-touch, self-serve, need-more, personal, or disqualify"
         )
     elif not route:
         reasons.append(
-            "route is not a slot; use build-review, operator-pass, need-more, personal, or disqualify"
+            "route is not a slot; use high-touch, self-serve, need-more, personal, or disqualify"
         )
 
     if raw_crm == "" and data.get("crm_write") is None:
@@ -260,9 +258,9 @@ def evaluate(data: dict) -> dict:
 
     # Kind ↔ route consistency (local lists are illustrative for the sample loop).
     check_domain = raw_domain or email_domain
-    if kind == "free-mail" and route == "build-review":
+    if kind == "free-mail" and route == "high-touch":
         reasons.append(
-            "free-mail routed to build-review; route free-mail to personal or need-more"
+            "free-mail routed to high-touch; route free-mail to personal or need-more"
         )
     if kind == "disposable" and route != "disqualify":
         reasons.append(
@@ -270,7 +268,7 @@ def evaluate(data: dict) -> dict:
         )
     if kind == "corporate" and route == "personal":
         reasons.append(
-            "corporate domain routed to personal; use build-review, operator-pass, or need-more"
+            "corporate domain routed to personal; use high-touch, self-serve, or need-more"
         )
     if check_domain in FREE_MAIL and kind == "corporate":
         reasons.append(
@@ -295,8 +293,8 @@ def evaluate(data: dict) -> dict:
         verdict = f"a {route} route from the domain"
     elif crm_write_bool is True:
         verdict = "a CRM write-back"
-    elif kind == "free-mail" and route == "build-review":
-        verdict = "a free-mail build route"
+    elif kind == "free-mail" and route == "high-touch":
+        verdict = "a free-mail high-touch route"
     elif kind == "disposable" and route != "disqualify":
         verdict = "a disposable kept alive"
     else:

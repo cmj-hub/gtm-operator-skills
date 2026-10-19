@@ -5,13 +5,13 @@ before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The
+- **Bug reports**: open an issue with a reproducible case. The
   scorer in `skills/cold-offer/scripts/` is deterministic, so bugs
   there are usually one-line fixes.
-- **Calibration cases** — a draft the scorer passes that sells or asks
+- **Calibration cases**: a draft the scorer passes that sells or asks
   for a meeting, or a clean draft it fails. Paste the draft and the
   output. That's gold.
-- **Cross-runtime ports** (Cursor, Gemini CLI, Codex) — discuss in an
+- **Cross-runtime ports** (Cursor, Gemini CLI, Codex): discuss in an
   issue first.
 
 ## What doesn't land
@@ -69,5 +69,4 @@ license already on this repo.
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
-Part of the JMC public-build spine — see [/build](https://jaymountconsulting.com/build).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

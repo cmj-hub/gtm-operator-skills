@@ -34,7 +34,7 @@ The draft lives at `gtm/proof.json`. Create `gtm/` if it is missing. If `gtm/off
   "claim": "Time to first reply on inbound demo requests went from 2 days to 4 hours.",
   "metric": "time to first reply", "before": "2 days", "after": "4 hours",
   "timeframe": "first 60 days",
-  "who": "Head of Sales, 30-person logistics software company",
+  "who": "Head of Sales, 30-person logistics software company (fictional sample)",
   "named": false, "permission": "verbal",
   "source": "CRM export of demo requests, Jul-Sep 2026",
   "date": "2026-09-30", "pain": "p1"}]}

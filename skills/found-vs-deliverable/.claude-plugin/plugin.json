@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Gate a found email behind verify before send. Buckets: deliverable, catch-all, unknown, invalid. Never mark catch-all as valid. Deterministic, stdlib-only Python scorer. No network, no send, no paid API.",
   "author": {
-    "name": "Jay Mount Consulting",
+    "name": "JMC Go-to-Market Systems",
     "url": "https://jaymountconsulting.com"
   },
   "homepage": "https://jaymountconsulting.com/skills/claude-found-vs-deliverable",

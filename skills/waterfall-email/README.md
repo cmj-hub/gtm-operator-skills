@@ -6,7 +6,7 @@
 
 Find work emails cheapest-first. Burn the inputs you hold before any paid finder.
 
-An email waterfall is a cheapest-first cascade that finds a work email for a person you already named. You burn the inputs you hold (CRM address, company domain, known pattern) before any paid finder. A 4xx from a vendor stops the row — you do not retry the next vendor on bad input. Found is not sendable until verify = deliverable.
+An email waterfall is a cheapest-first cascade that finds a work email for a person you already named. You burn the inputs you hold (CRM address, company domain, known pattern) before any paid finder. A 4xx from a vendor stops the row: you do not retry the next vendor on bad input. Found is not sendable until verify = deliverable.
 
 ## In 60 seconds
 
@@ -20,11 +20,11 @@ Or score the sample without an agent:
 
 ```bash
 python3 skills/waterfall-email/scripts/score.py --file skills/waterfall-email/examples/waterfall-good.json
-# exit 0 — held inputs first, on_4xx=fix_input, verify=deliverable
+# exit 0: held inputs first, on_4xx=fix_input, verify=deliverable
 python3 skills/waterfall-email/scripts/score.py --file skills/waterfall-email/examples/waterfall-4xx-retry.json
-# exit 1 — on_4xx retries the next vendor → set fix_input or stop
+# exit 1: on_4xx retries the next vendor → set fix_input or stop
 python3 skills/waterfall-email/scripts/score.py --file skills/waterfall-email/examples/waterfall-found-unverified.json
-# exit 1 — found is not sendable until verify = deliverable
+# exit 1: found is not sendable until verify = deliverable
 ```
 
 The good draft exits 0. The 4xx-retry and found-unverified drafts exit 1.
@@ -84,11 +84,11 @@ The good draft exits 0 and prints person, on_4xx, cascade order, and the next st
 
 It will not call a finder. It will not spend a credit. It will not send mail. It will not accept a 4xx retry onto the next vendor, or a found address marked sendable before deliverable verify.
 
-This pack drafts and scores. It will not pick this quarter's vendor list, log into a data vendor, or refresh a field after its sunset. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
+This pack drafts and scores. It will not pick this quarter's vendor list, log into a data vendor, or refresh a field after its sunset.
 
 ## What is an email waterfall?
 
-A cheapest-first cascade that finds a work email for a named person. Held inputs run before paid finders. Verify is the last gate. Sendable means deliverable — nothing else.
+A cheapest-first cascade that finds a work email for a named person. Held inputs run before paid finders. Verify is the last gate. Sendable means deliverable: nothing else.
 
 ## Does a 4xx mean try the next vendor?
 
@@ -104,8 +104,8 @@ No. The scorer runs on a JSON draft. Bring your cascade order and the verify buc
 
 ## On the site
 
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
-- [Course twin](https://jaymountconsulting.com/learn) — human build guides
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
+- [Course twin](https://jaymountconsulting.com/learn): human build guides
 
 ## Free, no signup
 
@@ -113,24 +113,19 @@ No. The scorer runs on a JSON draft. Bring your cascade order and the verify buc
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 
-## Suite → course → Operator Pass
-
-Part of the GTM operator suite — see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
-
-This pack drafts and scores. It will not pick this quarter's vendor stack, ingest your CRM, or update when a finder changes its 4xx shape. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
-
-Operator Pass: Founder $97/mo billed annually ($1,164/yr), locked for life if bought before October 31, 2026. After that: $197/mo billed annually ($2,364/yr). → [Operator Pass](https://jaymountconsulting.com/operator-pass)
+## Part of the suite
+Part of the GTM operator suite: see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
 
 ## Companion packs
 
-- [Qualify before enrich](https://github.com/cmj-hub/claude-qualify-before-enrich) — ICP check before any finder
-- [Found vs deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable) — verify buckets
-- [Prospect list](https://github.com/cmj-hub/claude-prospect-list) — who earns a slot this week
-- [Cold email](https://github.com/cmj-hub/claude-cold-email) — signal-anchored first touch
+- [Qualify before enrich](https://github.com/cmj-hub/claude-qualify-before-enrich): ICP check before any finder
+- [Found vs deliverable](https://github.com/cmj-hub/claude-found-vs-deliverable): verify buckets
+- [Prospect list](https://github.com/cmj-hub/claude-prospect-list): who earns a slot this week
+- [Cold email](https://github.com/cmj-hub/claude-cold-email): signal-anchored first touch
 
 ## Privacy and security
 
@@ -148,4 +143,4 @@ MIT. Python 3 standard library only. See [LICENSE](./LICENSE).
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

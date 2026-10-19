@@ -3,7 +3,7 @@
   "version": "0.4.0",
   "description": "Score who to contact this week from one public buying signal, and refuse a title-only list. Deterministic, stdlib-only Python scorer. No network, no send.",
   "author": {
-    "name": "Jay Mount Consulting",
+    "name": "JMC Go-to-Market Systems",
     "url": "https://jaymountconsulting.com"
   },
   "homepage": "https://jaymountconsulting.com/skills/claude-prospect-list",

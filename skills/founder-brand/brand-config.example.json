@@ -15,16 +15,16 @@
   "pillars": {
     "pillar": {
       "topic_pool": [
-        "Why most outbound programs fail at the PSP layer, not the SDR layer",
+        "Why most outbound programs fail at the PSP layer, not the sequence layer",
         "The Schwartz model and why B2B copy ignores it",
         "What 'compounding' actually means in GTM"
       ]
     },
     "proof": {
       "topic_pool": [
-        "Series-B SaaS hit 14 SQLs in 30 days from a PSP rewrite",
-        "Bootstrapped agency went 2% → 11% reply rate by killing demographic targeting",
-        "DevTools company closed $80k ACV in 90 days after EVP retier"
+        "Series-B SaaS hit 14 SQLs in 30 days from a PSP rewrite (fictional example)",
+        "Bootstrapped agency went 2% → 11% reply rate by killing demographic targeting (fictional example)",
+        "DevTools company closed $80k ACV in 90 days after EVP retier (fictional example)"
       ]
     },
     "process": {

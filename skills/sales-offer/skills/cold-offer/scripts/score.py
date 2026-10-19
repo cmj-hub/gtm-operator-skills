@@ -8,8 +8,16 @@ Stdlib only. No network. Does not send.
   python3 scripts/score.py --file gtm/offer.json --json
   python3 scripts/score.py --file gtm/offer.json --today 2026-10-04
 
-Optional fields: `scope` (one deliverable) and `deadline` (YYYY-MM-DD; with
---today, not before it).
+Optional fields: `scope` (one deliverable), `deadline` (YYYY-MM-DD; with
+--today, not before it) and `prototype_ready` (true when the prototype
+exists, so email one may say it is attached).
+
+  python3 scripts/score.py --mode full --file gtm/offer.json
+
+--mode full scores a full sales offer instead: `what_they_get`, `price`,
+`why_now` and `first_step` (required), `proof` and `caveat` (optional),
+and `facts` (the source facts, not scored; when present, money, percents
+and proof numbers must come from it).
 
 Each failing line reads `- <what is wrong> (<detail>) -> <what to change>`; the
 last line names the next step.
@@ -56,6 +64,33 @@ MEETING_RE = re.compile(
     r"\b(?:do you have|got) \d+ minutes\b|\bfind (?:a )?time\b",
     re.IGNORECASE,
 )
+
+# Email one says the prototype is attached.
+ATTACH_RE = re.compile(r"\b(?:attached|attachment|enclosed)\b", re.IGNORECASE)
+
+# Full mode.
+FULL_FIELDS = ("what_they_get", "price", "why_now", "first_step")
+FULL_OPTIONAL = ("proof", "caveat")
+MAX_FULL_WORDS = 400
+MAX_STEP_WORDS = 40
+PRICE_NUMBER_RE = re.compile(r"\d")
+MONTHS = r"jan|feb|mar|apr|may|jun|jul|aug|sep|sept|oct|nov|dec"
+SPECIFIC_RE = re.compile(rf"\d|\b(?:{MONTHS})[a-z]*\b", re.IGNORECASE)
+OR_STEP_RE = re.compile(r"(?:^|[.?!]\s+)or\b", re.IGNORECASE)
+TERMS_RE = re.compile(
+    r"\bguarantee[ds]?\b|\bmoney[- ]back\b|\brefunds?\b|\bdiscount(?:s|ed)?\b|"
+    r"\b\d+% off\b|\bfree trial\b|\brisk[- ]free\b|\bno[- ]risk\b|\bpilot\b",
+    re.IGNORECASE,
+)
+HYPE_RE = re.compile(
+    r"\bact now\b|\blimited (?:time|spots|availability|offer)\b|\bonly \d+ (?:spots|seats|slots)\b|"
+    r"\bends soon\b|\bexpires?\b|\bdon't miss\b|\bhurry\b|\bgame[- ]chang\w*",
+    re.IGNORECASE,
+)
+MONEY_RE = re.compile(r"\$\s?\d[\d,]*(?:\.\d+)?[kKmM]?|\b\d[\d,]*(?:\.\d+)?%")
+NUMBER_RE = re.compile(r"\d[\d,]*(?:\.\d+)?")
+ISO_IN_TEXT_RE = re.compile(r"\b\d{4}-\d{2}-\d{2}\b")
+ESTIMATE_RE = re.compile(r"\bestimate\w*\b|\babout\b|\broughly\b|\bapproximately\b|~|≈", re.IGNORECASE)
 
 WORD_RE = re.compile(r"[a-z0-9']+")
 STOPWORDS = frozenset(
@@ -154,6 +189,99 @@ def names_one_deliverable(scope: str) -> bool:
     return len(scope.split()) <= MAX_SCOPE_WORDS and not LIST_RE.search(scope)
 
 
+def numbers_in(text: str) -> set[str]:
+    return {n.replace(",", "") for n in NUMBER_RE.findall(text)}
+
+
+def check_full(draft: dict[str, str], facts: str) -> list[dict[str, str]]:
+    """Score a full offer: what they get, price, why now, one first step."""
+    failures = []
+    missing = [name for name in FULL_FIELDS if not draft.get(name)]
+    missing += [name for name in FULL_OPTIONAL if name in draft and not draft[name]]
+    if missing:
+        return [{
+            "check": "complete",
+            "message": "offer is incomplete",
+            "detail": "missing " + ", ".join(missing),
+            "fix": "Fill what_they_get, price, why_now and first_step. Fill proof and caveat or leave them out.",
+        }]
+    scored = {name: draft[name] for name in FULL_FIELDS + FULL_OPTIONAL if name in draft}
+    body = " ".join(scored.values())
+
+    if not PRICE_NUMBER_RE.search(draft["price"]):
+        failures.append({
+            "check": "price",
+            "message": "price has no number",
+            "detail": draft["price"][:60],
+            "fix": "State the price the seller gave, with the number. If no price was given, ask for it; do not invent one.",
+        })
+
+    if not SPECIFIC_RE.search(draft["why_now"]):
+        failures.append({
+            "check": "why_now",
+            "message": "why now names no dated or specific signal",
+            "detail": draft["why_now"][:60],
+            "fix": "Tie why now to something the buyer did, with its date or number.",
+        })
+
+    step = draft["first_step"]
+    if step.count("?") > 1 or OR_STEP_RE.search(step) or len(step.split()) > MAX_STEP_WORDS:
+        failures.append({
+            "check": "first_step",
+            "message": "first step is not one action",
+            "detail": f"{step.count('?')} questions, {len(step.split())} words",
+            "fix": f"Name one first step the buyer can say yes to, in {MAX_STEP_WORDS} words or fewer.",
+        })
+
+    facts_lower = facts.lower()
+    terms = [t for t in matches(TERMS_RE, body) if t not in facts_lower]
+    if terms:
+        failures.append({
+            "check": "invented_terms",
+            "message": "offer adds terms the seller did not give",
+            "detail": ", ".join(terms),
+            "fix": "Cut guarantees, refunds, discounts, trials and pilots unless the seller offers them.",
+        })
+
+    hype = matches(HYPE_RE, body)
+    if hype:
+        failures.append({
+            "check": "hype",
+            "message": "offer leans on false urgency",
+            "detail": ", ".join(hype),
+            "fix": "Let the buyer's own dated signal carry why now. Cut the countdown.",
+        })
+
+    if facts:
+        known = numbers_in(facts)
+        unknown = []
+        for name, text in scored.items():
+            if name == "price" and ESTIMATE_RE.search(text):
+                continue
+            text = ISO_IN_TEXT_RE.sub(" ", text)
+            found = MONEY_RE.findall(text) + (NUMBER_RE.findall(text) if name == "proof" else [])
+            for token in found:
+                if not numbers_in(token) <= known and token not in unknown:
+                    unknown.append(token)
+        if unknown:
+            failures.append({
+                "check": "numbers",
+                "message": "offer uses numbers the facts do not hold",
+                "detail": ", ".join(unknown),
+                "fix": "Use only the seller's and buyer's numbers. Label your own arithmetic in the price line as an estimate.",
+            })
+
+    words = len(body.split())
+    if words > MAX_FULL_WORDS:
+        failures.append({
+            "check": "length",
+            "message": "offer is too long",
+            "detail": f"{words} words, limit {MAX_FULL_WORDS}",
+            "fix": "Cut to what they get, the proof, the price, why now and the first step.",
+        })
+    return failures
+
+
 def check(draft: dict[str, str], today: date | None = None) -> list[dict[str, str]]:
     """Return one failure per broken rule, most serious first.
 
@@ -182,6 +310,14 @@ def check(draft: dict[str, str], today: date | None = None) -> list[dict[str, st
             "message": "the offer sells the paid product",
             "detail": ", ".join(offer_sold),
             "fix": "The leak and the prototype are free work. Cut the paid product out of them.",
+        })
+
+    if ATTACH_RE.search(email_one) and not draft.get("prototype_ready"):
+        failures.append({
+            "check": "attached",
+            "message": "email one says the prototype is attached",
+            "detail": ", ".join(matches(ATTACH_RE, email_one)),
+            "fix": "Say what the prototype will show and offer to send it, unless it already exists (set prototype_ready).",
         })
 
     asked = matches(MEETING_RE, email_one)
@@ -267,6 +403,8 @@ def main() -> int:
     parser.add_argument("--stdin", action="store_true", help="Read a JSON object from stdin")
     parser.add_argument("--json", action="store_true", help="Print the result as one JSON object")
     parser.add_argument("--today", help="YYYY-MM-DD; a deadline before it fails")
+    parser.add_argument("--mode", choices=("give-first", "full"), default="give-first",
+                        help="give-first (default): leak, prototype, email one. full: a full sales offer")
     args = parser.parse_args()
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(errors="replace")
@@ -279,10 +417,15 @@ def main() -> int:
     if not isinstance(data, dict):
         fail_input("JSON must be an object")
 
+    if args.mode == "full":
+        return main_full(args, data)
+
     draft = {name: nonempty_text(data.get(name)) for name in FIELDS}
     for name in OPTIONAL:
         if data.get(name) is not None:
             draft[name] = nonempty_text(data.get(name))
+    if data.get("prototype_ready") is True:
+        draft["prototype_ready"] = True
     failures = check(draft, today)
     step = NEXT_FAIL if failures else NEXT_PASS
 
@@ -302,6 +445,28 @@ def main() -> int:
         if name in draft:
             print(f"{name}: {draft[name]}")
     print(f"email one: {draft['email_one']}")
+    print(f"Next: {step}")
+    return 0
+
+
+def main_full(args: argparse.Namespace, data: dict) -> int:
+    draft = {name: nonempty_text(data.get(name)) for name in FULL_FIELDS}
+    for name in FULL_OPTIONAL:
+        if data.get(name) is not None:
+            draft[name] = nonempty_text(data.get(name))
+    failures = check_full(draft, nonempty_text(data.get("facts")))
+    step = NEXT_FAIL if failures else NEXT_PASS
+    if args.json:
+        print(json.dumps({"pass": not failures, "failures": failures, "next": step}, indent=2))
+        return 1 if failures else 0
+    if failures:
+        for failure in failures:
+            print(f"- {failure['message']} ({failure['detail']}) → {failure['fix']}")
+        print(f"Next: {step}")
+        return 1
+    for name in ("what_they_get", "proof", "price", "why_now", "caveat", "first_step"):
+        if name in draft:
+            print(f"{name.replace('_', ' ')}: {draft[name]}")
     print(f"Next: {step}")
     return 0
 

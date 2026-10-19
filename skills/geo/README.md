@@ -21,7 +21,7 @@ python3 scripts/score.py --file examples/findability-good.json       # exit 0, p
 python3 scripts/score.py --file examples/findability-calendar.json   # exit 1: - a 40-article calendar → write one brief per buyer question; run other questions as separate experiments
 ```
 
-Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all seventeen.
+Part of the GTM operator suite: `/plugin install gtm@gtm-operator-skills` installs all seventeen.
 
 Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt and keep `brand-config.json` from being overwritten: `/plugin install gtm-operator@gtm-operator-skills`.
 
@@ -32,7 +32,7 @@ On 2026-10-01, three clean runs of the buyer question in ChatGPT named a rival a
 The good draft passes. A 40-article calendar fails the score.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Generative engine optimization skill — one brief passes, a content calendar fails" width="100%">
+  <img src="./assets/demo.gif" alt="Generative engine optimization skill: one brief passes, a content calendar fails" width="100%">
 </p>
 
 The build guide teaches a human. The pack teaches an agent.
@@ -134,8 +134,8 @@ No. llms.txt is not a fetchability control, and no major answer engine has commi
 
 ## On the site
 
-- [Generative engine optimization pack](https://jaymountconsulting.com/skills/claude-geo) — this pack's page
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
+- [Generative engine optimization pack](https://jaymountconsulting.com/skills/claude-geo): this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
 
 ## Free, no signup
 
@@ -143,9 +143,9 @@ No. llms.txt is not a fetchability control, and no major answer engine has commi
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 ## Privacy and security
 
 `scripts/score.py` is standard-library Python and opens no network connection. It reads only the draft JSON you give it, and checks that each evidence path in it exists, without opening the file. The skill writes drafts under `gtm/` (`gtm/findability.json`, one file per further experiment, and saved answers in `gtm/evidence/`) in your project folder and only reads `brand-config.json`. The `indexability` mode runs read-only `curl` against the URL you name, and the `citation-record` mode runs your question in an answer engine or asks you to paste the answer; your agent asks before each request. No telemetry, no credentials, nothing published. See [SECURITY.md](SECURITY.md).

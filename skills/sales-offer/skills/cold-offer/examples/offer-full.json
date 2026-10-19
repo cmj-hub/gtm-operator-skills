@@ -1,0 +1,9 @@
+{
+  "what_they_get": "We read each inbound invoice, match it to its purchase order, and flag the ones that do not match before they reach approval.",
+  "proof": "One customer of 40 staff cut invoice coding from 3 days to 4 hours.",
+  "price": "$900/month flat. At your volume that is the whole bill.",
+  "why_now": "Your 2026-09-30 job post asks for an AP clerk to key roughly 300 invoices a week by hand.",
+  "caveat": "If your ERP already matches invoices to purchase orders, this adds little.",
+  "first_step": "Reply yes and I'll run 20 of your invoices through it and send back what it matched.",
+  "facts": "Seller: invoice matching for small manufacturers. Price $900/month flat. A 40-staff customer cut invoice coding from 3 days to 4 hours. Will run a sample of 20 invoices free. Buyer: job post dated 2026-09-30 for an AP clerk, roughly 300 invoices a week keyed by hand."
+}

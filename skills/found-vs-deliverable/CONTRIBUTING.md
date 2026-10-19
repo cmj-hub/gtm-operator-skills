@@ -5,9 +5,9 @@ before you contribute.
 
 ## What kinds of contributions land
 
-- **Bug reports** — open an issue with a reproducible case. The
+- **Bug reports**: open an issue with a reproducible case. The
   scorer is deterministic, so bugs there are usually one-line fixes.
-- **Calibration improvements** — if you can show a case where the
+- **Calibration improvements**: if you can show a case where the
   script scores wrong, that is gold.
 - **Cross-runtime ports** (Cursor, Codex, Grok) via the skills CLI.
 - **Docs** that keep the instrument public and complete.

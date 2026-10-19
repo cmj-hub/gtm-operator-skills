@@ -1,6 +1,6 @@
 # Buying signal skill for Claude Code
 
-A buying signal is a dated, linkable event — something the prospect did publicly, on a day you can name, at a URL you can open. State is not a signal. An intent score without a URL and a date is refused.
+A buying signal is a dated, linkable event: something the prospect did publicly, on a day you can name, at a URL you can open. State is not a signal. An intent score without a URL and a date is refused.
 
 ## In 60 seconds
 
@@ -71,7 +71,7 @@ The good draft exits 0 and prints the event, URL, date, and age. The intent-only
 
 It will not hunt LinkedIn for you. It will not buy intent data. It will not write the email or the five-part PSP.
 
-This pack drafts and scores. It will not pick this quarter's signal sources, ingest your CRM, or refresh when a job board changes its URL shape. That is the course + Operator Pass: the catalog that keeps moving, the tools that stay calibrated, the Friday room where you bring the artifact.
+This pack drafts and scores. It will not pick this quarter's signal sources, ingest your CRM, or refresh when a job board changes its URL shape.
 
 ## What is a buying signal?
 
@@ -91,20 +91,18 @@ No. If you cannot open a page, you do not have a signal yet. Leave the account o
 
 ## On the site
 
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
-- [Pain Signal Profiles](https://jaymountconsulting.com/frameworks/pain-signal-profiles) — what a passing signal feeds next
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
+- [Pain Signal Profiles](https://jaymountconsulting.com/frameworks/pain-signal-profiles): what a passing signal feeds next
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — where your go-to-market stack is leaking, sent to your inbox.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): where your go-to-market stack is leaking, sent to your inbox.
 
-[**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal): free emails on building GTM systems that compound. No pitch in it. One click unsubscribes.
+[**The Friday Signal**](https://jaymountconsulting.com/newsletter/signal): free emails on building GTM systems. No pitch in it. One click unsubscribes.
 
-## Suite → course → Operator Pass
+## Part of the suite
 
-Companion packs: [claude-psp](https://github.com/cmj-hub/claude-psp) (turn the signal into a five-part brief), [claude-prospect-list](https://github.com/cmj-hub/claude-prospect-list) (who to contact this week), [claude-cold-email](https://github.com/cmj-hub/claude-cold-email) (signal-anchored first touch). Suite install: [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
-
-Operator Pass compounds the loop: live calibrated endpoints, the Friday room, and the next framework in order. Founder: **$97/mo billed annually** ($1,164/yr), locked for life if bought before October 31, 2026. After that: $197/mo billed annually ($2,364/yr). → [Operator Pass](https://jaymountconsulting.com/operator-pass)
+Part of the GTM operator suite: see [gtm-operator-skills](https://github.com/cmj-hub/gtm-operator-skills).
 
 ## Privacy and security
 
@@ -116,4 +114,4 @@ MIT. See [LICENSE](./LICENSE).
 
 ## About
 
-Built by [Jay Mount Consulting](https://jaymountconsulting.com).
+Built by [JMC Go-to-Market Systems](https://jaymountconsulting.com).

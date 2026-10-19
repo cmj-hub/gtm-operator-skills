@@ -21,7 +21,7 @@ python3 skills/who-to-contact/scripts/score.py --file skills/who-to-contact/exam
 python3 skills/who-to-contact/scripts/score.py --file skills/who-to-contact/examples/list-title.json   # exit 1: - missing signal (a title with no signal is a directory, not a list) → write one thing they did this window, or leave them off
 ```
 
-Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all seventeen.
+Part of the GTM operator suite: `/plugin install gtm@gtm-operator-skills` installs all seventeen.
 
 Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt and keep `brand-config.json` from being overwritten: `/plugin install gtm-operator@gtm-operator-skills`.
 
@@ -30,7 +30,7 @@ Ops lead at Northwind posted a role for an outbound lead this week.
 The good draft says call this week. A title-only list fails the score.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Sales prospecting skill — a signal earns a call, a title-only list fails" width="100%">
+  <img src="./assets/demo.gif" alt="Sales prospecting skill: a signal earns a call, a title-only list fails" width="100%">
 </p>
 
 The build guide teaches a human. The pack teaches an agent.
@@ -88,8 +88,8 @@ It will not send the list. It does not buy data. It will not accept a title-only
 
 This pack scores who earns a slot this week from a public signal. Building the company universe and verifying emails sit outside the pack.
 
-- [Build a company list](https://thegtmdirectory.com/jobs/build-a-company-list) — grow the account set that signals can attach to
-- [Verify an email](https://thegtmdirectory.com/jobs/verify-an-email) — confirm deliverable before any send
+- [Build a company list](https://thegtmdirectory.com/jobs/build-a-company-list): grow the account set that signals can attach to
+- [Verify an email](https://thegtmdirectory.com/jobs/verify-an-email): confirm deliverable before any send
 
 A found address is not sendable until verify returns deliverable.
 
@@ -103,8 +103,8 @@ No. You bring the signal. The pack scores the slot: call, hold, or drop.
 
 ## On the site
 
-- [Sales prospecting pack](https://jaymountconsulting.com/skills/claude-prospect-list) — this pack's page
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
+- [Sales prospecting pack](https://jaymountconsulting.com/skills/claude-prospect-list): this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
 
 ## Free, no signup
 
@@ -112,9 +112,9 @@ No. You bring the signal. The pack scores the slot: call, hold, or drop.
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 ## Privacy and security
 
 The scorer is standard-library Python and opens no network connection. It reads only the draft you give it; the skill writes `gtm/list.json`, reads `brand-config.json` and never writes to it. No telemetry, no credentials, no lookups, and nothing is sent. See [SECURITY.md](SECURITY.md).

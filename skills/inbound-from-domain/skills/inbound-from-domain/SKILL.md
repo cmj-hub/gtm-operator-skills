@@ -31,7 +31,7 @@ Write one JSON route card:
     "Domain is not on the free-mail list",
     "Company-shaped second-level name"
   ],
-  "route": "build-review",
+  "route": "high-touch",
   "crm_write": false
 }
 ```
@@ -41,14 +41,14 @@ Write one JSON route card:
 3. `kind`. One of: `corporate`, `free-mail`, `disposable`, `personal-looking`.
 4. `company_guess`. Short name from the domain when `kind` is `corporate`.
 5. `evidence`. One or more checkable facts that drove the kind (free-mail list hit, disposable list hit, company-shaped domain).
-6. `route`. One of: `build-review`, `operator-pass`, `need-more`, `personal`, `disqualify`.
+6. `route`. One of: `high-touch`, `self-serve`, `need-more`, `personal`, `disqualify`.
 7. `crm_write`. Always `false` in this pack.
 
 ## Kinds
 
 | Kind | Meaning | Typical route |
 | --- | --- | --- |
-| `corporate` | Company domain, not free-mail | `build-review` or `operator-pass` |
+| `corporate` | Company domain, not free-mail | `high-touch` or `self-serve` |
 | `free-mail` | gmail, outlook, icloud, and peers | `personal` or `need-more` |
 | `disposable` | Temp / throwaway inbox | `disqualify` |
 | `personal-looking` | Ambiguous non-free domain | `need-more` |
@@ -57,8 +57,8 @@ Write one JSON route card:
 
 | Route | When |
 | --- | --- |
-| `build-review` | Corporate domain that looks like a company worth a human Build look |
-| `operator-pass` | DIY / seat-shaped inbound on a real domain |
+| `high-touch` | Corporate domain that looks like a company worth a human look |
+| `self-serve` | DIY / seat-shaped inbound on a real domain |
 | `need-more` | Ambiguous; ask one clarifying question before routing |
 | `personal` | Free-mail; treat as a person, not a logo |
 | `disqualify` | Disposable, clear out, or seller-risk you already know |
@@ -67,15 +67,15 @@ Write one JSON route card:
 
 Copy these. Do not soften them.
 
-- **No CRM write-back in the free pack.** `crm_write` stays `false`. The route card is the artifact. A human (or Operator Pass tooling) owns the CRM upsert.
-- **Free-mail is not Build.** Do not route `gmail.com` (and peers) to `build-review`.
+- **No CRM write-back in the free pack.** `crm_write` stays `false`. The route card is the artifact. A human owns the CRM upsert.
+- **Free-mail is not Build.** Do not route `gmail.com` (and peers) to `high-touch`.
 - **Disposable is disqualify.** Do not keep a temp inbox alive as `need-more`.
 - **Evidence is required.** A kind with no checkable fact is a guess, not enrichment.
 
 | Passes | Refused |
 | --- | --- |
-| corporate + build-review + crm_write false | crm_write true |
-| free-mail + personal + crm_write false | free-mail + build-review |
+| corporate + high-touch + crm_write false | crm_write true |
+| free-mail + personal + crm_write false | free-mail + high-touch |
 | disposable + disqualify + crm_write false | disposable + need-more |
 
 ## Checklist
@@ -103,7 +103,7 @@ python3 ${CLAUDE_SKILL_DIR}/scripts/score.py --file ${CLAUDE_SKILL_DIR}/examples
 
 | File | Exit | Why |
 | --- | --- | --- |
-| `examples/inbound-good.json` | 0 | Corporate domain → build-review, no CRM write. |
+| `examples/inbound-good.json` | 0 | Corporate domain → high-touch, no CRM write. |
 | `examples/inbound-freemail.json` | 0 | Free-mail → personal, held. |
 | `examples/inbound-disposable.json` | 0 | Disposable → disqualify. |
 | `examples/inbound-crm-write.json` | 1 | CRM write-back banned. |
@@ -117,8 +117,8 @@ Part of the GTM operator suite (`/plugin marketplace add cmj-hub/gtm-operator-sk
 
 - **Writes:** `gtm/inbound.json` only. Never touches `brand-config.json`. Never writes a CRM.
 - **Before this:** a form, reply, or lead with an email. qualify-before-enrich when list ICP fields fail before any paid lookup.
-- **After this:** a human reviews the route card. Operator Pass / Build Partnership owns CRM upsert and Slack HITL.
-- **Not this pack:** live Firecrawl / firmographic APIs, existing-customer CRM lookup, or auto-reply send. Those are compounding layers.
+- **After this:** a human reviews the route card and updates the CRM.
+- **Not this pack:** live Firecrawl / firmographic APIs, existing-customer CRM lookup, or auto-reply send. Those are out of scope for this pack.
 
 If a companion pack is not installed, name it and its install line (`/plugin install <name>@gtm-operator-skills`); do not do its job inline.
 

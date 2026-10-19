@@ -21,7 +21,7 @@ python3 scripts/score.py --file examples/lifecycle-good.json      # exit 0, prin
 python3 scripts/score.py --file examples/lifecycle-refused.json   # exit 1: - cold email: welcome says "introduce our" → they opted in; name what they asked for instead of introducing the product
 ```
 
-Part of the GTM operator suite — `/plugin install gtm@gtm-operator-skills` installs all seventeen.
+Part of the GTM operator suite: `/plugin install gtm@gtm-operator-skills` installs all seventeen.
 
 Add the [gtm-operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) to see the suite's next step above your prompt and keep `brand-config.json` from being overwritten: `/plugin install gtm-operator@gtm-operator-skills`.
 
@@ -30,7 +30,7 @@ The sample starts with the trial checklist they asked for.
 The good draft passes. A generic drip fails the score.
 
 <p align="center">
-  <img src="./assets/demo.gif" alt="Email sequence skill — welcome, bargain, and nurture pass; a generic drip fails" width="100%">
+  <img src="./assets/demo.gif" alt="Email sequence skill: welcome, bargain, and nurture pass; a generic drip fails" width="100%">
 </p>
 
 The build guide teaches a human. The pack teaches an agent.
@@ -95,8 +95,8 @@ No. It scores the draft. Your email tool sends it.
 
 ## On the site
 
-- [Email sequence pack](https://jaymountconsulting.com/skills/claude-email-sequence) — this pack's page
-- [Skill packs catalog](https://jaymountconsulting.com/skills) — install paths + every pack
+- [Email sequence pack](https://jaymountconsulting.com/skills/claude-email-sequence): this pack's page
+- [Skill packs catalog](https://jaymountconsulting.com/skills): install paths + every pack
 
 ## Free, no signup
 
@@ -104,9 +104,9 @@ No. It scores the draft. Your email tool sends it.
 
 ## Free, by email
 
-[**Growth Audit**](https://jaymountconsulting.com/growth-audit) — architecture gaps in the GTM you already run. Free written report.
+[**Growth Audit**](https://jaymountconsulting.com/growth-audit): architecture gaps in the GTM you already run. Free written report.
 
-[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal) — one Friday GTM read. No pitch in it.
+[**Friday Signal**](https://jaymountconsulting.com/newsletter/signal): one Friday GTM read. No pitch in it.
 
 ## Next
 
