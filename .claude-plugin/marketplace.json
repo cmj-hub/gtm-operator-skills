@@ -219,6 +219,12 @@
       "source": "./skill-audit",
       "description": "Audit the skills and MCP servers you have installed: context cost, overlapping descriptions, vague or long descriptions, and skills with missing files. Read-only.",
       "category": "development"
+    },
+    {
+      "name": "claim-check",
+      "source": "./claim-check",
+      "description": "Flag every statistic in a draft that has no source URL and date. Percentages, multipliers, ratios, money amounts and large counts. Read-only.",
+      "category": "development"
     }
   ]
 }

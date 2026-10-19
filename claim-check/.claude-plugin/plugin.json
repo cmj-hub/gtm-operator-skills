@@ -1,0 +1,13 @@
+{
+  "name": "claim-check",
+  "version": "0.1.0",
+  "description": "Flag every statistic in a draft that has no source URL and date. Percentages, multipliers, ratios, money amounts and large counts. Read-only.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/cmj-hub/gtm-operator-skills/tree/main/claim-check",
+  "repository": "https://github.com/cmj-hub/gtm-operator-skills",
+  "keywords": ["agent-skills", "content", "citations", "fact-check"]
+}

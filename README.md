@@ -189,6 +189,14 @@ Too many skills and MCP servers installed? [skill-audit](skill-audit/README.md) 
 /plugin install skill-audit@gtm-operator-skills
 ```
 
+## Check a draft for unsourced statistics
+
+[claim-check](claim-check/README.md) reads a draft and flags every statistic, a percentage, multiplier, ratio, money amount or large count, that has no source URL and date next to it. Then it helps you source it, rewrite it or drop it. It is read-only.
+
+```text
+/plugin install claim-check@gtm-operator-skills
+```
+
 To check all seventeen packs together, clone them next to this repo and run:
 
 ```bash
