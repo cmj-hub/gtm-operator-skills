@@ -2,7 +2,7 @@
 name: company-context-pack
 description: Interviews a founder or small GTM team and writes agent-readable company context files (company, icp, offer, proof, voice, objections, categories) plus a CONTEXT.md index into a context/ folder. Use when starting a project that other skills or agents will write for, when an agent keeps guessing who you sell to or how you sound, or to refresh one context file with update.
 argument-hint: "[website or doc paths] | update <file>"
-allowed-tools: Read Write Edit Glob Grep WebFetch Bash(python3 *check_context.py*)
+allowed-tools: Read Write(./context/**) Edit(./context/**) Glob Grep WebFetch Bash(python3 *check_context.py*)
 license: MIT
 models: ""
 ---

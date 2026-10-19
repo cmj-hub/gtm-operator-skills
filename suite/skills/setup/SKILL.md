@@ -2,7 +2,7 @@
 name: setup
 description: "Answer the shared GTM suite questions once: who you are and who you sell to. Writes the operator and icp fields of brand-config.json and the shared voice sections of SOUL.md, filling gaps only, so every pack in the suite skips those questions. Use when starting with the GTM operator suite, when a pack says to run /gtm:setup, or when brand-config.json has no operator or icp. Not for a pack's own questions (each pack's setup mode asks those)."
 argument-hint: "[refresh]"
-allowed-tools: Read Write Glob
+allowed-tools: Read Write(./brand-config.json) Write(./SOUL.md) Write(./gtm/**) Glob
 license: MIT
 models: ""
 ---
