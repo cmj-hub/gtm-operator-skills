@@ -36,5 +36,9 @@ jobs:
         run: python -m unittest discover -s skill-audit/tests -v
       - name: Skill-audit gates itself
         run: python build-pack/scripts/check_pack.py pack skill-audit --public
+      - name: Claim-check tests
+        run: python -m unittest discover -s claim-check/tests -v
+      - name: Claim-check gates itself
+        run: python build-pack/scripts/check_pack.py pack claim-check --public
       - name: Suite checker compiles
         run: python -m py_compile scripts/check_suite.py
