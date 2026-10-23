@@ -34,3 +34,7 @@ Claude Code only:
 - Do not edit a pack's framework text without running its evals: `python3 -m unittest discover -s tests` inside the pack folder.
 - Before a change to a manifest: `claude plugin validate --strict .` from the repo root.
 - Scope `Write` and `Edit` in `allowed-tools` to the folder the skill writes, for example `Write(./gtm/**)`.
+
+## Public sample and data policy (Jay, 2026-10-23)
+
+Do not commit or distribute CSV files, proprietary datasets or bulk exports in any format. Never repackage withdrawn rows as JSON, images, Markdown or XLSX. A CSV for Jay requires his explicit approval after inspecting its exact contents. Preserve operator-provided private-input tooling. Tests must use native fictional dictionaries and mocked I/O without creating CSV files or serializing CSV samples.
