@@ -40,6 +40,18 @@ As a Claude Code plugin:
 /plugin install waterfall-email@claude-waterfall-email
 ```
 
+Existing Claude Code users can refresh this marketplace and request the fixed
+0.1.1 plugin, then restart Claude Code:
+
+```bash
+claude plugin marketplace update claude-waterfall-email
+claude plugin update waterfall-email@claude-waterfall-email
+```
+
+If installed from the suite marketplace instead, use `gtm-operator-skills` as
+the marketplace name in both commands. This is a source update; it does not run
+a provider or authorize spending or sending.
+
 The skill loads as `/waterfall-email:waterfall-email`. Ask Claude to route a find, or hand it a cascade draft. `/waterfall-email:waterfall-email score` scores `gtm/waterfall-email.json`.
 
 For every agent host the skills installer knows:
