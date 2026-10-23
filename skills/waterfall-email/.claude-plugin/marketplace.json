@@ -12,8 +12,7 @@
       "name": "waterfall-email",
       "source": "./",
       "description": "Score a cheapest-first email waterfall and refuse 4xx retries and sendable-before-deliverable drafts.",
-      "category": "sales",
-      "version": "0.1.0"
+      "category": "sales"
     }
   ]
 }

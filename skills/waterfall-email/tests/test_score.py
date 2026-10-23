@@ -23,6 +23,13 @@ def run(args, stdin=None):
 
 
 class ScoreWaterfallEmail(unittest.TestCase):
+    def test_fixed_pack_version_is_updateable(self):
+        manifest = json.loads((ROOT / ".claude-plugin" / "plugin.json").read_text())
+        marketplace = json.loads((ROOT / ".claude-plugin" / "marketplace.json").read_text())
+        entry = next(p for p in marketplace["plugins"] if p["name"] == manifest["name"])
+        self.assertEqual(manifest["version"], "0.1.1")
+        self.assertNotIn("version", entry)  # plugin.json owns the installed cache version.
+
     def test_good_draft_prints_route(self):
         result = run(["--file", str(EXAMPLES / "waterfall-good.json")])
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
