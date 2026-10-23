@@ -132,9 +132,14 @@ def text_list(value: object) -> list[str] | None:
     return items
 
 
+def looks_verify(step: str) -> bool:
+    folded = fold(step)
+    return folded == "verify" or folded.startswith("verify ")
+
+
 def looks_paid(step: str) -> bool:
     folded = fold(step)
-    if folded == "verify" or folded.startswith("verify "):
+    if looks_verify(step):
         return False
     return any(hint in folded for hint in PAID_HINTS)
 
@@ -203,8 +208,10 @@ def evaluate(data: dict) -> dict:
             if max(positions) >= first_paid if first_paid is not None else False:
                 # covered above; keep structure clear
                 pass
-        if not any(fold(step) == "verify" or fold(step).startswith("verify ") for step in order):
+        if not any(looks_verify(step) for step in order):
             reasons.append("cascade_order has no verify step; add verify at the end")
+        elif not looks_verify(order[-1]):
+            reasons.append("cascade_order does not end with verify; put verify after every finder and other check")
 
     if not isinstance(rows, list) or not rows:
         reasons.append("missing rows; add one row per person with verify and sendable")

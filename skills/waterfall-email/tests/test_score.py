@@ -57,6 +57,56 @@ class ScoreWaterfallEmail(unittest.TestCase):
         self.assertTrue(payload["ok"])
         self.assertEqual(payload["person"], "Ops lead at Northwind")
 
+    def score_order(self, order):
+        # Fictional native input, with existing row and 4xx contracts satisfied.
+        draft = {
+            "person": "Fictional operations lead", "field": "work_email",
+            "inputs_held": ["company domain"], "cascade_order": order,
+            "on_4xx": "stop", "rows": [{"id": "fictional-1",
+                "email": "lead@fictional.example", "verify": "deliverable",
+                "sendable": True}],
+        }
+        result = run(["--stdin", "--json"], stdin=json.dumps(draft))
+        return result, json.loads(result.stdout)
+
+    def test_verify_before_finder_is_refused(self):
+        result, payload = self.score_order(["company domain", "verify", "paid finder"])
+        self.assertEqual(result.returncode, 1)
+        self.assertFalse(payload["ok"])
+        self.assertTrue(any("does not end with verify" in r for r in payload["reasons"]))
+
+    def test_non_finder_after_verify_is_also_refused(self):
+        result, payload = self.score_order(["company domain", "paid finder", "verify", "archive"])
+        self.assertEqual(result.returncode, 1)
+        self.assertFalse(payload["ok"])
+
+    def test_valid_order_and_existing_verify_names_are_preserved(self):
+        for verify in ["verify", "verify email", "  VERIFY email.  "]:
+            with self.subTest(verify=verify):
+                order = ["company domain", "paid finder", verify]
+                result, payload = self.score_order(order)
+                self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+                self.assertTrue(payload["ok"])
+                self.assertEqual(payload["cascade_order"], [v.strip() for v in order])
+
+    def test_repeated_verify_still_requires_a_final_verify(self):
+        # Earlier verification is not a substitute for verifying the later result.
+        for final, expected in [("paid finder", 1), ("verify email", 0)]:
+            with self.subTest(final=final):
+                result, payload = self.score_order(["company domain", "verify", "paid finder", "verify", final])
+                self.assertEqual(result.returncode, expected, result.stdout)
+                self.assertEqual(payload["ok"], expected == 0)
+
+    def test_missing_verify_keeps_existing_refusal(self):
+        result, payload = self.score_order(["company domain", "paid finder"])
+        self.assertEqual(result.returncode, 1)
+        self.assertIn("cascade_order has no verify step; add verify at the end", payload["reasons"])
+
+    def test_held_inputs_can_end_in_verify_without_paid_finder(self):
+        result, payload = self.score_order(["company domain", "verify"])
+        self.assertEqual(result.returncode, 0, result.stdout)
+        self.assertTrue(payload["ok"])
+
     def test_bad_json_hides_input(self):
         bad = run(["--stdin"], stdin='{"person": "' + CELL)
         self.assertEqual(bad.returncode, 2)

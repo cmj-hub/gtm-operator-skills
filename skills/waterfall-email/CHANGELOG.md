@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- Refuse cascades whose final step is not verify, including a finder after an earlier verification. Preserve existing verify-step names, held-input ordering, 4xx policy and row verification rules.
+
 ## 0.1.0 — 2026-10-08
 
 - First public MIT release.
