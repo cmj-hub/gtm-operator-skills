@@ -4,7 +4,7 @@ Instructions for any coding agent (Claude Code, Codex, Cursor, Grok, and the res
 
 ## What is here
 
-Eighteen GTM skill packs under `skills/<pack>/`, each with one skill, a Python scorer, evals and a worked sample. Plus `suite/` (the `gtm` plugin: `/gtm:setup`, `/gtm:next`), `company-context-pack/`, `pick-gtm-tools/`, `skill-audit/` and `build-pack/`.
+Nineteen GTM skill packs under `skills/<pack>/`, each with one skill, a Python scorer, evals and a worked sample. Plus `suite/` (the `gtm` plugin: `/gtm:setup`, `/gtm:next`), `company-context-pack/`, `pick-gtm-tools/`, `skill-audit/` and `build-pack/`.
 
 ## Install
 
