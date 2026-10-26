@@ -14,7 +14,7 @@ Usage:
 Python 3.8+, standard library only. It reads text files; it runs nothing.
 """
 import argparse, csv, pathlib, re, sys
-from urllib.parse import urlsplit
+from urllib.parse import unquote, urlsplit
 
 URL = re.compile(r'https?://[^\s)\]>"\'`]+')
 INSTALL = re.compile(r'\b(npm (i|install)|npx |pip3? install|curl |wget |brew install|uvx |go install)')
@@ -49,9 +49,33 @@ def classify(u, own):
         return "placeholder", host
     if own and host in GITHUB_HOSTS:
         segs = [p for p in parts.path.split("/") if p]
+        # A browser resolves "." and ".." (also percent-encoded) before it fetches,
+        # so a link through them can land outside the repo: never call it own.
+        if any(unquote(x) in (".", "..") for x in segs):
+            return "outside link", host
         if [x.lower() for x in segs[:2]] == [x.lower() for x in own.strip("/").split("/")]:
             return "own repo", host
     return "outside link", host
+
+
+def links_in(line, own):
+    """Every link on one line as (url, kind, host).
+
+    URL stops at ) ] > quotes and backticks so markdown reads cleanly, but a browser
+    reads `localhost)@other/` after the scheme as userinfo on host "other". If an
+    "@" follows the match before the next space or "/", the link is an outside link.
+    """
+    out = []
+    for m in URL.finditer(line):
+        u = m.group(0).rstrip(".,;:")
+        tail = re.match(r"[^\s/]*", line[m.end():]).group(0)
+        if "@" in tail:
+            host = re.split(r"[\s/?#:]", tail.split("@")[-1], maxsplit=1)[0].lower()
+            out.append((u, "outside link", host))
+            continue
+        kind, host = classify(u, own)
+        out.append((u, kind, host))
+    return out
 
 
 def main():
@@ -74,9 +98,7 @@ def main():
             continue
         rel = str(f.relative_to(root))
         for n, line in enumerate(lines, 1):
-            for u in URL.findall(line):
-                u = u.rstrip(".,;:")
-                kind, host = classify(u, a.own)
+            for u, kind, host in links_in(line, a.own):
                 rows.append({"file": rel, "line": n, "kind": kind, "host": host,
                              "agent_told_to_fetch": "yes" if FETCH.search(line) else "",
                              "value": u})
