@@ -186,5 +186,61 @@ class LinkScan(unittest.TestCase):
         self.assertIn("code.claude.com", out.stdout)
 
 
+def load_link_scan():
+    import importlib.util
+    spec = importlib.util.spec_from_file_location("skill_link_scan", SKILL / "scripts" / "skill_link_scan.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+class LinkClassify(unittest.TestCase):
+    """A link is labelled from its parsed host and path, never from a substring."""
+
+    def setUp(self):
+        self.classify = load_link_scan().classify
+        self.own = "cmj-hub/claude-gtm-guardrails"
+
+    def test_own_repo_needs_github_host_and_repo_path(self):
+        self.assertEqual(self.classify("https://github.com/cmj-hub/claude-gtm-guardrails", self.own), ("own repo", "github.com"))
+        self.assertEqual(self.classify("https://github.com/CMJ-Hub/claude-gtm-guardrails/blob/main/README.md", self.own)[0], "own repo")
+        self.assertEqual(self.classify("https://raw.githubusercontent.com/cmj-hub/claude-gtm-guardrails/main/x", self.own)[0], "own repo")
+
+    def test_own_repo_name_elsewhere_is_outside(self):
+        for u in (
+            "https://evil.example.net/?x=github.com/cmj-hub/claude-gtm-guardrails",
+            "https://evil.net/cmj-hub/claude-gtm-guardrails",
+            "https://github.com/cmj-hub/claude-gtm-guardrails-fork",
+            "https://github.com.evil.net/cmj-hub/claude-gtm-guardrails",
+        ):
+            self.assertEqual(self.classify(u, self.own)[0], "outside link", u)
+
+    def test_userinfo_cannot_fake_a_host(self):
+        for u in (
+            "https://example.com@evil.net/x",
+            "https://localhost@evil.net/x",
+            "https://github.com@evil.net/cmj-hub/claude-gtm-guardrails",
+        ):
+            kind, host = self.classify(u, self.own)
+            self.assertEqual(kind, "outside link", u)
+            self.assertEqual(host, "evil.net", u)
+
+    def test_backslash_and_userinfo_are_outside(self):
+        # Browsers read a backslash as "/" in http(s) URLs, so the real host is evil.net.
+        for u in (
+            "https://evil.net\\@github.com/cmj-hub/claude-gtm-guardrails",
+            "https://evil.net\\@localhost/x",
+            "https://evil.net\\@api.example.com/x",
+            "https://user@github.com/cmj-hub/claude-gtm-guardrails",
+            "https://user:pw@localhost/x",
+        ):
+            self.assertEqual(self.classify(u, self.own)[0], "outside link", u)
+
+    def test_placeholder_and_local_use_the_parsed_host(self):
+        self.assertEqual(self.classify("http://localhost:3000/x", "")[0], "local")
+        self.assertEqual(self.classify("https://api.example.com/v1", "")[0], "placeholder")
+        self.assertEqual(self.classify("https://notexample.com/x", "")[0], "outside link")
+
+
 if __name__ == "__main__":
     unittest.main()
