@@ -6,13 +6,13 @@
     "url": "https://jaymountconsulting.com"
   },
   "metadata": {
-    "description": "Seventeen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain, offer-stack, proof-assets. Install all seventeen with the gtm plugin. Plus pick-gtm-tools, cited tool picks from The GTM Directory, company-context-pack, the interview that writes your company context files, and build-pack, the gate for the next pack."
+    "description": "Eighteen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain, offer-stack, proof-assets, gtm-guardrails. Install all eighteen with the gtm plugin. Plus pick-gtm-tools, cited tool picks from The GTM Directory, company-context-pack, the interview that writes your company context files, and build-pack, the gate for the next pack."
   },
   "plugins": [
     {
       "name": "gtm",
       "source": "./suite",
-      "description": "The whole suite in one install: all seventeen packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
+      "description": "The whole suite in one install: all eighteen packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
       "category": "suite"
     },
     {
@@ -194,6 +194,16 @@
       "description": "Keep proof a buyer can check, from someone who agreed you could use it, dated.",
       "category": "proof",
       "homepage": "https://github.com/cmj-hub/claude-proof-assets"
+    },
+    {
+      "name": "gtm-guardrails",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-gtm-guardrails"
+      },
+      "description": "Score a CRM-connected agent's permissions and approval cards. Refuses a CRM write with no prompt.",
+      "category": "safety",
+      "homepage": "https://github.com/cmj-hub/claude-gtm-guardrails"
     },
     {
       "name": "company-context-pack",

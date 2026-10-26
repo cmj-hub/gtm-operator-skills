@@ -1,0 +1,9 @@
+{
+  "allowedProviders": ["anthropic"],
+  "availableModels": ["claude-sonnet-5-5", "claude-haiku-4-5"],
+  "availableModelsMatch": "exact",
+  "deniedModels": ["opus"],
+  "maxEffortLevel": "high",
+  "syncClaudeAiSkills": false,
+  "syncClaudeAiPlugins": false
+}

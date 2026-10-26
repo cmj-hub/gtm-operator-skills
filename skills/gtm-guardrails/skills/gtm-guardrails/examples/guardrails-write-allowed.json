@@ -1,0 +1,9 @@
+{
+  "crm_servers": ["crm"],
+  "settings": {
+    "permissions": {
+      "allow": ["mcp__crm__search_*", "mcp__crm__update_record"],
+      "deny": ["mcp__crm__*delete*"]
+    }
+  }
+}

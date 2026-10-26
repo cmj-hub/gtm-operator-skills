@@ -8,7 +8,7 @@
 
 # GTM skills for Claude Code, Codex and Cursor
 
-Seventeen MIT go-to-market skill packs for Claude Code, Codex, Cursor and any agent that reads `SKILL.md`. Each pack refuses the generic version of its job and scores its own draft with a Python script. The scorers use no LLM judge, no key and no network call.
+Eighteen MIT go-to-market skill packs for Claude Code, Codex, Cursor and any agent that reads `SKILL.md`. Each pack refuses the generic version of its job and scores its own draft with a Python script. The scorers use no LLM judge, no key and no network call.
 
 The build guide teaches the framework to a human. The pack teaches the same framework to an agent.
 
@@ -60,6 +60,7 @@ Want every draft scored as you go? Add [the mod](#the-mod-scores-and-checks-acro
 | [inbound-from-domain](skills/inbound-from-domain) ([repo](https://github.com/cmj-hub/claude-inbound-from-domain)) | Inbound-from-domain enrichment takes an inbound email, classifies the domain, and routes the lead in seconds. | Score the sample inbound. A CRM write-back fails. |
 | [offer-stack](skills/offer-stack) ([repo](https://github.com/cmj-hub/claude-offer-stack)) | Package what the buyer gets and the pain each part removes, with the math shown. | Score the sample stack. |
 | [proof-assets](skills/proof-assets) ([repo](https://github.com/cmj-hub/claude-proof-assets)) | Keep proof a buyer can check, from someone who agreed you could use it, dated. | Score the sample proof. |
+| [gtm-guardrails](skills/gtm-guardrails) ([repo](https://github.com/cmj-hub/claude-gtm-guardrails)) | Guardrails for an agent that can reach your CRM: reads allowed, writes asked first, deletes denied. | Score the sample settings. An open CRM allow rule fails. |
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
 
@@ -78,6 +79,9 @@ Say what you would say to a person. The skill fires on the phrase.
 - "Write my value proposition." "What do we say in one line?" `/evp:evp`
 - "What should I post this week?" "My posts sound like AI." `/founder-brand:founder-brand`
 - "Write a case study." "Can I use this logo?" `/proof-assets:proof-assets`
+
+**Keep an agent safe in your CRM**
+- "Connect Claude to my CRM." "Are my permissions safe?" `/gtm-guardrails:gtm-guardrails`
 
 **Reach them**
 - "Write a cold email." "Nobody is replying to my emails." "Will this hit spam?" `/cold-email:cold-email`
@@ -117,6 +121,7 @@ npx skills add cmj-hub/claude-waterfall-email --all -g --full-depth
 npx skills add cmj-hub/claude-inbound-from-domain --all -g --full-depth
 npx skills add cmj-hub/claude-offer-stack --all -g --full-depth
 npx skills add cmj-hub/claude-proof-assets --all -g --full-depth
+npx skills add cmj-hub/claude-gtm-guardrails --all -g --full-depth
 ```
 
 Claude Code, one pack at a time:
@@ -140,6 +145,7 @@ Claude Code, one pack at a time:
 /plugin install inbound-from-domain@gtm-operator-skills
 /plugin install offer-stack@gtm-operator-skills
 /plugin install proof-assets@gtm-operator-skills
+/plugin install gtm-guardrails@gtm-operator-skills
 ```
 
 ## How the packs work together
@@ -165,6 +171,7 @@ Each pack does one job and hands off to the next. Install the ones you need; a p
 | 15 | inbound-from-domain | `/inbound-from-domain:inbound-from-domain` | inbound email | — |
 | 16 | offer-stack | `/offer-stack:offer-stack` | `psp`, `icp` | pricing, sales-offer |
 | 17 | proof-assets | `/proof-assets:proof-assets` | `offer-stack` pains | landing-page, founder-brand, cold-email |
+| 18 | gtm-guardrails | `/gtm-guardrails:gtm-guardrails` | CRM server name, settings file | none |
 
 Where two packs sound alike, they split the job:
 
@@ -176,6 +183,7 @@ Where two packs sound alike, they split the job:
 - **signal-with-a-link** scores a dated public event. **psp** turns that signal into the buying brief.
 - **offer-stack** packages what the buyer gets and the pain each part removes, with the math shown. **sales-offer** writes the give-first first email.
 - **proof-assets** keeps proof a buyer can check, from someone who agreed you could use it, dated. **founder-brand** writes the post from one receipt.
+- **gtm-guardrails** sets up and scores what an agent may do in your CRM: read, ask first, never delete. It does not write outreach or score leads.
 
 ### Shared files
 
@@ -204,7 +212,7 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 
 ## The company context pack
 
-[company-context-pack](company-context-pack/README.md) is a short interview that writes `company.md`, `icp.md`, `offer.md`, `proof.md`, `voice.md`, `objections.md`, and `categories.md` into a `context/` folder, with an index any pack or agent reads first. It is not one of the seventeen: it feeds them. It lives in this repo for now.
+[company-context-pack](company-context-pack/README.md) is a short interview that writes `company.md`, `icp.md`, `offer.md`, `proof.md`, `voice.md`, `objections.md`, and `categories.md` into a `context/` folder, with an index any pack or agent reads first. It is not one of the eighteen: it feeds them. It lives in this repo for now.
 
 ```text
 /plugin install company-context-pack@gtm-operator-skills
@@ -233,7 +241,7 @@ Too many skills and MCP servers installed? [skill-audit](skill-audit/README.md) 
 /plugin install skill-audit@gtm-operator-skills
 ```
 
-To check all seventeen packs together, clone them next to this repo and run:
+To check all eighteen packs together, clone them next to this repo and run:
 
 ```bash
 python3 scripts/check_suite.py
