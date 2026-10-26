@@ -62,18 +62,21 @@ def links_in(line, own):
     """Every link on one line as (url, kind, host).
 
     URL stops at ) ] > quotes and backticks so markdown reads cleanly, but a browser
-    reads `localhost)@other/` after the scheme as userinfo on host "other". If an
-    "@" follows the match before the next space or "/", the link is an outside link.
+    reads `localhost)@other/` after the scheme as userinfo on host "other", and
+    resolves `<repo>)/../x` out of the repo. If anything but closing punctuation
+    follows the match, the link is an outside link.
     """
     out = []
     for m in URL.finditer(line):
         u = m.group(0).rstrip(".,;:")
-        tail = re.match(r"[^\s/]*", line[m.end():]).group(0)
-        if "@" in tail:
-            host = re.split(r"[\s/?#:]", tail.split("@")[-1], maxsplit=1)[0].lower()
-            out.append((u, "outside link", host))
-            continue
+        tail = re.match(r"\S*", line[m.end():]).group(0)
         kind, host = classify(u, own)
+        # Anything but closing punctuation glued to the cut means a browser would
+        # read a longer URL (userinfo, "/../", more host): never trust the short one.
+        if tail and not re.fullmatch(r"[)\]>\"'`.,;:!?*_]*", tail):
+            if "@" in tail.split("/")[0]:
+                host = re.split(r"[\s/?#:]", tail.split("/")[0].split("@")[-1], maxsplit=1)[0].lower()
+            kind = "outside link"
         out.append((u, kind, host))
     return out
 

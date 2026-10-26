@@ -255,6 +255,17 @@ class LinkClassify(unittest.TestCase):
         ):
             self.assertEqual(self.classify(u, self.own)[0], "outside link", u)
 
+    def test_text_glued_after_a_cut_link_is_outside(self):
+        links_in = load_link_scan().links_in
+        for line in (
+            "see https://github.com/cmj-hub/claude-gtm-guardrails)/../../evil/x",
+            "see https://localhost)/../x",
+            "see https://api.example.com]x.evil.net",
+        ):
+            self.assertEqual([k for _, k, _ in links_in(line, self.own)], ["outside link"], line)
+        ok = links_in("(see [repo](https://github.com/cmj-hub/claude-gtm-guardrails)).", self.own)
+        self.assertEqual([k for _, k, _ in ok], ["own repo"])
+
     def test_links_in_keeps_ordinary_markdown(self):
         links_in = load_link_scan().links_in
         got = links_in("[docs](https://code.claude.com/docs/x). Also http://localhost:3000/.", self.own)
