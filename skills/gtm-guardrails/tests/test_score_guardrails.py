@@ -236,6 +236,41 @@ class LinkClassify(unittest.TestCase):
         ):
             self.assertEqual(self.classify(u, self.own)[0], "outside link", u)
 
+    def test_link_cut_short_before_userinfo_is_outside(self):
+        links_in = load_link_scan().links_in
+        for line in (
+            "see https://localhost)@evil.net/x for setup",
+            "see https://api.example.com]@evil.net/x",
+            "see <https://localhost>@evil.net/x",
+            "see https://github.com/cmj-hub/claude-gtm-guardrails\"@evil.net/",
+        ):
+            kinds = [kind for _, kind, _ in links_in(line, self.own)]
+            self.assertEqual(kinds, ["outside link"], line)
+
+    def test_dot_segments_cannot_leave_the_repo(self):
+        for u in (
+            "https://github.com/cmj-hub/claude-gtm-guardrails/../../evil/repo",
+            "https://github.com/cmj-hub/claude-gtm-guardrails/%2e%2e/%2E%2E/evil/repo",
+            "https://github.com/cmj-hub/./claude-gtm-guardrails/x",
+        ):
+            self.assertEqual(self.classify(u, self.own)[0], "outside link", u)
+
+    def test_text_glued_after_a_cut_link_is_outside(self):
+        links_in = load_link_scan().links_in
+        for line in (
+            "see https://github.com/cmj-hub/claude-gtm-guardrails)/../../evil/x",
+            "see https://localhost)/../x",
+            "see https://api.example.com]x.evil.net",
+        ):
+            self.assertEqual([k for _, k, _ in links_in(line, self.own)], ["outside link"], line)
+        ok = links_in("(see [repo](https://github.com/cmj-hub/claude-gtm-guardrails)).", self.own)
+        self.assertEqual([k for _, k, _ in ok], ["own repo"])
+
+    def test_links_in_keeps_ordinary_markdown(self):
+        links_in = load_link_scan().links_in
+        got = links_in("[docs](https://code.claude.com/docs/x). Also http://localhost:3000/.", self.own)
+        self.assertEqual([(u, k) for u, k, _ in got], [("https://code.claude.com/docs/x", "outside link"), ("http://localhost:3000/", "local")])
+
     def test_placeholder_and_local_use_the_parsed_host(self):
         self.assertEqual(self.classify("http://localhost:3000/x", "")[0], "local")
         self.assertEqual(self.classify("https://api.example.com/v1", "")[0], "placeholder")
