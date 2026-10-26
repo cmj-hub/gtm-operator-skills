@@ -1,0 +1,19 @@
+{
+  "name": "claude-gtm-leak-check",
+  "owner": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "GTM leak check: domain in, three public-signal gaps out."
+  },
+  "plugins": [
+    {
+      "name": "gtm-leak-check",
+      "source": "./",
+      "description": "Read public signals for a domain and print three GTM gaps.",
+      "category": "productivity",
+      "version": "0.2.0"
+    }
+  ]
+}

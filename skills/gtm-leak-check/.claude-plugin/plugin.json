@@ -1,0 +1,23 @@
+{
+  "name": "gtm-leak-check",
+  "version": "0.2.0",
+  "description": "Read public signals for a domain and print three GTM gaps. Stdlib-only Python. No paid APIs.",
+  "author": {
+    "name": "Jay Mount Consulting",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/tools/gtm-leak-check",
+  "repository": "https://github.com/cmj-hub/claude-gtm-leak-check",
+  "license": "MIT",
+  "keywords": [
+    "gtm",
+    "leak-check",
+    "geo",
+    "b2b",
+    "agent-skills",
+    "cursor-skills",
+    "codex-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-gtm-leak-check#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-gtm-leak-check/issues"
+}

@@ -6,13 +6,13 @@
     "url": "https://jaymountconsulting.com"
   },
   "metadata": {
-    "description": "Eighteen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain, offer-stack, proof-assets, gtm-guardrails. Install all eighteen with the gtm plugin. Plus pick-gtm-tools, cited tool picks from The GTM Directory, company-context-pack, the interview that writes your company context files, and build-pack, the gate for the next pack."
+    "description": "Nineteen MIT GTM operator skill packs: PSP, EVP, cold email, founder-brand, pricing, landing page, GEO, sales offer, prospect list, email sequence, qualify-before-enrich, found-vs-deliverable, signal-with-a-link, waterfall-email, inbound-from-domain, offer-stack, proof-assets, gtm-guardrails, gtm-leak-check. Install all nineteen with the gtm plugin. Plus pick-gtm-tools, cited tool picks from The GTM Directory, company-context-pack, the interview that writes your company context files, and build-pack, the gate for the next pack."
   },
   "plugins": [
     {
       "name": "gtm",
       "source": "./suite",
-      "description": "The whole suite in one install: all eighteen packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
+      "description": "The whole suite in one install: all nineteen packs, plus /gtm:setup (shared questions once) and /gtm:next (which pack to run next).",
       "category": "suite"
     },
     {
@@ -204,6 +204,16 @@
       "description": "Score a CRM-connected agent's permissions and approval cards. Refuses a CRM write with no prompt.",
       "category": "safety",
       "homepage": "https://github.com/cmj-hub/claude-gtm-guardrails"
+    },
+    {
+      "name": "gtm-leak-check",
+      "source": {
+        "source": "github",
+        "repo": "cmj-hub/claude-gtm-leak-check"
+      },
+      "description": "Read the public signals for one domain and print one to three GTM gaps, each with a source URL.",
+      "category": "findability",
+      "homepage": "https://github.com/cmj-hub/claude-gtm-leak-check"
     },
     {
       "name": "company-context-pack",

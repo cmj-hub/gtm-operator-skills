@@ -8,7 +8,7 @@
 
 # GTM skills for Claude Code, Codex and Cursor
 
-Eighteen MIT go-to-market skill packs for Claude Code, Codex, Cursor and any agent that reads `SKILL.md`. Each pack refuses the generic version of its job and scores its own draft with a Python script. The scorers use no LLM judge, no key and no network call.
+Nineteen MIT go-to-market skill packs for Claude Code, Codex, Cursor and any agent that reads `SKILL.md`. Each pack refuses the generic version of its job and scores its own draft with a Python script. The scorers use no LLM judge, no key and no network call.
 
 The build guide teaches the framework to a human. The pack teaches the same framework to an agent.
 
@@ -61,6 +61,7 @@ Want every draft scored as you go? Add [the mod](#the-mod-scores-and-checks-acro
 | [offer-stack](skills/offer-stack) ([repo](https://github.com/cmj-hub/claude-offer-stack)) | Package what the buyer gets and the pain each part removes, with the math shown. | Score the sample stack. |
 | [proof-assets](skills/proof-assets) ([repo](https://github.com/cmj-hub/claude-proof-assets)) | Keep proof a buyer can check, from someone who agreed you could use it, dated. | Score the sample proof. |
 | [gtm-guardrails](skills/gtm-guardrails) ([repo](https://github.com/cmj-hub/claude-gtm-guardrails)) | Guardrails for an agent that can reach your CRM: reads allowed, writes asked first, deletes denied. | Score the sample settings. An open CRM allow rule fails. |
+| [gtm-leak-check](skills/gtm-leak-check) ([repo](https://github.com/cmj-hub/claude-gtm-leak-check)) | An outside read of one domain: one to three GTM gaps from public pages, each with a source URL. | Run it on the bundled thin homepage. Each gap prints its source. |
 
 Each pack is MIT. No paid APIs inside. Scorers are Python you can run without an LLM. Every pack carries a `SECURITY.md` that says what it runs, reads, writes, and reaches.
 
@@ -99,6 +100,9 @@ Say what you would say to a person. The skill fires on the phrase.
 **Be quoted by answer engines**
 - "Do we show up in ChatGPT?" "Get quoted by Perplexity." `/geo:geo`
 
+**Get an outside read first**
+- "What is leaking in our GTM?" "Check this domain." `/gtm-leak-check:gtm-leak-check`
+
 ## Install one pack at a time
 
 Other agents use the [skills CLI](https://skills.sh), which writes into Claude Code, Cursor, Codex, Grok, Copilot, Windsurf, Cline, OpenCode, and the rest of its list:
@@ -122,6 +126,7 @@ npx skills add cmj-hub/claude-inbound-from-domain --all -g --full-depth
 npx skills add cmj-hub/claude-offer-stack --all -g --full-depth
 npx skills add cmj-hub/claude-proof-assets --all -g --full-depth
 npx skills add cmj-hub/claude-gtm-guardrails --all -g --full-depth
+npx skills add cmj-hub/claude-gtm-leak-check --all -g --full-depth
 ```
 
 Claude Code, one pack at a time:
@@ -146,6 +151,7 @@ Claude Code, one pack at a time:
 /plugin install offer-stack@gtm-operator-skills
 /plugin install proof-assets@gtm-operator-skills
 /plugin install gtm-guardrails@gtm-operator-skills
+/plugin install gtm-leak-check@gtm-operator-skills
 ```
 
 ## How the packs work together
@@ -172,6 +178,7 @@ Each pack does one job and hands off to the next. Install the ones you need; a p
 | 16 | offer-stack | `/offer-stack:offer-stack` | `psp`, `icp` | pricing, sales-offer |
 | 17 | proof-assets | `/proof-assets:proof-assets` | `offer-stack` pains | landing-page, founder-brand, cold-email |
 | 18 | gtm-guardrails | `/gtm-guardrails:gtm-guardrails` | CRM server name, settings file | none |
+| 19 | gtm-leak-check | `/gtm-leak-check:gtm-leak-check` | a domain | geo, landing-page |
 
 Where two packs sound alike, they split the job:
 
@@ -184,6 +191,7 @@ Where two packs sound alike, they split the job:
 - **offer-stack** packages what the buyer gets and the pain each part removes, with the math shown. **sales-offer** writes the give-first first email.
 - **proof-assets** keeps proof a buyer can check, from someone who agreed you could use it, dated. **founder-brand** writes the post from one receipt.
 - **gtm-guardrails** sets up and scores what an agent may do in your CRM: read, ask first, never delete. It does not write outreach or score leads.
+- **gtm-leak-check** reads one domain from the outside and names up to three gaps. **geo** works on being quoted by answer engines; **landing-page** rewrites the page.
 
 ### Shared files
 
@@ -212,7 +220,7 @@ The [GTM operator mod](https://github.com/cmj-hub/gtm-operator-claude-mod) is a 
 
 ## The company context pack
 
-[company-context-pack](company-context-pack/README.md) is a short interview that writes `company.md`, `icp.md`, `offer.md`, `proof.md`, `voice.md`, `objections.md`, and `categories.md` into a `context/` folder, with an index any pack or agent reads first. It is not one of the eighteen: it feeds them. It lives in this repo for now.
+[company-context-pack](company-context-pack/README.md) is a short interview that writes `company.md`, `icp.md`, `offer.md`, `proof.md`, `voice.md`, `objections.md`, and `categories.md` into a `context/` folder, with an index any pack or agent reads first. It is not one of the nineteen: it feeds them. It lives in this repo for now.
 
 ```text
 /plugin install company-context-pack@gtm-operator-skills
@@ -241,7 +249,7 @@ Too many skills and MCP servers installed? [skill-audit](skill-audit/README.md) 
 /plugin install skill-audit@gtm-operator-skills
 ```
 
-To check all eighteen packs together, clone them next to this repo and run:
+To check all nineteen packs together, clone them next to this repo and run:
 
 ```bash
 python3 scripts/check_suite.py

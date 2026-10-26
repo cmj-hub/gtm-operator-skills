@@ -20,6 +20,7 @@ This repo is the marketplace for the GTM operator suite. Each pack is its own re
 - [offer-stack](https://github.com/cmj-hub/claude-offer-stack/blob/main/SECURITY.md)
 - [proof-assets](https://github.com/cmj-hub/claude-proof-assets/blob/main/SECURITY.md)
 - [gtm-guardrails](https://github.com/cmj-hub/claude-gtm-guardrails/blob/main/SECURITY.md)
+- [gtm-leak-check](https://github.com/cmj-hub/claude-gtm-leak-check/blob/main/SECURITY.md)
 - [pick-gtm-tools](pick-gtm-tools/SECURITY.md)
 - [company-context-pack](company-context-pack/SECURITY.md)
 - [build-pack](build-pack/SECURITY.md)
