@@ -1,0 +1,23 @@
+{
+  "name": "gtm-guardrails",
+  "version": "0.1.0",
+  "description": "Guardrails for a GTM agent that can reach a CRM: read tools allowed, writes asked first, deletes denied, every write shown on an approval card. Bundles the undo sheet, checker ladder, managed-settings template, routine pre-flight and a skill link scan. Stdlib-only Python scorer. No network.",
+  "author": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "homepage": "https://jaymountconsulting.com/skills",
+  "repository": "https://github.com/cmj-hub/claude-gtm-guardrails",
+  "license": "MIT",
+  "keywords": [
+    "guardrails",
+    "permissions",
+    "human-in-the-loop",
+    "crm",
+    "gtm",
+    "agent-skills"
+  ],
+  "documentationUrl": "https://github.com/cmj-hub/claude-gtm-guardrails#readme",
+  "supportUrl": "https://github.com/cmj-hub/claude-gtm-guardrails/issues",
+  "icon": ".claude-plugin/icon.png"
+}

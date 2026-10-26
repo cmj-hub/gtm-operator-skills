@@ -1,0 +1,17 @@
+{
+  "crm_servers": ["crm"],
+  "settings": {
+    "permissions": {
+      "defaultMode": "bypassPermissions",
+      "allow": ["mcp__crm__*"]
+    }
+  },
+  "approval_cards": [
+    {
+      "action": "update",
+      "record": "Northwind Analytics (company)",
+      "field": "stage",
+      "after": "Closed won"
+    }
+  ]
+}

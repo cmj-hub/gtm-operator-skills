@@ -1,0 +1,19 @@
+{
+  "name": "claude-gtm-guardrails",
+  "owner": {
+    "name": "JMC Go-to-Market Systems",
+    "url": "https://jaymountconsulting.com"
+  },
+  "metadata": {
+    "description": "GTM agent guardrails: read by default, ask before a write, deny what nothing takes back."
+  },
+  "plugins": [
+    {
+      "name": "gtm-guardrails",
+      "source": "./",
+      "description": "Score a CRM-connected agent's permissions and approval cards. Refuses a CRM write with no prompt.",
+      "category": "productivity",
+      "version": "0.1.0"
+    }
+  ]
+}
