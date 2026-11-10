@@ -4,10 +4,11 @@
 import importlib.util
 import io
 import socket
+import ssl
 import unittest
 from contextlib import redirect_stderr
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 from urllib.response import addinfourl
 
 
@@ -174,6 +175,60 @@ class FetchPolicy(unittest.TestCase):
         result = check.fetch_domain("scan.example")
         self.assertEqual(result["page_url"], "https://www.scan.example/")
         self.assertEqual(result["careers_url"], "https://www.scan.example/jobs")
+
+
+class FetchPeerPolicy(unittest.TestCase):
+    def setUp(self):
+        # Exercise the real urllib handlers and connection classes without I/O.
+        self.enterContext(patch("urllib.request.getproxies", return_value={}))
+        self.dns = self.enterContext(patch("socket.getaddrinfo", return_value=[
+            (socket.AF_INET, socket.SOCK_STREAM, socket.IPPROTO_TCP, "",
+             ("93.184.216.34", 443)),
+        ]))
+        self.connect = self.enterContext(patch("socket.create_connection"))
+        self.wrap = self.enterContext(patch("ssl.SSLContext.wrap_socket", autospec=True))
+
+    def fetch_peer(self, scheme, peer, *, required=False):
+        self.sock = Mock()
+        self.sock.getpeername.return_value = (peer, 443 if scheme == "https" else 80)
+        self.sock.makefile.return_value = io.BytesIO(
+            b"HTTP/1.1 200 OK\r\nContent-Length: 11\r\n\r\npublic page")
+        self.connect.return_value = self.sock
+        self.wrap.return_value = self.sock
+        return check.fetch(f"{scheme}://scan.example/", required=required)
+
+    def test_non_public_peer_after_public_dns_is_aborted(self):
+        for scheme in ("http", "https"):
+            for peer in ("127.0.0.1", "10.0.0.5", "::1"):
+                with self.subTest(scheme=scheme, peer=peer):
+                    self.assertEqual(self.fetch_peer(scheme, peer), (0, ""))
+                    self.dns.assert_called()
+                    self.connect.assert_called()
+                    self.sock.close.assert_called()
+                    self.sock.sendall.assert_not_called()
+                    self.sock.makefile.assert_not_called()
+
+    def test_required_non_public_peer_exits_two(self):
+        for scheme in ("http", "https"):
+            with self.subTest(scheme=scheme):
+                with redirect_stderr(io.StringIO()), self.assertRaises(SystemExit) as err:
+                    self.fetch_peer(scheme, "10.0.0.5", required=True)
+                self.assertEqual(err.exception.code, 2)
+                self.sock.close.assert_called()
+
+    def test_public_peer_still_works(self):
+        for scheme in ("http", "https"):
+            for peer in ("93.184.216.34", "2606:4700:4700::1111"):
+                with self.subTest(scheme=scheme, peer=peer):
+                    self.assertEqual(self.fetch_peer(scheme, peer), (200, "public page"))
+                    self.sock.sendall.assert_called()
+
+    def test_https_preserves_default_verification_and_sni(self):
+        self.assertEqual(self.fetch_peer("https", "93.184.216.34"), (200, "public page"))
+        context = self.wrap.call_args.args[0]
+        self.assertEqual(context.verify_mode, ssl.CERT_REQUIRED)
+        self.assertTrue(context.check_hostname)
+        self.assertEqual(self.wrap.call_args.kwargs["server_hostname"], "scan.example")
 
 
 if __name__ == "__main__":
