@@ -19,10 +19,11 @@ import re
 import socket
 import sys
 from html.parser import HTMLParser
+from http.client import HTTPConnection, HTTPSConnection
 from typing import Iterable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
-from urllib.request import HTTPRedirectHandler, Request, build_opener
+from urllib.request import HTTPHandler, HTTPRedirectHandler, HTTPSHandler, Request, build_opener
 
 
 MAX_BYTES = 400_000
@@ -142,6 +143,14 @@ def read_bytes(path: str) -> str:
     return raw.decode("utf-8", errors="replace")
 
 
+def is_public_address(address: ipaddress.IPv4Address | ipaddress.IPv6Address) -> bool:
+    return not (
+        address.is_private or address.is_loopback or address.is_link_local
+        or address.is_multicast or address.is_reserved or address.is_unspecified
+        or not address.is_global
+    )
+
+
 def validate_fetch_url(url: str) -> None:
     parts = urlparse(url)
     if parts.scheme not in {"http", "https"} or not parts.hostname:
@@ -152,13 +161,39 @@ def validate_fetch_url(url: str) -> None:
     except ValueError:
         addresses = [ipaddress.ip_address(answer[4][0]) for answer in
                      socket.getaddrinfo(parts.hostname, port, type=socket.SOCK_STREAM)]
-    if not addresses or any(
-        address.is_private or address.is_loopback or address.is_link_local
-        or address.is_multicast or address.is_reserved or address.is_unspecified
-        or not address.is_global
-        for address in addresses
-    ):
+    if not addresses or any(not is_public_address(address) for address in addresses):
         raise ValueError("URL host must resolve only to public addresses")
+
+
+def validate_connected_peer(connection: HTTPConnection) -> None:
+    try:
+        if not is_public_address(ipaddress.ip_address(connection.sock.getpeername()[0])):
+            raise ValueError("Connected peer must have a public address")
+    except (OSError, ValueError):
+        connection.close()
+        raise
+
+
+class PublicHTTPConnection(HTTPConnection):
+    def connect(self):
+        super().connect()
+        validate_connected_peer(self)
+
+
+class PublicHTTPSConnection(HTTPSConnection):
+    def connect(self):
+        super().connect()
+        validate_connected_peer(self)
+
+
+class PublicHTTPHandler(HTTPHandler):
+    def http_open(self, req):
+        return self.do_open(PublicHTTPConnection, req)
+
+
+class PublicHTTPSHandler(HTTPSHandler):
+    def https_open(self, req):
+        return self.do_open(PublicHTTPSConnection, req, context=self._context)
 
 
 class NoRedirect(HTTPRedirectHandler):
@@ -169,7 +204,7 @@ class NoRedirect(HTTPRedirectHandler):
 
 def fetch(url: str, *, required: bool = True) -> tuple[int, str]:
     try:
-        opener = build_opener(NoRedirect())
+        opener = build_opener(NoRedirect(), PublicHTTPHandler(), PublicHTTPSHandler())
         for hop in range(6):
             validate_fetch_url(url)
             req = Request(url, headers={"User-Agent": USER_AGENT})
