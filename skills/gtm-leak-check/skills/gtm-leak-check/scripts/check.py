@@ -13,14 +13,16 @@ Exit codes: 0 printed, 2 bad input or fetch failed.
 from __future__ import annotations
 
 import argparse
+import ipaddress
 import json
 import re
+import socket
 import sys
 from html.parser import HTMLParser
 from typing import Iterable
 from urllib.error import HTTPError, URLError
 from urllib.parse import urljoin, urlparse
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 
 MAX_BYTES = 400_000
@@ -140,15 +142,54 @@ def read_bytes(path: str) -> str:
     return raw.decode("utf-8", errors="replace")
 
 
-def fetch(url: str, *, required: bool = True) -> tuple[int, str]:
-    req = Request(url, headers={"User-Agent": USER_AGENT})
+def validate_fetch_url(url: str) -> None:
+    parts = urlparse(url)
+    if parts.scheme not in {"http", "https"} or not parts.hostname:
+        raise ValueError("URL must use HTTP or HTTPS with a host")
+    port = parts.port or (443 if parts.scheme == "https" else 80)
     try:
-        with urlopen(req, timeout=TIMEOUT_S) as resp:
-            status = getattr(resp, "status", 200) or 200
-            raw = resp.read(MAX_BYTES + 1)
-    except HTTPError as err:
-        body = err.read(MAX_BYTES) if err.fp else b""
-        return err.code, body.decode("utf-8", errors="replace")
+        addresses = [ipaddress.ip_address(parts.hostname)]
+    except ValueError:
+        addresses = [ipaddress.ip_address(answer[4][0]) for answer in
+                     socket.getaddrinfo(parts.hostname, port, type=socket.SOCK_STREAM)]
+    if not addresses or any(
+        address.is_private or address.is_loopback or address.is_link_local
+        or address.is_multicast or address.is_reserved or address.is_unspecified
+        or not address.is_global
+        for address in addresses
+    ):
+        raise ValueError("URL host must resolve only to public addresses")
+
+
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        # fetch() validates and follows each Location itself.
+        return None
+
+
+def fetch(url: str, *, required: bool = True) -> tuple[int, str]:
+    try:
+        opener = build_opener(NoRedirect())
+        for hop in range(6):
+            validate_fetch_url(url)
+            req = Request(url, headers={"User-Agent": USER_AGENT})
+            try:
+                with opener.open(req, timeout=TIMEOUT_S) as resp:
+                    status = getattr(resp, "status", 200) or 200
+                    raw = resp.read(MAX_BYTES + 1)
+                break
+            except HTTPError as err:
+                try:
+                    location = err.headers.get("location") or err.headers.get("uri")
+                    if err.code in {301, 302, 303, 307, 308} and location:
+                        if hop == 5:
+                            raise ValueError("too many redirects")
+                        url = urljoin(url, location)
+                        continue
+                    body = err.read(MAX_BYTES) if err.fp else b""
+                    return err.code, body.decode("utf-8", errors="replace")
+                finally:
+                    err.close()
     except (URLError, TimeoutError, ValueError, OSError) as err:
         if required:
             fail_input(f"fetch failed: {url} ({err})")
@@ -441,10 +482,21 @@ def origin_from(page_url: str) -> str:
 
 def pick_linked_url(origin: str, html: str, words: tuple[str, ...]) -> str | None:
     parsed = parse_html(html)
+    host = (urlparse(origin).hostname or "").rstrip(".")
+    twin = host[4:] if host.startswith("www.") else "www." + host
     for _label, href in parsed.links:
         low = href.lower()
         if any(w in low for w in words):
-            return urljoin(origin + "/", href)
+            try:
+                url = urljoin(origin + "/", href)
+                parts = urlparse(url)
+                linked_host = (parts.hostname or "").rstrip(".")
+                if parts.scheme in {"http", "https"} and (
+                    linked_host in {host, twin} or linked_host.endswith("." + host)
+                ):
+                    return url
+            except ValueError:
+                continue
     return None
 
 
