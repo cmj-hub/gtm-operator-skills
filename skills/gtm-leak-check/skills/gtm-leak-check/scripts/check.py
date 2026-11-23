@@ -614,35 +614,29 @@ def main(argv: list[str] | None = None) -> int:
         if args.careers_file:
             extra["careers_html"] = read_bytes(args.careers_file)
             extra["careers_url"] = args.careers_url or urljoin(origin, "/careers")
-        report = analyze(
-            page_url=page_url,
-            html=html,
-            robots_text=robots_text,
-            robots_url=robots_url,
-            llms_status=args.llms_status,
-            llms_url=llms_url,
-            **extra,
+        scoring_inputs = dict(
+            page_url=page_url, html=html, robots_text=robots_text,
+            robots_url=robots_url, llms_status=args.llms_status, llms_url=llms_url, **extra,
         )
+        report = analyze(**scoring_inputs)
     elif args.domain:
         fetched = fetch_domain(args.domain)
-        report = analyze(
-            page_url=fetched["page_url"],
-            html=fetched["html"],
-            robots_text=fetched["robots_text"],
-            robots_url=fetched["robots_url"],
-            llms_status=fetched["llms_status"],
-            llms_url=fetched["llms_url"],
-            pricing_html=fetched.get("pricing_html"),
-            pricing_url=fetched.get("pricing_url"),
-            pricing_status=fetched.get("pricing_status"),
-            careers_html=fetched.get("careers_html"),
-            careers_url=fetched.get("careers_url"),
-        )
+        scoring_inputs = {key: fetched.get(key) for key in (
+            "page_url", "html", "robots_text", "robots_url", "llms_status", "llms_url",
+            "pricing_html", "pricing_url", "pricing_status", "careers_html", "careers_url")}
+        report = analyze(**scoring_inputs)
     else:
         fail_input("pass --domain example.com or --html-file")
 
     if args.as_json:
-        sys.stdout.write(json.dumps(report, indent=2) + "\n")
+        from scorer_envelope import envelope
+        sys.stdout.write(json.dumps(envelope(
+            report,
+            tool="gtm-leak-check/check",
+            inputs=scoring_inputs,
+            passed=True,
+            next_action="Review the reported gaps against the cited pages.",
+        ), indent=2) + "\n")
     else:
         sys.stdout.write(render_text(report))
     return 0

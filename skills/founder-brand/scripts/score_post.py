@@ -627,7 +627,13 @@ def main() -> int:
     if args.format == "json":
         payload = asdict(result)
         payload.update(reasons=reasons, fixes=fixes, next=NEXT_STEP if passed else RETRY)
-        print(json.dumps(payload, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(
+            payload,
+            tool="founder-brand/score_post",
+            inputs={"post": post, "used": used, "refused": refused, "min_score": args.min_score, "network": network, "networks": networks},
+            passed=passed,
+        ), indent=2))
     else:
         print(format_text(result))
         if reasons:

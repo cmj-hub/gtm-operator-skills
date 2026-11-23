@@ -230,9 +230,18 @@ def main(argv: list[str] | None = None) -> int:
     if args.max_age_months < 1:
         fail_input("--max-age-months must be 1 or more")
 
-    result = score(read_payload(args), today, args.max_age_months)
+    data = read_payload(args)
+    result = score(data, today, args.max_age_months)
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(
+            result,
+            tool="proof-assets/score_proof",
+            inputs=data,
+            passed=result["pass"],
+            as_of=today.isoformat(),
+            assumptions=[{"name": "max_age_months", "value": args.max_age_months, "source": "CLI or scorer default"}],
+        ), indent=2))
     else:
         if result["pass"]:
             print(f"pass: {result['assets']} proof asset(s) a buyer can check")

@@ -314,7 +314,8 @@ def main() -> int:
     result["next"] = NEXT_PASS if result["ok"] else NEXT_FAIL
 
     if args.json:
-        print(json.dumps(result, ensure_ascii=False))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="waterfall-email/score", inputs=data, passed=result["ok"]), ensure_ascii=False))
         return 0 if result["ok"] else 1
 
     if result["ok"]:

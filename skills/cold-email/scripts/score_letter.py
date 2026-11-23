@@ -292,7 +292,8 @@ def main() -> int:
 
     result = check(data)
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="cold-email/score_letter", inputs=data, passed=result["ok"]), indent=2))
     elif result["ok"]:
         print(nonempty_text(data.get("letter")))
         print(f"lint: {result['word_count']} words")

@@ -204,7 +204,8 @@ def main() -> int:
             result.update({key: parts[key] for key in PARTS + SUBJECTS if parts[key]})
         result["fixes"] = fixes
         result["next"] = step
-        print(json.dumps(result, ensure_ascii=False))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="email-sequence/score", inputs=data, passed=not reasons), ensure_ascii=False))
         return 0 if not reasons else 1
 
     if reasons:
