@@ -274,7 +274,8 @@ def main() -> int:
     result["next"] = NEXT_PASS if result["pass"] else NEXT_FAIL
 
     if args.json:
-        print(json.dumps(result, ensure_ascii=False))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="landing-page/score", inputs=data, passed=result["pass"]), ensure_ascii=False))
     elif not result["pass"]:
         print("a sitemap" if result["sitemap"] else "draft fails")
         for problem, fix in zip(result["problems"], result["fixes"]):

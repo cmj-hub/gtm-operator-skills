@@ -695,7 +695,14 @@ def main() -> int:
         if passed:
             result["artifact"] = {key: values[key] for key in keys if values[key]}
         result["next"] = next_step
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(
+            result,
+            tool="geo/score",
+            inputs={"draft": data, "base": str(base), "as_of": today.isoformat()},
+            passed=passed,
+            as_of=today.isoformat(),
+        ), indent=2))
     elif named:
         print(f"refused: {named}")
         print(f"- {named} → {REFUSAL_FIXES[named]}")

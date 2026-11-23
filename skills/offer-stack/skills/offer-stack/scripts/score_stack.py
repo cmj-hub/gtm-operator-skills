@@ -271,9 +271,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--json", action="store_true", help="print one JSON object")
     args = parser.parse_args(argv)
 
-    result = score(read_payload(args))
+    data = read_payload(args)
+    result = score(data)
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="offer-stack/score_stack", inputs=data, passed=result["pass"]), indent=2))
     else:
         for line in result["pain_lines"]:
             print(line)

@@ -106,7 +106,7 @@ class ScorePage(unittest.TestCase):
     def test_json_output_on_pass(self):
         code, out = score(GOOD)
         self.assertEqual(code, 0)
-        self.assertEqual(out, {"pass": True, "sitemap": False, "problems": [], **GOOD,
+        self.assertEqual(out["result"], {"pass": True, "sitemap": False, "problems": [], **GOOD,
                                "fixes": [], "next": "/email-sequence:lifecycle-email"})
 
     def test_bad_json_hides_input(self):
@@ -127,7 +127,7 @@ class ScorePage(unittest.TestCase):
         draft = json.loads((ROOT / "examples" / "page-headline.json").read_text())
         code, out = score(draft)
         self.assertEqual(code, 0)
-        self.assertEqual(out, {"pass": True, "sitemap": False, "problems": [], **draft,
+        self.assertEqual(out["result"], {"pass": True, "sitemap": False, "problems": [], **draft,
                                "fixes": [], "next": "/email-sequence:lifecycle-email"})
 
     def test_headline_refused_example_lists_each_problem(self):

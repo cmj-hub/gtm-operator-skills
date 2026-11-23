@@ -210,7 +210,8 @@ def main() -> int:
 
     result = check(data)
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="pricing/score_price", inputs=data, passed=result["ok"]), indent=2))
     else:
         print(format_text(result, data.get("price")))
     return 0 if result["ok"] else 1

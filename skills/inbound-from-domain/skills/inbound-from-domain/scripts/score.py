@@ -359,7 +359,8 @@ def main() -> int:
     result["next"] = next_step(result)
 
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="inbound-from-domain/score", inputs=data, passed=result["ok"]), indent=2))
     else:
         print(result["verdict"])
         if result["ok"]:

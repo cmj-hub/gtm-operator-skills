@@ -430,7 +430,15 @@ def main() -> int:
     step = NEXT_FAIL if failures else NEXT_PASS
 
     if args.json:
-        print(json.dumps({"pass": not failures, "failures": failures, "next": step}, indent=2))
+        from scorer_envelope import envelope
+        result = {"pass": not failures, "failures": failures, "next": step}
+        print(json.dumps(envelope(
+            result,
+            tool="sales-offer/score",
+            inputs={"draft": data, "mode": args.mode, "today": args.today},
+            passed=not failures,
+            as_of=args.today,
+        ), indent=2))
         return 1 if failures else 0
 
     if failures:
@@ -457,7 +465,15 @@ def main_full(args: argparse.Namespace, data: dict) -> int:
     failures = check_full(draft, nonempty_text(data.get("facts")))
     step = NEXT_FAIL if failures else NEXT_PASS
     if args.json:
-        print(json.dumps({"pass": not failures, "failures": failures, "next": step}, indent=2))
+        from scorer_envelope import envelope
+        result = {"pass": not failures, "failures": failures, "next": step}
+        print(json.dumps(envelope(
+            result,
+            tool="sales-offer/score",
+            inputs={"draft": data, "mode": args.mode, "today": args.today},
+            passed=not failures,
+            as_of=args.today,
+        ), indent=2))
         return 1 if failures else 0
     if failures:
         for failure in failures:

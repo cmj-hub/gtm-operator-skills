@@ -686,7 +686,14 @@ def main() -> int:
         result.fixes.append(fix)
         result.next = RETRY
     if args.format == "json":
-        print(json.dumps(asdict(result), indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(
+            asdict(result),
+            tool="psp/score_psp",
+            inputs={"psp": asdict(psp), "persona": persona, "hygiene": hygiene, "as_of": TODAY.isoformat()},
+            passed=not (result.refusal or not result.operational or hygiene),
+            as_of=TODAY.isoformat(),
+        ), indent=2))
     else:
         print(format_text(result))
     if result.refusal or not result.operational or hygiene:

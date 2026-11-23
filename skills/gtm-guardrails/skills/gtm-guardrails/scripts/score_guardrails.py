@@ -333,9 +333,11 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--json", action="store_true", help="print one JSON object")
     args = parser.parse_args(argv)
 
-    result = score(load(args))
+    data = load(args)
+    result = score(data)
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(result, tool="gtm-guardrails/score_guardrails", inputs=data, passed=result["pass"]), indent=2))
     else:
         servers = ", ".join(result["crm_servers"])
         if result["pass"]:

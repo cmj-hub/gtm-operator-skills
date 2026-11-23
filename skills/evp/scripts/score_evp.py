@@ -454,8 +454,15 @@ def main() -> int:
 
     if props:
         if args.format == "json":
-            print(json.dumps({"refusal": REFUSAL, "items": len(props), "proposition": "",
-                              "reasons": [REFUSAL], "fixes": [LIST_FIX], "next": RETRY}, indent=2))
+            from scorer_envelope import envelope
+            refusal = {"refusal": REFUSAL, "items": len(props), "proposition": "",
+                       "reasons": [REFUSAL], "fixes": [LIST_FIX], "next": RETRY}
+            print(json.dumps(envelope(
+                refusal,
+                tool="evp/score_evp",
+                inputs={"props": props, "evp": evp, "tier": tier, "icp": icp},
+                passed=False,
+            ), indent=2))
         else:
             print(f"Refusal: {REFUSAL}")
             print(f"  {len(props)} lines found. Pick one and score that line alone.")
@@ -475,7 +482,13 @@ def main() -> int:
         payload["reasons"] = reasons
         payload["fixes"] = fixes
         payload["next"] = NEXT_STEP if passed else RETRY
-        print(json.dumps(payload, indent=2))
+        from scorer_envelope import envelope
+        print(json.dumps(envelope(
+            payload,
+            tool="evp/score_evp",
+            inputs={"evp": evp, "tier": tier, "icp": icp},
+            passed=passed,
+        ), indent=2))
     else:
         print(format_text(result))
         if passed:

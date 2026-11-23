@@ -270,7 +270,16 @@ def main() -> int:
     result["next"] = NEXT_PASS if result["ok"] else NEXT_FAIL
 
     if args.json:
-        print(json.dumps(result, indent=2))
+        from scorer_envelope import envelope
+        result["source_verified"] = None
+        evidence = ([{"url": result["url"], "date": result["date"], "verified": False}]
+                    if result["ok"] else [])
+        print(json.dumps(envelope(
+            result, tool="signal-with-a-link/score", inputs=data, passed=result["ok"],
+            as_of=as_of.isoformat(), evidence=evidence,
+            unknowns=[{"field": "result.source_verified", "why": "The local scorer does not fetch sources."}],
+            assumptions=[{"name": "max_age_days", "value": MAX_AGE_DAYS, "source": "scorer default"}],
+        ), indent=2))
     else:
         print(result["verdict"])
         if result["ok"]:
